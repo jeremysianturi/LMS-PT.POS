@@ -2,4 +2,4 @@
 
 Learning Manajement System (PT POS INDONESIA) 
 
-build using : MVVM, Retrofit, Depedency Injection (Hilt), Reactive Programming (Corountine FLow), Clean Architecture (Data Surce, Repository, Entities, UseCase, Presenter, UI), CI/CD (Bitrise), etc.
+build using : Kotlin, MVVM, Retrofit, Depedency Injection (Hilt), Reactive Programming (Corountine FLow), Clean Architecture (Data Surce, Repository, Entities, UseCase, Presenter, UI), CI/CD (Bitrise), etc.
