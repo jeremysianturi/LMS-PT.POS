@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    TEXT VIEW STYLE -->
+    <style name="text_tittle_style" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/text_20</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="text_tittle_list" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="text_content_style_grey" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
+    <style name="text_content_style_black" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
+    <style name="text_content_tittle_orange_20" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/text_20</item>
+        <item name="android:textColor">@color/orange_500</item>
+    </style>
+
+    <!--    Dropdown-->
+    <style name="DropdownStyle" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_line</item>
+        <item name="android:drawableEnd">@drawable/ic_drop_down_24</item>
+    </style>
+
+
+    <!--    icon Style -->
+    <style name="iconHomeStyle" parent="">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="iconDetailStyle" parent="Theme.AppCompat">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+    </style>
+
+    <style name="iconListStyle" parent="Theme.AppCompat">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+</resources>

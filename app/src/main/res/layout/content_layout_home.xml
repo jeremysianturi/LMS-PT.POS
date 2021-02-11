@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/toolbarHome"
+    tools:showIn="@layout/activity_home">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:indeterminateDrawable="@drawable/progressbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescInformasi" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_lms_pos"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/text_tittle_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/txt_fitur_lms"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/tvSubTittleLMS"
+            style="@style/text_content_style_grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/txt_mulai_belajar_dari_sini"
+            app:layout_constraintEnd_toEndOf="@+id/textView"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTittleLMS">
+
+            <!--      student -->
+            <LinearLayout
+                android:id="@+id/student"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:background="@color/colorBackGroundGrid"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/iconHomeStyle"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_student" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:background="#65000000"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <TextView
+                        style="@style/text_content_style_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_student">
+
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--      RoadMap -->
+            <LinearLayout
+                android:id="@+id/roadMap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:background="@color/colorBackGroundGrid"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/iconHomeStyle"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_roadmap" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dp"
+                    android:background="#65000000"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <TextView
+                        style="@style/text_content_style_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_roadmap">
+
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--      learning proposal -->
+            <LinearLayout
+                android:id="@+id/learningProposal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:background="@color/colorBackGroundGrid"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/iconHomeStyle"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_learning" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#65000000"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <TextView
+                        style="@style/text_content_style_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_learing_proposal">
+
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--      search materi -->
+            <LinearLayout
+                android:id="@+id/searchMateri"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:background="@color/colorBackGroundGrid"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/iconHomeStyle"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_search_materi" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#65000000"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <TextView
+                        style="@style/text_content_style_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_search_materi">
+
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--      open Course -->
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/openCourse"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_rowWeight="1"-->
+            <!--                    android:layout_columnWeight="1"-->
+            <!--                    android:layout_margin="8dp"-->
+            <!--                    android:background="@color/colorBackGroundGrid"-->
+            <!--                    android:gravity="center_horizontal"-->
+            <!--                    android:orientation="vertical"-->
+            <!--                    android:visibility="invisible">-->
+
+            <!--                    <ImageView-->
+            <!--                        style="@style/iconHomeStyle"-->
+            <!--                        android:src="@drawable/ic_open_course" />-->
+
+            <!--                    <LinearLayout-->
+            <!--                        android:layout_width="match_parent"-->
+            <!--                        android:layout_height="match_parent"-->
+            <!--                        android:layout_marginTop="8dp"-->
+            <!--                        android:background="#65000000"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:padding="12dp">-->
+
+            <!--                        <TextView-->
+            <!--                            style="@style/contentBlackStyle"-->
+            <!--                            android:layout_width="match_parent"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="@string/txt_open_course">-->
+
+            <!--                        </TextView>-->
+            <!--                    </LinearLayout>-->
+
+            <!--                </LinearLayout>-->
+
+            <!--      counseling -->
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/counseling"-->
+            <!--                    android:layout_width="0dp"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:layout_rowWeight="1"-->
+            <!--                    android:layout_columnWeight="1"-->
+            <!--                    android:layout_margin="8dp"-->
+            <!--                    android:background="@color/colorBackGroundGrid"-->
+            <!--                    android:gravity="center_horizontal"-->
+            <!--                    android:orientation="vertical"-->
+            <!--                    android:visibility="invisible">-->
+
+            <!--                    <ImageView-->
+            <!--                        style="@style/iconHomeStyle"-->
+            <!--                        android:src="@drawable/ic_conseling" />-->
+
+            <!--                    <LinearLayout-->
+            <!--                        android:layout_width="match_parent"-->
+
+            <!--                        android:layout_height="match_parent"-->
+            <!--                        android:layout_marginTop="8dp"-->
+            <!--                        android:background="#65000000"-->
+            <!--                        android:gravity="center"-->
+            <!--                        android:padding="12dp">-->
+
+            <!--                        <TextView-->
+            <!--                            style="@style/contentBlackStyle"-->
+            <!--                            android:layout_width="match_parent"-->
+            <!--                            android:layout_height="wrap_content"-->
+            <!--                            android:text="@string/txt_counselling">-->
+
+            <!--                        </TextView>-->
+            <!--                    </LinearLayout>-->
+
+            <!--                </LinearLayout>-->
+        </GridLayout>
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/image_description"
+            android:src="@drawable/ic_informasi"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+
+        <TextView
+            android:id="@+id/tvITitleInformation"
+            style="@style/text_tittle_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/txt_informasi"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+        <TextView
+            android:id="@+id/tvDescInformasi"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/txt_lihat_perjalanan_kamu_disni"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/tvITitleInformation"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescInformasi" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

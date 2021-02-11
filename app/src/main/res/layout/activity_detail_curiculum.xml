@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.proposal.detail.DetailCuriculumActivity">
+
+    <TextView
+        android:id="@+id/textView14"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Telkom Indonesia" />
+
+    <TextView
+        android:id="@+id/textView15"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        tools:text="Create Curiculum Request" />
+
+    <TextView
+        android:id="@+id/textView16"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15"
+        tools:text="Comprehensive Benchmark" />
+
+    <View
+        android:id="@+id/line_grey"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@color/colorLineGrey"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView16"
+        app:layout_constraintStart_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"/>
+
+    <TextView
+        android:id="@+id/tvJudulEvent"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_judul_event"
+        app:layout_constraintEnd_toEndOf="@+id/line_grey"
+        app:layout_constraintStart_toStartOf="@+id/line_grey"
+        app:layout_constraintTop_toBottomOf="@+id/line_grey" />
+
+    <TextView
+        android:id="@+id/tvContentEvent"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvJudulEvent"
+        app:layout_constraintStart_toStartOf="@+id/tvJudulEvent"
+        app:layout_constraintTop_toBottomOf="@+id/tvJudulEvent"
+        tools:text="Curiculumn Requarment" />
+
+    <TextView
+        android:id="@+id/tvCompany"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_company"
+        app:layout_constraintEnd_toEndOf="@+id/tvContentEvent"
+        app:layout_constraintStart_toStartOf="@+id/tvContentEvent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentEvent" />
+
+    <TextView
+        android:id="@+id/tvContentCompany"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvCompany"
+        app:layout_constraintStart_toStartOf="@+id/tvCompany"
+        app:layout_constraintTop_toBottomOf="@+id/tvCompany"
+        tools:text="Pt Pos Indonesia" />
+
+    <TextView
+        android:id="@+id/tvType"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_type"
+        app:layout_constraintEnd_toEndOf="@+id/tvContentCompany"
+        app:layout_constraintStart_toStartOf="@+id/tvContentCompany"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentCompany" />
+
+    <TextView
+        android:id="@+id/tvContentType"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvType"
+        app:layout_constraintStart_toStartOf="@+id/tvType"
+        app:layout_constraintTop_toBottomOf="@+id/tvType"
+        tools:text="Comperhensif Banchmaking" />
+
+    <TextView
+        android:id="@+id/tvPLevel"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_level"
+        app:layout_constraintEnd_toEndOf="@+id/tvContentType"
+        app:layout_constraintStart_toStartOf="@+id/tvContentType"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentType" />
+
+    <TextView
+        android:id="@+id/tvContentPLevel"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvPLevel"
+        app:layout_constraintStart_toStartOf="@+id/tvPLevel"
+        app:layout_constraintTop_toBottomOf="@+id/tvPLevel"
+        tools:text="Intermidiate" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_description"
+        app:layout_constraintEnd_toEndOf="@+id/tvContentPLevel"
+        app:layout_constraintStart_toStartOf="@+id/tvContentPLevel"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentPLevel" />
+
+    <TextView
+        android:id="@+id/tvContentDescription"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+        app:layout_constraintStart_toStartOf="@+id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        tools:text="Curiculum request adalah sebuah materi baru yang sedang naik daun karena kamu adalah aku." />
+
+    <TextView
+        android:id="@+id/tvBegindate"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_begin_date"
+        app:layout_constraintEnd_toEndOf="@+id/tvContentDescription"
+        app:layout_constraintStart_toStartOf="@+id/tvContentDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentDescription" />
+
+    <TextView
+        android:id="@+id/tvContentBegindate"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvBegindate"
+        app:layout_constraintStart_toStartOf="@+id/tvBegindate"
+        app:layout_constraintTop_toBottomOf="@+id/tvBegindate"
+        tools:text="12 Dec 2020" />
+
+    <TextView
+        android:id="@+id/tvEndDate"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_end_date"
+        app:layout_constraintEnd_toEndOf="@+id/tvContentBegindate"
+        app:layout_constraintStart_toStartOf="@+id/tvContentBegindate"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentBegindate" />
+
+    <TextView
+        android:id="@+id/tvContentEndDate"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvEndDate"
+        app:layout_constraintStart_toStartOf="@+id/tvEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvEndDate"
+        tools:text="31 Dec 2021" />
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_orange"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/txt_update"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentEndDate" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_outline_red"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/txt_delete"
+        android:textColor="@color/colorRedDelete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUpdate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

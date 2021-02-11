@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.proposal.create.CreateCuriculumActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvTitleCreateProposal"
+            style="@style/text_tittle_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/txt_create_curriculum_request"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvSubTitleUpdateProposal"
+            style="@style/text_content_style_grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/txt_periksa_dan_lakukan_perubahan"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvTitleCreateProposal"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleCreateProposal" />
+
+
+        <LinearLayout
+            android:id="@+id/lnCompany"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTitleUpdateProposal">
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_company" />
+
+            <TextView
+                android:id="@+id/tvDropdownCompany"
+                style="@style/DropdownStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:hint="@string/txt_pilih_perusahaan"
+                android:textColor="@color/black_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnCuriculum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnCompany">
+
+            <TextView
+                android:id="@+id/tvCuriculum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_curriculum_request_name" />
+
+            <EditText
+                android:id="@+id/edtCuriculumnRequestName"
+                style="@style/text_content_style_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_isi_curiculum_request_name"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textSize="@dimen/text_14" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnCuriculum">
+
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_description" />
+
+            <EditText
+                android:id="@+id/edtCuriculumnDeskripsi"
+                style="@style/text_content_style_grey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_isi_deskripsi"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textSize="@dimen/text_14" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnDesc">
+
+            <TextView
+                android:id="@+id/tvType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_type" />
+
+            <TextView
+                android:id="@+id/tvDropdownType"
+                style="@style/DropdownStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:hint="@string/pilih_tipe"
+                android:textColor="@color/black_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnCompetency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnType">
+
+            <TextView
+                android:id="@+id/tvCompetency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_competency" />
+
+            <TextView
+                android:id="@+id/tvDropdownCompetency"
+                style="@style/DropdownStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:hint="@string/txt_pilih_competency"
+                android:textColor="@color/black_text" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lnLevel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnCompetency">
+
+            <TextView
+                android:id="@+id/tvLevel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_proficiency_level" />
+
+            <TextView
+                android:id="@+id/tvDropdownLevel"
+                style="@style/DropdownStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:hint="@string/txt_pilih_level"
+                android:textColor="@color/black_text" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lnStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnLevel">
+
+            <TextView
+                android:id="@+id/tvStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_start_date" />
+
+            <TextView
+                android:id="@+id/tvDropdownStartDate"
+                style="@style/DropdownStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:hint="@string/txt_pilih_tanggal"
+                android:textColor="@color/black_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorLineGrey"
+            android:orientation="vertical"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnStartDate">
+
+            <TextView
+                android:id="@+id/tvEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_end_date" />
+
+            <TextView
+                android:id="@+id/tvDropdownEndDate"
+                style="@style/DropdownStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:hint="@string/txt_pilih_tanggal"
+                android:textColor="@color/black_text" />
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="gone"
+            android:indeterminateDrawable="@drawable/progressbar"
+            app:layout_constraintEnd_toEndOf="@+id/lnCompany"
+            app:layout_constraintStart_toStartOf="@+id/lnCompany"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTitleUpdateProposal" />
+
+
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_orange"
+            android:text="@string/txt_create"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnEndDate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

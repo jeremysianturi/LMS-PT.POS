@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/tvAgency"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_agency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvContentAgency"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvAgency"
+        app:layout_constraintStart_toStartOf="@+id/tvAgency"
+        app:layout_constraintTop_toBottomOf="@+id/tvAgency"
+        tools:text="Telkom Indonesia" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentAgency" />
+
+    <TextView
+        android:id="@+id/tvContenTitle"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:text="Presentasi kocak" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContenTitle" />
+
+    <TextView
+        android:id="@+id/tvContentDescription"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvDescription"
+        app:layout_constraintStart_toStartOf="@+id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+        tools:text="Description kocak" />
+
+    <TextView
+        android:id="@+id/tvMateritype"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_materi_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentDescription" />
+
+    <TextView
+        android:id="@+id/tvContentMateriType"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvMateritype"
+        app:layout_constraintStart_toStartOf="@+id/tvMateritype"
+        app:layout_constraintTop_toBottomOf="@+id/tvMateritype"
+        tools:text="Materi Terbuka" />
+
+    <TextView
+        android:id="@+id/tvMethod"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_method"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentMateriType" />
+
+    <TextView
+        android:id="@+id/tvContentMethod"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvMethod"
+        app:layout_constraintStart_toStartOf="@+id/tvMethod"
+        app:layout_constraintTop_toBottomOf="@+id/tvMethod"
+        tools:text="lecturing" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentMethod" />
+
+    <TextView
+        android:id="@+id/tvContentAddress"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvAddress"
+        app:layout_constraintStart_toStartOf="@+id/tvAddress"
+        app:layout_constraintTop_toBottomOf="@+id/tvAddress"
+        tools:text="Https:// www.goiogle.com" />
+
+    <TextView
+        android:id="@+id/tvCompetency"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/competency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentAddress" />
+
+    <TextView
+        android:id="@+id/tvContentCompetency"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvCompetency"
+        app:layout_constraintStart_toStartOf="@+id/tvCompetency"
+        app:layout_constraintTop_toBottomOf="@+id/tvCompetency"
+        tools:text="Action Oriented" />
+
+    <TextView
+        android:id="@+id/tvProficiencyLevel"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_proficiency_level_detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentCompetency" />
+
+    <TextView
+        android:id="@+id/tvContentProficencyLevel"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvProficiencyLevel"
+        app:layout_constraintStart_toStartOf="@+id/tvProficiencyLevel"
+        app:layout_constraintTop_toBottomOf="@+id/tvProficiencyLevel"
+        tools:text="Intermidiet" />
+
+    <TextView
+        android:id="@+id/tvSelling"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_selling_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentProficencyLevel" />
+
+    <TextView
+        android:id="@+id/tvContentSelling"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvSelling"
+        app:layout_constraintStart_toStartOf="@+id/tvSelling"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelling"
+        tools:text="Rp. 200.000" />
+
+    <TextView
+        android:id="@+id/tvPurchase"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_purchase_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentSelling" />
+
+    <TextView
+        android:id="@+id/tvContentPurchase"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvPurchase"
+        app:layout_constraintStart_toStartOf="@+id/tvPurchase"
+        app:layout_constraintTop_toBottomOf="@+id/tvPurchase"
+        tools:text="Rp. 4.000.000" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center_vertical"
+        android:text="@string/txt_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvContentPurchase" />
+
+    <TextView
+        android:id="@+id/tvContentDate"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/tvDate"
+        app:layout_constraintStart_toStartOf="@+id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        tools:text="2021 - 02 - 09 - 9999-21-31" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

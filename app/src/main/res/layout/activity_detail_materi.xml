@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.materi.detail.DetailMateriActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTitleDetaillMateri"
+        style="@style/text_content_style_black"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="@dimen/text_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Telkom Indonsia - materi terbuka" />
+
+    <TextView
+        android:id="@+id/tvTitleDetailMateri2"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleDetaillMateri"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleDetaillMateri"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetaillMateri"
+        tools:text="Materi Pengantar Komunikasi" />
+    <TextView
+        android:id="@+id/tvtitleDetailMateri3"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitleDetailMateri2"
+        app:layout_constraintStart_toStartOf="@+id/tvTitleDetailMateri2"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleDetailMateri2"
+        tools:text="Lecturing" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvtitleDetailMateri3">
+
+        <include
+            android:id="@+id/content"
+            layout="@layout/content_detail_materi" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLihatMateri"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/txt_lihat_materi"
+        android:textSize="@dimen/text_14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+    </Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

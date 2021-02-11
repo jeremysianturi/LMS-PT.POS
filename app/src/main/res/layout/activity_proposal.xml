@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.proposal.CuriculumActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivIconProposal"
+            style="@style/iconDetailStyle"
+            android:contentDescription="@string/image_description"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_detail_student" />
+
+        <TextView
+            android:id="@+id/tvTitleProposal"
+            style="@style/text_content_tittle_orange_20"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/txt_learning_proposal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivIconProposal"
+            app:layout_constraintTop_toTopOf="@+id/ivIconProposal" />
+
+        <TextView
+            android:id="@+id/tvSubTittleStudent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/txt_rencanakan_strategimu_di_sini"
+            app:layout_constraintBottom_toBottomOf="@+id/ivIconProposal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivIconProposal"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleProposal" />
+
+        <TextView
+            android:id="@+id/textView10"
+            style="@style/text_tittle_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/txt_manage_all_learning_curriculum"
+            android:textSize="@dimen/text_14"
+            app:layout_constraintEnd_toEndOf="@+id/edtSearchProposal"
+            app:layout_constraintStart_toStartOf="@+id/edtSearchProposal"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTittleStudent" />
+
+        <TextView
+            android:id="@+id/textView13"
+            style="@style/text_content_style_grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/txt_curriculum_management"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <EditText
+            android:id="@+id/edtSearchProposal"
+            style="@style/text_content_style_grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:drawableEnd="@drawable/ic_search_24"
+            android:ems="10"
+            android:hint="@string/txt_cari_disini"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <ImageView
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/ivCrateProposal"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_add_orange"
+            app:layout_constraintBottom_toBottomOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            android:contentDescription="@string/image_description" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvProposal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edtSearchProposal"
+            tools:listitem="@layout/item_list_proposal" />
+
+        <ProgressBar
+            android:id="@+id/progressBarProposal"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:indeterminateDrawable="@drawable/progressbar"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/rvProposal"
+            app:layout_constraintStart_toStartOf="@+id/rvProposal"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

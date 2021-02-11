@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.materi.MateriActivity">
+
+    <ImageView
+        android:id="@+id/ivMateri"
+        style="@style/iconDetailStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_detail_student"
+        android:contentDescription="@string/txt_materi" />
+
+    <TextView
+        android:id="@+id/tvTitleMateri"
+        style="@style/text_content_tittle_orange_20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/txt_materi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivMateri"
+        app:layout_constraintTop_toTopOf="@+id/ivMateri" />
+
+    <TextView
+        android:id="@+id/tvSubTittleMateri"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/txt_lihat_materi_disini"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMateri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivMateri"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleMateri" />
+
+    <TextView
+        android:id="@+id/tvSubMateri"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/txt_manage_all_learning_curriculum"
+        android:textSize="@dimen/text_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubTittleMateri" />
+
+    <TextView
+        android:id="@+id/tvCuriculumMateri"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_materi_management"
+        app:layout_constraintEnd_toEndOf="@+id/tvSubMateri"
+        app:layout_constraintStart_toStartOf="@+id/tvSubMateri"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubMateri" />
+
+    <ImageView
+        android:id="@+id/ivCreateMateri"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_add_orange"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCuriculumMateri"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvSubMateri"
+        android:contentDescription="@string/image_description" />
+
+    <LinearLayout
+        android:id="@+id/lnMateri"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/colorLineGrey"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCuriculumMateri">
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_select_master" />
+
+        <TextView
+            android:id="@+id/tvDropdownMateri"
+            style="@style/DropdownStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/txt_pilih_master"
+            android:textColor="@color/black_text" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edtSearchMateri"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:drawableEnd="@drawable/ic_search_24"
+        android:ems="10"
+        android:hint="@string/txt_cari_disini"
+        android:imeOptions="actionSearch"
+        android:inputType="textPersonName"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnMateri"
+        android:importantForAutofill="no" />
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMateri"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_list_proposal"
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchMateri" />
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBarMateri"
+        style="?android:attr/progressBarStyle"
+        android:indeterminateDrawable="@drawable/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/rvMateri"
+        app:layout_constraintStart_toStartOf="@+id/rvMateri"
+        app:layout_constraintTop_toBottomOf="@+id/edtSearchMateri" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

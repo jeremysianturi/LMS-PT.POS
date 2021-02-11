@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_bar_height">200dp</dimen>
+
+    <!--    text    -->
+    <dimen name="text_20">20sp</dimen>
+    <dimen name="text_14">14sp</dimen>
+    <dimen name="text_12">12sp</dimen>
+
+    <dimen name="corner_radius">15dp</dimen>
+
+    <dimen name="dimen_table_row">4dp</dimen>
+
+</resources>
