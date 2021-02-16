@@ -95,9 +95,16 @@ class LoginActivity : AppCompatActivity() {
 
                         mPreference.setPref(mPreferenceEntity)
 
-                        observerParId()
+//                        observerParId()
+                        val mIntent = Intent(this, HomeActivity::class.java)
+                        startActivity(mIntent)
+
+                        Timber.d("ParId Success")
+                        Timber.tag("LoginEmtity")
+                            .d("ParIdLoginActivity : ${mPreferenceEntity.parId}")
                     }
                     is Resource.Error -> {
+                        Timber.e("MasukErrorLogin")
                         val loginMessage = login.message ?: getString(R.string.something_wrong)
                         binding.progressBar.visibility = View.GONE
                         Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
@@ -107,37 +114,37 @@ class LoginActivity : AppCompatActivity() {
         })
     }
 
-    private fun observerParId() {
-        val token = "${mPreferenceEntity.tokenType} ${mPreferenceEntity.token}"
-        homeViewModel.getParId(token).observe(this, { parid ->
-            if (parid != null) {
-                when (parid) {
-                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                    is Resource.Success -> {
-                        mPreferenceEntity.parId = parid.data?.get(0)?.id ?: 0
-                        mPreference.setPref(mPreferenceEntity)
-
-                        val mIntent = Intent(this, HomeActivity::class.java)
-                        startActivity(mIntent)
-
-                        Timber.d("ParId Success")
-                        Timber.tag("LoginEmtity")
-                            .d("ParIdLoginActivity : ${mPreferenceEntity.parId}")
-
-                        binding.progressBar.visibility = View.GONE
-                    }
-                    is Resource.Error -> {
-                        val loginMessage = getString(R.string.something_wrong)
-                        binding.progressBar.visibility = View.GONE
-                        Timber.tag("ERROR_PARID").e(parid.message)
-                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-
-            }
-        })
-    }
+//    private fun observerParId() {
+//        val token = "${mPreferenceEntity.tokenType} ${mPreferenceEntity.token}"
+//        homeViewModel.getParId(token).observe(this, { parid ->
+//            if (parid != null) {
+//                when (parid) {
+//                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+//                    is Resource.Success -> {
+//                        mPreferenceEntity.parId = parid.data?.get(0)?.id ?: 0
+//                        mPreference.setPref(mPreferenceEntity)
+//
+//                        val mIntent = Intent(this, HomeActivity::class.java)
+//                        startActivity(mIntent)
+//
+//                        Timber.d("ParId Success")
+//                        Timber.tag("LoginEmtity")
+//                            .d("ParIdLoginActivity : ${mPreferenceEntity.parId}")
+//
+//                        binding.progressBar.visibility = View.GONE
+//                    }
+//                    is Resource.Error -> {
+//                        val loginMessage = getString(R.string.something_wrong)
+//                        binding.progressBar.visibility = View.GONE
+//                        Timber.tag("ERROR_PARID").e(parid.message)
+//                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                }
+//
+//            }
+//        })
+//    }
 
     private fun validationField(): Boolean {
         return FormValidator.getInstance()

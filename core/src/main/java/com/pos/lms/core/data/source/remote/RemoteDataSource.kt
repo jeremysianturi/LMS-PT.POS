@@ -1,5 +1,6 @@
 package com.pos.lms.core.data.source.remote
 
+import com.pos.lms.core.data.source.remote.network.ApiLogin
 import com.pos.lms.core.data.source.remote.network.ApiResponse
 import com.pos.lms.core.data.source.remote.network.ApiService
 import com.pos.lms.core.data.source.remote.post.CuriculumCreate
@@ -15,6 +16,10 @@ import com.pos.lms.core.data.source.remote.response.dropdown.TypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.MateriResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ForumListResponse
+import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
+import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -29,7 +34,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
+class RemoteDataSource @Inject constructor(private val apiService: ApiService, private val apiLogin: ApiLogin) {
 
     private val tag = RemoteDataSource::class.java.simpleName.toString()
 
@@ -135,29 +140,105 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
             try {
                 val response = apiService.getMateri(begda, endda)
                 val dataArray = response.data
-                if (dataArray.isNotEmpty()){
+                if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))
-                }else{
+                } else {
                     emit(ApiResponse.Empty)
                 }
-            }catch (e : Exception) {
+            } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
     }
 
- // --------------------------------------- Student ----------------------------------------------
-    suspend fun getStudent(): Flow<ApiResponse<List<StudentResponse>>> {
+    // --------------------------------------- Student ----------------------------------------------
+    suspend fun getStudent(parid: String): Flow<ApiResponse<List<StudentResponse>>> {
         return flow {
             try {
-                val response = apiService.getStudent()
+                val response = apiService.getStudent(parid)
                 val dataArray = response.data
-                if (dataArray.isNotEmpty()){
+                if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))
-                }else{
+                } else {
                     emit(ApiResponse.Empty)
                 }
-            }catch (e : Exception) {
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getDetailSession(eventId: String): Flow<ApiResponse<List<DetailSessionResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getDetailSession(eventId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getSessionList(
+        batchId: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<SessionListResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getSessionList(begda, endda, batchId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getForumList(
+        batchId: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ForumListResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getListForum(begda, endda, batchId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getInsightList(
+        batchId: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<InsightListResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getListInsight(begda, endda, batchId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
                 emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)

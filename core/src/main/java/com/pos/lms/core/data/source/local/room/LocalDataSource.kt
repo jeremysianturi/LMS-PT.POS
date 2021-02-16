@@ -9,7 +9,7 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
-import com.pos.lms.core.data.source.local.entity.student.StudentEntity
+import com.pos.lms.core.data.source.local.entity.student.*
 import com.pos.lms.core.data.source.local.room.dao.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -68,6 +68,28 @@ class LocalDataSource @Inject constructor(
 
     // student
     fun getStudent(): Flow<List<StudentEntity>> = mStudentDao.getStudent()
-    suspend fun insertStudent(student : List<StudentEntity>) = mStudentDao.insertStudent(student)
+    suspend fun insertStudent(student: List<StudentEntity>) = mStudentDao.insertStudent(student)
+
+    //    -> Detail session
+    fun getDetailSession(): Flow<List<DetailSessionEntity>> = mStudentDao.getDetailSessiont()
+    suspend fun insertDetailSession(student: List<DetailSessionEntity>) =
+        mStudentDao.insertDetailSession(
+            student
+        )
+
+    //    -> sessionList
+    fun getSessionList(): Flow<List<SessionListEntity>> = mStudentDao.getSessionList()
+    suspend fun insertSessionList(student: List<SessionListEntity>) =
+        mStudentDao.insertSessionList(student)
+
+    //    -> forumList
+    fun getForumList(): Flow<List<ForumListEntity>> = mStudentDao.getForumList()
+    suspend fun insertForumList(student: List<ForumListEntity>) =
+        mStudentDao.insertForumList(student)
+
+ //    -> InsightList
+    fun getInsightList(): Flow<List<InsightListEntity>> = mStudentDao.getInsightList()
+    suspend fun insertInsightList(student: List<InsightListEntity>) =
+        mStudentDao.insertInsightList(student)
 
 }

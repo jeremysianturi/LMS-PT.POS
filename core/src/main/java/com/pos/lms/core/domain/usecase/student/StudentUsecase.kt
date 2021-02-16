@@ -1,7 +1,7 @@
 package com.pos.lms.core.domain.usecase.student
 
 import com.pos.lms.core.data.Resource
-import com.pos.lms.core.domain.model.Student
+import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -10,5 +10,11 @@ import kotlinx.coroutines.flow.Flow
  */
 interface StudentUsecase {
 
-    fun getStudent() : Flow<Resource<List<Student>>>
+    fun getStudent(parid :String) : Flow<Resource<List<Student>>>
+    fun getDetailSession(eventId : String) : Flow<Resource<List<DetailSession>>>
+    fun getSessionList(batchId : String, begda : String, endda :String) : Flow<Resource<List<SessionList>>>
+    fun getForumList(batchId : String, begda : String, endda :String) : Flow<Resource<List<ForumList>>>
+    fun getInsightList(batchId : String, begda : String, endda :String) : Flow<Resource<List<InsightList>>>
+
+
 }

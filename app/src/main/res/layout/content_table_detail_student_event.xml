@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/tvEvent"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/txt_event" />
+
+    <TextView
+        android:id="@+id/tvContentEvent"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvEvent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Teknologi E-Learning" />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentEvent"
+        android:text="Description : " />
+
+    <TextView
+        android:id="@+id/tvContentDesc"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentEvent"
+        tools:text="Description : LEARNING CYCLE 3E" />
+
+    <TextView
+        android:id="@+id/tvType"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentDesc"
+        android:text="Content Type : " />
+
+
+    <TextView
+        android:id="@+id/tvContentType"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvType"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentDesc"
+        tools:text="ACTIVITY TYPE 1" />
+
+    <TextView
+        android:id="@+id/tvAgency"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentType"
+        android:text="Agency : " />
+
+
+    <TextView
+        android:id="@+id/tvContentAgency"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvAgency"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentType"
+        tools:text="Online" />
+
+    <TextView
+        android:id="@+id/tvOrganization"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentAgency"
+        android:text="Organization : " />
+
+
+    <TextView
+        android:id="@+id/tvContentOrganization"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvOrganization"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentAgency"
+        tools:text=" Online" />
+
+    <TextView
+        android:id="@+id/tvVendor"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentOrganization"
+        android:text="Vendor : " />
+
+
+    <TextView
+        android:id="@+id/tvContentVendor"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvVendor"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentOrganization"
+        tools:text="Vendor : Online" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentVendor"
+        android:text="Date : " />
+
+
+    <TextView
+        android:id="@+id/tvContentBeginDate"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentVendor"
+        tools:text=" 21 - 12 - 2020 - 22 -12 -2019" />
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvContentEndDate"-->
+<!--        style="@style/tvContentItemList"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="100dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvContentBeginDate"-->
+<!--        tools:text="End Date : 21 - 12 - 2020" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

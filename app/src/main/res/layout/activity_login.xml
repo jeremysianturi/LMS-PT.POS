@@ -14,7 +14,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/transparent" />
+        app:srcCompat="@android:color/transparent"
+        android:contentDescription="@string/image_description" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -33,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Login"
+            android:text="@string/txt_login"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="Masukan Id dan Password anda "
+            android:text="@string/txt_masukan_id_dan_password_anda"
             android:textColor="@android:color/black"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Username"
+                android:hint="@string/txt_username"
                 android:imeOptions="actionNext"
                 android:importantForAutofill="auto"
                 android:textSize="16sp" />
@@ -96,10 +97,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints=""
-                android:hint="Password"
+                android:hint="@string/txt_password"
                 android:imeOptions="actionDone"
                 android:importantForAutofill="auto"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -148,17 +150,18 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:background="@drawable/circle_orange"
         android:id="@+id/imageView11"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        android:background="@drawable/circle_orange"
+        android:contentDescription="@string/image_description"
+        android:paddingStart="0dp"
         android:paddingEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_pt_pos_white_big"
-        android:contentDescription="@string/image_description" />
+        app:srcCompat="@drawable/ic_pt_pos_white_big" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

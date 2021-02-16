@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.pos.lms.core.data.source.local.entity.student.StudentEntity
+import com.pos.lms.core.data.source.local.entity.student.*
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -20,4 +20,28 @@ interface StudentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertStudent(student: List<StudentEntity>)
+
+    @Query("SELECT * FROM detailsession")
+    fun getDetailSessiont(): Flow<List<DetailSessionEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDetailSession(student: List<DetailSessionEntity>)
+
+    @Query("SELECT * FROM sessionlist")
+    fun getSessionList(): Flow<List<SessionListEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSessionList(student: List<SessionListEntity>)
+
+    @Query("SELECT * FROM forumlist")
+    fun getForumList(): Flow<List<ForumListEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertForumList(student: List<ForumListEntity>)
+
+    @Query("SELECT * FROM insightlist")
+    fun getInsightList(): Flow<List<InsightListEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertInsightList(student: List<InsightListEntity>)
 }

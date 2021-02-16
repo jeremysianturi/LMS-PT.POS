@@ -11,7 +11,7 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
-import com.pos.lms.core.data.source.local.entity.student.StudentEntity
+import com.pos.lms.core.data.source.local.entity.student.*
 import com.pos.lms.core.data.source.local.room.dao.*
 
 
@@ -24,9 +24,13 @@ import com.pos.lms.core.data.source.local.room.dao.*
         CompetencyEntity::class,
         CompanyEnitity::class,
         TypeEntity::class,
+        PLEntity::class,
         MateriEntity::class,
         StudentEntity::class,
-        PLEntity::class],
+        DetailSessionEntity::class,
+        SessionListEntity::class,
+        ForumListEntity::class,
+        InsightListEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -40,9 +44,9 @@ abstract class LmsDataBase : RoomDatabase() {
 
     abstract fun submit(): SubmitDao
 
-    abstract fun materi() : MateriDao
+    abstract fun materi(): MateriDao
 
-    abstract fun student() : StudentDao
+    abstract fun student(): StudentDao
 
 
 }

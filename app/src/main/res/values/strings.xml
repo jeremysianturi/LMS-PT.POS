@@ -61,4 +61,19 @@
     <string name="txt_purchase_price">Purchase Price :</string>
     <string name="txt_date">Date :</string>
     <string name="txt_lihat_materi">Lihat Materi</string>
+    <string name="txt_detail_student">Detail Student</string>
+    <string name="txt_session">Session</string>
+    <string name="txt_forum">Forum</string>
+    <string name="txt_insight">Insight</string>
+    <string name="txt_location">Location :</string>
+    <string name="txt_bath_type">Bath Type :</string>
+    <string name="txt_curiculum">Curiculum :</string>
+    <string name="txt_vendor">Vendor :</string>
+    <string name="txt_event">Event :</string>
+    <string name="txt_activity_list">Activity List : </string>
+    <string name="txt_hanya_lihat_diskusi_yang_saya_buat">Lihat hanya diskusi yang saya buat</string>
+    <string name="txt_discussion">Discussion</string>
+    <string name="txt_masukan_id_dan_password_anda">Masukan Id dan Password anda</string>
+    <string name="txt_username">Username</string>
+    <string name="txt_password">Password</string>
 </resources>

@@ -6,7 +6,9 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.pos.lms.core.data.Resource
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
@@ -15,13 +17,19 @@ import com.pos.lms.mobile.ui.materi.MateriActivity
 import com.pos.lms.mobile.ui.proposal.CuriculumActivity
 import com.pos.lms.mobile.ui.roadmap.RoadmapActivity
 import com.pos.lms.mobile.ui.student.StudentActivity
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import kotlin.system.exitProcess
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityHomeBinding
-    private var mPreference: UserPreference? = null
-    private val mPreferenceEntity: PreferenceEntity get() = mPreference!!.getPref()
+
+    private lateinit var mPreference: UserPreference
+    private lateinit var mPreferenceEntity: PreferenceEntity
+
+    private val viewModel: HomeViewModel by viewModels()
 
     private var doubleBackToExitPressedOnce = false
 
@@ -30,6 +38,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        mPreference = UserPreference(this)
+        mPreferenceEntity = mPreference.getPref()
 
         binding.content.student.setOnClickListener(this)
         binding.content.roadMap.setOnClickListener(this)
@@ -38,10 +48,42 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
         supportActionBar?.title = "HOME"
 
+        setupObserver()
+
 //        binding.openCourse.setOnClickListener(this)
 //        binding.counseling.setOnClickListener(this)
 //            toolbarHome.ivNavigationBar.setOnClickListener(this)
 //            toolbarHome.ivProfile.setOnClickListener(this)
+
+    }
+
+    private fun setupObserver() {
+        val token = "${mPreferenceEntity.tokenType} ${mPreferenceEntity.token}"
+
+        viewModel.getParId(token).observe(this, { parid ->
+            if (parid != null) {
+                when (parid) {
+                    is Resource.Loading -> binding.content.progressBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        mPreferenceEntity.parId = parid.data?.get(0)?.id ?: 0
+                        mPreference.setPref(mPreferenceEntity)
+
+
+
+                        binding.content.progressBar.visibility = View.GONE
+                    }
+                    is Resource.Error -> {
+                        val loginMessage = getString(R.string.something_wrong)
+                        binding.content.progressBar.visibility = View.GONE
+                        Timber.tag("ERROR_PARID").e(parid.message)
+                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+            }
+
+        })
 
     }
 

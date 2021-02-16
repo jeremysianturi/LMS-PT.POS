@@ -13,6 +13,11 @@ import com.pos.lms.core.data.source.remote.response.dropdown.ListTypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.ListMateriResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
 import com.pos.lms.core.data.source.remote.response.student.ListStudentResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ListForumResponse
+import com.pos.lms.core.data.source.remote.response.student.insight.ListInsightResponse
+import com.pos.lms.core.data.source.remote.response.student.session.ListDetailSessionResponse
+import com.pos.lms.core.data.source.remote.response.student.session.ListSessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.schedule.ListScheduleResponse
 import retrofit2.http.*
 
 interface ApiService {
@@ -25,7 +30,6 @@ interface ApiService {
 
     @GET("lms/api/account?type[]=PARID")
     suspend fun getParId(): List<ItemParId>
-
 
     //dropdown
     @GET("ldap/api/objects?object_type[]=CMPTY&per_page=999&business_code[]=*&business_code[]=POS")
@@ -79,6 +83,47 @@ interface ApiService {
     ): ListMateriResponse
 
     //student
-    @GET("lms/api/myevent/peserta?curr_stat=01&parid=19777")
-    suspend fun getStudent() : ListStudentResponse
+    @GET("lms/api/myevent/peserta?curr_stat=01")
+    suspend fun getStudent(
+        @Query("parid") parId: String,
+    ): ListStudentResponse
+
+
+    // -> insight
+    @GET("lms/api/forum?order[BEGDA]=asc&forum_type[]=2")
+    suspend fun getListInsight(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endDa: String,
+        @Query("batch[]") batchId: String,
+    ): ListInsightResponse
+
+    // -> forum
+    @GET("lms/api/forum?order[BEGDA]=asc&forum_type[]=1")
+    suspend fun getListForum(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endDa: String,
+        @Query("batch[]") batchId: String,
+    ): ListForumResponse
+
+    // -> session
+    @GET("lms/api/android/session")
+    suspend fun getDetailSession(
+        @Query("event_id") eventId: String,
+    ): ListDetailSessionResponse
+
+    // -> list session
+    @GET("lms/api/android/session/learning-activity?order[begin_date]=ASC&limit")
+    suspend fun getSessionList(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endDa: String,
+        @Query("batch_id") batchid: String,
+    ): ListSessionListResponse
+
+    // -> session -> schedule
+    @GET("lms/api/schedule?order[BEGDA]=asc")
+    suspend fun getSchedule(
+        @Query("session[]") sessionId: String,
+    ): ListScheduleResponse
+
+
 }

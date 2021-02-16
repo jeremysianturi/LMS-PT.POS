@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningManagementSystemPOS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.materi.detail.DetailMateriActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.session.detail.DetailSessionActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.DetailActivityStudent" />
+        <activity android:name=".ui.materi.detail.DetailMateriActivity" />
         <activity android:name=".ui.proposal.update.UpdateCuriculumActivity" />
         <activity android:name=".ui.proposal.detail.DetailCuriculumActivity" />
         <activity android:name=".ui.proposal.create.CreateCuriculumActivity" />

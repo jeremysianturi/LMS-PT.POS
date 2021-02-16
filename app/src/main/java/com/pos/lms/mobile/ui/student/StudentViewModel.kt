@@ -11,5 +11,5 @@ import com.pos.lms.core.domain.usecase.student.StudentUsecase
  */
 class StudentViewModel @ViewModelInject constructor(private val studentUsecase: StudentUsecase) : ViewModel(){
 
-    fun getStudent() = studentUsecase.getStudent().asLiveData()
+    fun getStudent(parid : String) = studentUsecase.getStudent(parid).asLiveData()
 }

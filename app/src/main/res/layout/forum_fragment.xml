@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.student.detailStudent.forum.ForumFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/lnTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginEnd="@dimen/margin_16dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/tableDetail"
+                layout="@layout/content_table_detail_student_event">
+
+            </include>
+
+            <TextView
+                android:id="@+id/tvTittleBatch"
+                style="@style/text_tittle_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                tools:text="59 Jumat batch" />
+
+            <include
+                android:id="@+id/tableBatch"
+                layout="@layout/content_table_detail_student_batch" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTittleActivity"
+            style="@style/text_tittle_list"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorLineGrey"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:text="@string/txt_discussion"
+            app:layout_constraintEnd_toEndOf="@+id/lnTable"
+            app:layout_constraintStart_toStartOf="@+id/lnTable"
+            app:layout_constraintTop_toBottomOf="@+id/lnTable" />
+
+        <ImageView
+            android:id="@+id/ivCreateDiscussion"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_add_orange"
+            app:layout_constraintBottom_toBottomOf="@+id/tvTittleActivity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvTittleActivity" />
+
+        <TextView
+            android:id="@+id/tvTitleMyForum"
+            style="@style/text_content_style_grey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_hanya_lihat_diskusi_yang_saya_buat"
+            app:layout_constraintBottom_toBottomOf="@+id/cbMyForum"
+            app:layout_constraintEnd_toStartOf="@+id/cbMyForum"
+            app:layout_constraintStart_toStartOf="@+id/tvTittleActivity"
+            app:layout_constraintTop_toBottomOf="@+id/ivCreateDiscussion" />
+
+        <CheckBox
+            android:id="@+id/cbMyForum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTittleActivity"
+            app:layout_constraintTop_toBottomOf="@+id/ivCreateDiscussion" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvForum"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/tvTittleActivity"
+            app:layout_constraintStart_toStartOf="@+id/tvTittleActivity"
+            app:layout_constraintTop_toBottomOf="@+id/cbMyForum" />
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:indeterminateDrawable="@drawable/progressbar"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/rvForum"
+            app:layout_constraintStart_toStartOf="@+id/rvForum"
+            app:layout_constraintTop_toBottomOf="@+id/cbMyForum" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

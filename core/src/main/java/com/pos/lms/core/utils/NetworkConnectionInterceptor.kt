@@ -15,16 +15,24 @@ import javax.inject.Inject
  * Created by Reza Satria on 3/5/2020
  */
 
-class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext context: Context) : Interceptor {
+class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext context: Context) :
+    Interceptor {
 
-    private val applicationContext = context.applicationContext
+    private val applicationContext = context
 //    private val session = (applicationContext)
 
-    private val mPreference = UserPreference(applicationContext)
-    private val mPreferenceEntity = mPreference.getPref()
-    private val token = mPreferenceEntity.token
+    private lateinit var mPreference: UserPreference
+    private lateinit var mPreferenceEntity: PreferenceEntity
+
+//    private lateinit var mPreference
+//    private lateinit var mPreferenceEntity = mPreference.getPref()
 
     override fun intercept(chain: Interceptor.Chain): Response {
+
+        mPreference = UserPreference(applicationContext)
+        mPreferenceEntity = mPreference.getPref()
+        val token = mPreferenceEntity.token
+
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
 

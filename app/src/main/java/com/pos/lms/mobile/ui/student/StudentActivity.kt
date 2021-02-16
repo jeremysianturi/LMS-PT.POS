@@ -1,5 +1,6 @@
 package com.pos.lms.mobile.ui.student
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,8 +9,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
+import com.pos.lms.core.utils.PreferenceEntity
+import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityStudentBinding
+import com.pos.lms.mobile.ui.student.detailStudent.DetailActivityStudent
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -19,18 +23,30 @@ class StudentActivity : AppCompatActivity() {
 
     private val tag = StudentActivity::class.java.simpleName.toString()
 
-    private lateinit var binding : ActivityStudentBinding
+    private lateinit var binding: ActivityStudentBinding
     private lateinit var adapter: StudentAdapter
 
-    private val viewModel : StudentViewModel by viewModels()
+    private lateinit var mPreference: UserPreference
+    private lateinit var mPreferenceEntity: PreferenceEntity
+
+    private val viewModel: StudentViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityStudentBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        mPreference = UserPreference(this)
+        mPreferenceEntity = mPreference.getPref()
 
-        setupObserver()
+        val parid = mPreferenceEntity.parId.toString()
+
+        //setup Actionbar and navigasi up
+        val actionbar = supportActionBar
+        actionbar?.title = "Student"
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+
+        setupObserver(parid)
         buildRc()
     }
 
@@ -48,16 +64,15 @@ class StudentActivity : AppCompatActivity() {
             )
         )
 
-
-//        adapter.onItemClick = { selectData ->
-//            val mIntent = Intent(this, DetailCuriculumActivity::class.java)
-//            mIntent.putExtra(DetailCuriculumActivity.EXTRA_DATA, selectData)
-//            startActivity(mIntent)
-//        }
+        adapter.onItemClick = { selectData ->
+            val mIntent = Intent(this, DetailActivityStudent::class.java)
+            mIntent.putExtra(DetailActivityStudent.EXTRA_DATA, selectData)
+            startActivity(mIntent)
+        }
     }
 
-    private fun setupObserver() {
-        viewModel.getStudent().observe(this, { data ->
+    private fun setupObserver(parid: String) {
+        viewModel.getStudent(parid).observe(this, { data ->
             Timber.tag(tag).d("observer_Student $data")
             if (data != null) {
                 when (data) {

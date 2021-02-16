@@ -2,6 +2,7 @@ package com.pos.lms.core.di
 
 import android.content.Context
 import com.pos.lms.core.BuildConfig
+import com.pos.lms.core.data.source.remote.network.ApiLogin
 import com.pos.lms.core.data.source.remote.network.ApiService
 import com.pos.lms.core.utils.NetworkConnectionInterceptor
 import dagger.Module
@@ -68,9 +69,18 @@ class NetworkModule {
     }
 
     @Provides
+    fun provideApiLogin() : ApiLogin{
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        return retrofit.create(ApiLogin::class.java)
+    }
+
+    @Provides
     fun provideApiService(client: OkHttpClient): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://pos-lms.digitalevent.id/")
+            .baseUrl(BuildConfig.API_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
