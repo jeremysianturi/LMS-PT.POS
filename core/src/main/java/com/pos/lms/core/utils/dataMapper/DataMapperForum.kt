@@ -1,7 +1,7 @@
 package com.pos.lms.core.utils.dataMapper
 
 import com.pos.lms.core.data.source.local.entity.student.ForumListEntity
-import com.pos.lms.core.data.source.remote.response.student.forum.ForumListResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.domain.model.ForumList
 
 /**
@@ -10,7 +10,7 @@ import com.pos.lms.core.domain.model.ForumList
  */
 object DataMapperForum {
 
-    fun mapResponsetoEntities(input: List<ForumListResponse>): List<ForumListEntity> {
+    fun mapResponsetoEntities(input: List<ForumResponse>): List<ForumListEntity> {
         val curiculumList = ArrayList<ForumListEntity>()
         input.map {
             val curiculum = ForumListEntity(
@@ -24,7 +24,10 @@ object DataMapperForum {
                 forumTime = it.forumTime,
                 forumTitle = it.forumTitle,
                 objectIdentifier = it.objectIdentifier,
-                owner = it.owner,
+                owner = it.forumOwner,
+                batchName = it.batchName,
+                batchId = it.batchId
+
             )
             curiculumList.add(curiculum)
         }
@@ -46,6 +49,8 @@ object DataMapperForum {
                 forumTitle = it.forumTitle,
                 objectIdentifier = it.objectIdentifier,
                 owner = it.owner,
+                batchName = it.batchName,
+                batchId = it.batchId
             )
         }
 }

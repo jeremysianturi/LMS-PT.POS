@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningManagementSystemPOS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.student.detailStudent.session.detail.DetailSessionActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.forum.create.CreateForumActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.forum.detail.DetailForumActivity" />
+        <activity android:name=".ui.student.detailStudent.session.detail.schedule.detailSchedule.DetailScheduleActivity" />
+        <activity android:name=".ui.student.detailStudent.session.detail.DetailSessionActivity" />
         <activity android:name=".ui.student.detailStudent.DetailActivityStudent" />
         <activity android:name=".ui.materi.detail.DetailMateriActivity" />
         <activity android:name=".ui.proposal.update.UpdateCuriculumActivity" />

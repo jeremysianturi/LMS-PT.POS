@@ -76,4 +76,16 @@
     <string name="txt_masukan_id_dan_password_anda">Masukan Id dan Password anda</string>
     <string name="txt_username">Username</string>
     <string name="txt_password">Password</string>
+    <string name="txt_schedule">Schedule</string>
+
+    <string name="txt_urutan_untuk_mulai_test_tidak_selalu_dari_atas_ke_bawah_silahkan_kerjakan_test_sesuai_jadwal">Urutan untuk mulai test tidak selalu dari atas ke bawah !  Silahkan kerjakan test sesuai jadwal</string>
+    <string name="txt_mentoring">Mentoring</string>
+    <string name="txt_comment">Comment</string>
+    <string name="txt_add_new_comment">type here ...</string>
+    <string name="txt_create_new_forum">Create New Forum</string>
+    <string name="txt_buat_obrolan_baru_disini">Buat obrolan baru disini :)</string>
+    <string name="txt_forum_name">"Forum name "</string>
+    <string name="txt_description_forum">Forum Description</string>
+    <string name="txt_image">Image</string>
+    <string name="txt_pilih_file">Pilih file</string>
 </resources>

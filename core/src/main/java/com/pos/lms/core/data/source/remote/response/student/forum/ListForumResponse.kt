@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ListForumResponse(
 
     @field:SerializedName("data")
-	val data: List<ForumListResponse>,
+	val data: List<ForumResponse>,
 
     @field:SerializedName("status")
 	val status: Boolean

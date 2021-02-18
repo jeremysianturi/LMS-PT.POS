@@ -87,9 +87,19 @@ class LocalDataSource @Inject constructor(
     suspend fun insertForumList(student: List<ForumListEntity>) =
         mStudentDao.insertForumList(student)
 
- //    -> InsightList
+    // -> forumList -> ForumComment
+    fun getForumComment(): Flow<List<ForumCommentEntity>> = mStudentDao.getForumComment()
+    suspend fun insertForumComment(student: List<ForumCommentEntity>) =
+        mStudentDao.insertForumComment(student)
+
+    //    -> InsightList
     fun getInsightList(): Flow<List<InsightListEntity>> = mStudentDao.getInsightList()
     suspend fun insertInsightList(student: List<InsightListEntity>) =
-        mStudentDao.insertInsightList(student)
+        mStudentDao.insertInsightList(student)//
+
+    // -> ScheduleList
+    fun getSchedule(): Flow<List<ScheduleEntity>> = mStudentDao.getSchedule()
+    suspend fun insertSchedule(student: List<ScheduleEntity>) =
+        mStudentDao.insertSchedule(student)
 
 }

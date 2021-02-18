@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/margin_8">
+
+    <TextView
+        android:id="@+id/tvLearningActivity"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:lineSpacingMultiplier="1.25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Learning Activity: Teknologi E-Learning" />
+
+    <TextView
+        android:id="@+id/tvTopic"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.25"
+        app:layout_constraintEnd_toEndOf="@+id/tvLearningActivity"
+        app:layout_constraintStart_toStartOf="@+id/tvLearningActivity"
+        app:layout_constraintTop_toBottomOf="@+id/tvLearningActivity"
+        tools:text="Topic: Learning Cycle 3E" />
+
+
+    <TextView
+        android:id="@+id/tvBeginDate"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.25"
+        app:layout_constraintEnd_toEndOf="@+id/tvTopic"
+        app:layout_constraintStart_toStartOf="@+id/tvTopic"
+        app:layout_constraintTop_toBottomOf="@+id/tvTopic"
+        tools:text="Begin Date : 20 Dec 2020" />
+
+    <TextView
+        android:id="@+id/tvEndDate"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.25"
+        app:layout_constraintEnd_toEndOf="@+id/tvBeginDate"
+        app:layout_constraintStart_toStartOf="@+id/tvBeginDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvBeginDate"
+        tools:text="End Date : 20 Dec 2020" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.25"
+        app:layout_constraintEnd_toEndOf="@+id/tvEndDate"
+        app:layout_constraintStart_toStartOf="@+id/tvEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/tvEndDate"
+        tools:text="Time : 09:00 - 12:00" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

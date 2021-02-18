@@ -1,5 +1,6 @@
 package com.pos.lms.mobile.ui.student.detailStudent.session
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.DetailSession
@@ -14,6 +16,7 @@ import com.pos.lms.core.domain.model.Student
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.SessionFragmentBinding
 import com.pos.lms.mobile.helper.CurrentDate
+import com.pos.lms.mobile.ui.student.detailStudent.session.detail.DetailSessionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -57,8 +60,8 @@ class SessionFragment : Fragment() {
         val eventId = bundle?.eventId.toString()
         val batchId = bundle?.batch.toString()
 
-        val begindate  = CurrentDate.getToday()
-        val enddate  = CurrentDate.getToday()
+        val begindate = CurrentDate.getToday()
+        val enddate = CurrentDate.getToday()
 
         viewModel.getDetailSession(eventId).observe(viewLifecycleOwner, { data ->
             if (data != null) {
@@ -81,7 +84,7 @@ class SessionFragment : Fragment() {
             }
         })
 
-        viewModel.getSessionList(batchId, begindate, enddate).observe(viewLifecycleOwner, {data ->
+        viewModel.getSessionList(batchId, begindate, enddate).observe(viewLifecycleOwner, { data ->
             if (data != null) {
                 when (data) {
                     is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
@@ -104,14 +107,28 @@ class SessionFragment : Fragment() {
     }
 
     private fun buildRecycleView() {
-            binding.apply {
-                adapter = SessionAdapter()
-                rvActivityStudent.setHasFixedSize(true)
-                rvActivityStudent.layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                rvActivityStudent.adapter = adapter
+        binding.apply {
+            adapter = SessionAdapter()
+            rvActivityStudent.setHasFixedSize(true)
+            rvActivityStudent.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            rvActivityStudent.adapter = adapter
 
+            rvActivityStudent.addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL
+                )
+            )
+
+            adapter.onItemClick = {selectData ->
+                val mIntent = Intent(requireContext(), DetailSessionActivity::class.java)
+                mIntent.putExtra(DetailSessionActivity.EXTRA_DATA, selectData)
+                startActivity(mIntent)
             }
+
+
+        }
 
     }
 

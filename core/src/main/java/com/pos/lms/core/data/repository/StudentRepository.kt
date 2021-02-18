@@ -5,17 +5,23 @@ import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.local.room.LocalDataSource
 import com.pos.lms.core.data.source.remote.RemoteDataSource
 import com.pos.lms.core.data.source.remote.network.ApiResponse
+import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
+import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
-import com.pos.lms.core.data.source.remote.response.student.forum.ForumListResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ForumCommentResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import com.pos.lms.core.domain.model.*
 import com.pos.lms.core.domain.repository.IStudentRepository
 import com.pos.lms.core.utils.AppExecutors
 import com.pos.lms.core.utils.dataMapper.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -103,7 +109,7 @@ class StudentRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<ForumList>>> =
-        object : NetworkBoundResource<List<ForumList>, List<ForumListResponse>>() {
+        object : NetworkBoundResource<List<ForumList>, List<ForumResponse>>() {
             override fun loadFromDB(): Flow<List<ForumList>> {
                 return localDataSource.getForumList().map {
                     DataMapperForum.mapEntitiestoDomain(it)
@@ -113,15 +119,110 @@ class StudentRepository @Inject constructor(
             override fun shouldFetch(data: List<ForumList>?): Boolean =
                 true
 
-            override suspend fun createCall(): Flow<ApiResponse<List<ForumListResponse>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<ForumResponse>>> =
                 remoteDataSource.getForumList(batchId, begda, endda)
 
-            override suspend fun saveCallResult(data: List<ForumListResponse>) {
+            override suspend fun saveCallResult(data: List<ForumResponse>) {
                 val list = DataMapperForum.mapResponsetoEntities(data)
                 localDataSource.insertForumList(list)
             }
 
         }.asFlow()
+
+    override fun createForum(
+        businesCode: RequestBody,
+        batch: RequestBody,
+        owner: RequestBody,
+        tittle: RequestBody,
+        desc: RequestBody,
+        type: RequestBody,
+        image: MultipartBody.Part,
+        time: RequestBody,
+        begda: RequestBody,
+        endda: RequestBody
+    ): Flow<Resource<Submit>> =
+        object : NetworkBoundResource<Submit, SubmitResponse>() {
+
+            override fun loadFromDB(): Flow<Submit> {
+                return localDataSource.getSubmitResponse().map {
+                    DataMapperSubmit.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Submit?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<SubmitResponse>> =
+                remoteDataSource.createForum(
+                    businesCode,
+                    batch,
+                    owner,
+                    tittle,
+                    desc,
+                    type,
+                    image,
+                    time,
+                    begda,
+                    endda
+                )
+
+            override suspend fun saveCallResult(data: SubmitResponse) {
+                val list = DataMapperSubmit.mapResponsetoEntities(data)
+                localDataSource.insertSubmitResponse(list)
+            }
+
+        }.asFlow()
+
+
+    override fun getForumComment(
+        forumId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<ForumComment>>> =
+        object : NetworkBoundResource<List<ForumComment>, List<ForumCommentResponse>>() {
+            override fun loadFromDB(): Flow<List<ForumComment>> {
+                return localDataSource.getForumComment().map {
+                    DataMapperForumComment.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<ForumComment>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<ForumCommentResponse>>> =
+                remoteDataSource.getForumComment(forumId, begda, endda)
+
+            override suspend fun saveCallResult(data: List<ForumCommentResponse>) {
+                val list = DataMapperForumComment.mapResponsetoEntities(data)
+                localDataSource.insertForumComment(list)
+            }
+
+        }.asFlow()
+
+    override fun postForumComment(
+        forumCommnetPost: ForumCommnetPost
+    ): Flow<Resource<Submit>> =
+        object : NetworkBoundResource<Submit, SubmitResponse>() {
+
+            override fun loadFromDB(): Flow<Submit> {
+                return localDataSource.getSubmitResponse().map {
+                    DataMapperSubmit.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Submit?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<SubmitResponse>> =
+                remoteDataSource.postForumComment(forumCommnetPost)
+
+            override suspend fun saveCallResult(data: SubmitResponse) {
+                val list = DataMapperSubmit.mapResponsetoEntities(data)
+                localDataSource.insertSubmitResponse(list)
+            }
+
+        }.asFlow()
+
 
     override fun getInsightList(
         batchId: String,
@@ -144,6 +245,27 @@ class StudentRepository @Inject constructor(
             override suspend fun saveCallResult(data: List<InsightListResponse>) {
                 val list = DataMapperInsightList.mapResponsetoEntities(data)
                 localDataSource.insertInsightList(list)
+            }
+
+        }.asFlow()
+
+    override fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>> =
+        object : NetworkBoundResource<List<Schedule>, List<ScheduleResponse>>() {
+            override fun loadFromDB(): Flow<List<Schedule>> {
+                return localDataSource.getSchedule().map {
+                    DataMapperSchedule.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Schedule>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<ScheduleResponse>>> =
+                remoteDataSource.getScheduleList(sessionId)
+
+            override suspend fun saveCallResult(data: List<ScheduleResponse>) {
+                val list = DataMapperSchedule.mapResponsetoEntities(data)
+                localDataSource.insertSchedule(list)
             }
 
         }.asFlow()

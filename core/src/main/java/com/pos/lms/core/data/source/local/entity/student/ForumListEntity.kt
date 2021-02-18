@@ -43,4 +43,12 @@ data class ForumListEntity(
     @ColumnInfo(name = "owner")
     val owner: String,
 
+    @ColumnInfo(name = "batch_name")
+    val batchName: String,
+
+    @ColumnInfo(name = "batch_id")
+    val batchId: String,
+
+
+
     )

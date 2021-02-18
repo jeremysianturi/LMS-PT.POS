@@ -2,8 +2,11 @@ package com.pos.lms.core.domain.usecase.student
 
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.repository.StudentRepository
+import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 /**
@@ -33,12 +36,52 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
     ): Flow<Resource<List<ForumList>>> =
         studentRepository.getForumList(batchId, begda, endda)
 
+    override fun createForum(
+        businesCode: RequestBody,
+        batch: RequestBody,
+        owner: RequestBody,
+        tittle: RequestBody,
+        desc: RequestBody,
+        type: RequestBody,
+        image: MultipartBody.Part,
+        time: RequestBody,
+        begda: RequestBody,
+        endda: RequestBody
+    ): Flow<Resource<Submit>> =
+        studentRepository.createForum(
+            businesCode,
+            batch,
+            owner,
+            tittle,
+            desc,
+            type,
+            image,
+            time,
+            begda,
+            endda
+        )
+
+
+    override fun getForumComment(
+        forumId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<ForumComment>>> =
+        studentRepository.getForumComment(forumId, begda, endda)
+
+
+    override fun postForumComment(forumCommnetPost: ForumCommnetPost): Flow<Resource<Submit>> =
+        studentRepository.postForumComment(forumCommnetPost)
+
     override fun getInsightList(
         batchId: String,
         begda: String,
         endda: String
     ): Flow<Resource<List<InsightList>>> =
         studentRepository.getInsightList(batchId, begda, endda)
+
+    override fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>> =
+        studentRepository.getSchedule(sessionId)
 
 
 }

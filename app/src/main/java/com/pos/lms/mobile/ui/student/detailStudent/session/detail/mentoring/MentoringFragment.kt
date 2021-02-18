@@ -24,7 +24,7 @@ class MentoringFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = MentoringFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -33,6 +33,11 @@ class MentoringFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MentoringViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -36,6 +36,18 @@
         <item name="android:drawableEnd">@drawable/ic_drop_down_24</item>
     </style>
 
+    <style name="DropdownUpload" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">@dimen/text_14</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/bg_line</item>
+        <item name="android:drawableEnd">@drawable/ic_baseline_cloud_upload_24</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">start</item>
+    </style>
+
+
 
     <!--    icon Style -->
     <style name="iconHomeStyle" parent="">

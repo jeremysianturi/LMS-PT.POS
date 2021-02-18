@@ -83,7 +83,6 @@
             app:layout_constraintTop_toTopOf="@+id/lnTable" />
 
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

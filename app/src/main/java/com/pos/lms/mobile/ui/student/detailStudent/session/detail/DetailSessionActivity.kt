@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.pos.lms.core.domain.model.SessionList
 import com.pos.lms.core.ui.SectionsPagerAdapter
-import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityDetailSessionBinding
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.absensi.AbsensiFragment
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.mentoring.MentoringFragment
@@ -56,15 +55,15 @@ class DetailSessionActivity : AppCompatActivity() {
         val sectionsPagerAdapter = SectionsPagerAdapter(supportFragmentManager)
         sectionsPagerAdapter.addFragments(
             schedule,
-            getString(R.string.txt_session)
+            "Schedule"
         )
         sectionsPagerAdapter.addFragments(
             mentoring,
-            getString(R.string.txt_forum)
+            "Mentoring"
         )
         sectionsPagerAdapter.addFragments(
             absensi,
-            getString(R.string.txt_insight)
+            "Absensi"
         )
 
         // adapter and viewPager

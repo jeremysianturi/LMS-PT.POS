@@ -1,6 +1,7 @@
 package com.pos.lms.core.domain.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -16,5 +17,8 @@ data class ForumList(
     val forumTitle: String,
     val objectIdentifier: String,
     val owner: String,
+    val batchName: String,
+    val batchId: String,
+
 
     ) : Parcelable

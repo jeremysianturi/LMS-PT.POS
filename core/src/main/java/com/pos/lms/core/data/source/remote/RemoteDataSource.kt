@@ -5,6 +5,7 @@ import com.pos.lms.core.data.source.remote.network.ApiResponse
 import com.pos.lms.core.data.source.remote.network.ApiService
 import com.pos.lms.core.data.source.remote.post.CuriculumCreate
 import com.pos.lms.core.data.source.remote.post.CuriculumUpdate
+import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.data.source.remote.post.LoginPost
 import com.pos.lms.core.data.source.remote.response.LoginResponse
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
@@ -16,14 +17,18 @@ import com.pos.lms.core.data.source.remote.response.dropdown.TypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.MateriResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
-import com.pos.lms.core.data.source.remote.response.student.forum.ForumListResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ForumCommentResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -34,7 +39,10 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class RemoteDataSource @Inject constructor(private val apiService: ApiService, private val apiLogin: ApiLogin) {
+class RemoteDataSource @Inject constructor(
+    private val apiService: ApiService,
+    private val apiLogin: ApiLogin
+) {
 
     private val tag = RemoteDataSource::class.java.simpleName.toString()
 
@@ -208,7 +216,7 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService, p
         batchId: String,
         begda: String,
         endda: String
-    ): Flow<ApiResponse<List<ForumListResponse>>> {
+    ): Flow<ApiResponse<List<ForumResponse>>> {
         return flow {
             try {
                 val response = apiService.getListForum(begda, endda, batchId)
@@ -224,6 +232,73 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService, p
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun createForum(
+        businesCode: RequestBody,
+        batch: RequestBody,
+        owner: RequestBody,
+        tittle: RequestBody,
+        desc: RequestBody,
+        type: RequestBody,
+        image: MultipartBody.Part,
+        time: RequestBody,
+        begda: RequestBody,
+        endda: RequestBody
+    ): Flow<ApiResponse<SubmitResponse>> {
+        return flow {
+            try {
+                val response = apiService.createForum(businesCode,batch,owner,tittle,desc,type,image,time,begda,endda)
+                val dataArray = response.message
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getForumComment(
+        forumId: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ForumCommentResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getForumComment(begda, endda, forumId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun postForumComment(forumCommnetPost: ForumCommnetPost): Flow<ApiResponse<SubmitResponse>> {
+        //get data from remote APi
+        return flow {
+            try {
+                val response = apiService.postForumComment(forumCommnetPost)
+                val data = response.message
+                if (data.isEmpty()) {
+                    emit(ApiResponse.Empty)
+                } else {
+                    emit(ApiResponse.Success(response))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    }
+
+
+
     suspend fun getInsightList(
         batchId: String,
         begda: String,
@@ -232,6 +307,24 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService, p
         return flow {
             try {
                 val response = apiService.getListInsight(begda, endda, batchId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getScheduleList(
+        sessionId: String,
+    ): Flow<ApiResponse<List<ScheduleResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getSchedule(sessionId)
                 val dataArray = response.data
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))

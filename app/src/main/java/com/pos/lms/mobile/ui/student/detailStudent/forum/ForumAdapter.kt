@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pos.lms.core.domain.model.ForumList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListForumBinding
@@ -44,9 +45,14 @@ class ForumAdapter : RecyclerView.Adapter<ForumAdapter.UserViewHolder>() {
 //            binding.tvTitleItem.text = data.sessionName
 //            binding.tvContent.text = data.activityName
             binding.tvTittle.text = data.forumTitle
-            binding.tvBatch.text = "-"
+            binding.tvBatch.text = data.batchName
             binding.tvDate.text = data.forumTime
             binding.tvId.text = data.owner
+
+            Glide.with(itemView.context)
+                .load(data.forumImage)
+                .error(R.drawable.banner_home)
+                .into(binding.imageView2)
         }
 
         init {

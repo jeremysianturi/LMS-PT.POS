@@ -3,4 +3,9 @@
     package="com.pos.lms.core">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application>
+        <activity android:name=".data.source.remote.response.student.forum.detail.DetailForumActivity"></activity>
+    </application>
+
 </manifest>

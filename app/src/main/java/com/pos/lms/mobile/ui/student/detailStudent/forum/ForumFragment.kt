@@ -1,5 +1,6 @@
 package com.pos.lms.mobile.ui.student.detailStudent.forum
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.pos.lms.core.domain.model.Student
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ForumFragmentBinding
 import com.pos.lms.mobile.helper.CurrentDate
+import com.pos.lms.mobile.ui.student.detailStudent.forum.create.CreateForumActivity
+import com.pos.lms.mobile.ui.student.detailStudent.forum.detail.DetailForumActivity
 import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -49,6 +52,12 @@ class ForumFragment : Fragment() {
             dataBundle = bundle.getParcelable(SessionFragment.EXTRA_DATA) as Student?
         }
 
+        binding.ivCreateDiscussion.setOnClickListener {
+            val mIntent = Intent(requireContext(), CreateForumActivity::class.java)
+            mIntent.putExtra(CreateForumActivity.EXTRA_DATA, dataBundle)
+            startActivity(mIntent)
+        }
+
         buildRecycleView()
         setupObserver(dataBundle)
 
@@ -58,8 +67,8 @@ class ForumFragment : Fragment() {
         val eventId = bundle?.eventId.toString()
         val batchId = bundle?.batch.toString()
 
-        val begindate  = CurrentDate.getToday()
-        val enddate  = CurrentDate.getToday()
+        val begindate = CurrentDate.getToday()
+        val enddate = CurrentDate.getToday()
 
         viewModel.getDetailSession(eventId).observe(viewLifecycleOwner, { data ->
             if (data != null) {
@@ -165,6 +174,13 @@ class ForumFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             rvForum.adapter = adapter
 
+
+            adapter.onItemClick = { selectedData ->
+                val mIntent = Intent(requireContext(), DetailForumActivity::class.java)
+                mIntent.putExtra(DetailForumActivity.EXTRA_DATA, selectedData)
+                startActivity(mIntent)
+            }
+
         }
 
     }
@@ -174,7 +190,6 @@ class ForumFragment : Fragment() {
         _binding = null
 
     }
-
 
 
 }
