@@ -32,7 +32,9 @@ import com.pos.lms.core.data.source.local.room.dao.*
         ForumListEntity::class,
         ForumCommentEntity::class,
         InsightListEntity::class,
-        ScheduleEntity::class],
+        ScheduleEntity::class,
+        MateriScheduleEntity::class,
+    ],
     version = 1,
     exportSchema = false
 )

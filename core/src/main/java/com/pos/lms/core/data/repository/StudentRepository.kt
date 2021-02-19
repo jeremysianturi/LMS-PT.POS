@@ -13,6 +13,7 @@ import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.MateriScheduleResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import com.pos.lms.core.domain.model.*
 import com.pos.lms.core.domain.repository.IStudentRepository
@@ -269,6 +270,32 @@ class StudentRepository @Inject constructor(
             }
 
         }.asFlow()
+
+    override fun getMateriSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MateriSchedule>>> =
+        object : NetworkBoundResource<List<MateriSchedule>, List<MateriScheduleResponse>>() {
+            override fun loadFromDB(): Flow<List<MateriSchedule>> {
+                return localDataSource.getMateriSchedule().map {
+                    DataMapperMateriSchedule.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<MateriSchedule>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<MateriScheduleResponse>>> =
+                remoteDataSource.getMateriSchedule(parentId, begda, endda)
+
+            override suspend fun saveCallResult(data: List<MateriScheduleResponse>) {
+                val list = DataMapperMateriSchedule.mapResponsesToEntities(data)
+                localDataSource.insertMateriSchedule(list)
+            }
+
+        }.asFlow()
+
 
 
 }

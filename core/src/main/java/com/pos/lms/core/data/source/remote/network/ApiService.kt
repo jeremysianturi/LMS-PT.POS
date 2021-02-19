@@ -19,6 +19,7 @@ import com.pos.lms.core.data.source.remote.response.student.forum.ListForumRespo
 import com.pos.lms.core.data.source.remote.response.student.insight.ListInsightResponse
 import com.pos.lms.core.data.source.remote.response.student.session.ListDetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.ListSessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.ListMateriScheduleResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ListScheduleResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -157,6 +158,14 @@ interface ApiService {
     suspend fun getSchedule(
         @Query("session[]") sessionId: String,
     ): ListScheduleResponse
+
+    // -> session -> schedule -> detail schedule
+    @GET("lms/api/android/lmsrelation/schdl-mater?order[object_identifier]=DESC&relation=S003")
+    suspend fun getMateriSchedule(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("parent_id") parentId: String,
+    ): ListMateriScheduleResponse
 
 
 }

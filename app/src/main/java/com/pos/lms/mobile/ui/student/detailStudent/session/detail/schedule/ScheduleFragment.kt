@@ -1,5 +1,6 @@
 package com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.pos.lms.core.domain.model.SessionList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ScheduleFragmentBinding
 import com.pos.lms.mobile.helper.DateTimeConverter
+import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.DetailScheduleActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
@@ -108,20 +110,26 @@ class ScheduleFragment : Fragment() {
     }
 
     private fun buildRecycleView() {
-        binding.apply {
-            adapter = ScheduleAdapter()
-            rvScheduleStudent.setHasFixedSize(true)
-            rvScheduleStudent.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            rvScheduleStudent.adapter = adapter
 
-            // item Decoration
-            rvScheduleStudent.addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    LinearLayoutManager.VERTICAL
-                )
+        adapter = ScheduleAdapter()
+        binding.rvScheduleStudent.setHasFixedSize(true)
+        binding.rvScheduleStudent.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvScheduleStudent.adapter = adapter
+
+        // item Decoration
+        binding.rvScheduleStudent.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                LinearLayoutManager.VERTICAL
             )
+        )
+
+        adapter.onItemClick = { selectData ->
+            val mIntent = Intent(requireContext(), DetailScheduleActivity::class.java)
+            mIntent.putExtra(DetailScheduleActivity.EXTRA_DATA, selectData)
+            startActivity(mIntent)
+
 
         }
 

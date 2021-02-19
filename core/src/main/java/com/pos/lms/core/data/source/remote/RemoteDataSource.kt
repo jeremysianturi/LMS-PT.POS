@@ -22,6 +22,7 @@ import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.MateriScheduleResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -246,7 +247,18 @@ class RemoteDataSource @Inject constructor(
     ): Flow<ApiResponse<SubmitResponse>> {
         return flow {
             try {
-                val response = apiService.createForum(businesCode,batch,owner,tittle,desc,type,image,time,begda,endda)
+                val response = apiService.createForum(
+                    businesCode,
+                    batch,
+                    owner,
+                    tittle,
+                    desc,
+                    type,
+                    image,
+                    time,
+                    begda,
+                    endda
+                )
                 val dataArray = response.message
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response))
@@ -298,7 +310,6 @@ class RemoteDataSource @Inject constructor(
     }
 
 
-
     suspend fun getInsightList(
         batchId: String,
         begda: String,
@@ -325,6 +336,24 @@ class RemoteDataSource @Inject constructor(
         return flow {
             try {
                 val response = apiService.getSchedule(sessionId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getMateriSchedule(
+        parentId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<MateriScheduleResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getMateriSchedule(begda, endda, parentId)
                 val dataArray = response.data
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))

@@ -1,5 +1,9 @@
 package com.pos.lms.core.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Schedule(
     val endDate: String,
     val objectIdentifier: Int,
@@ -13,4 +17,4 @@ data class Schedule(
     val scheduleDate: String,
     val scheduleId: Int,
     val scheduleName: String
-)
+) : Parcelable

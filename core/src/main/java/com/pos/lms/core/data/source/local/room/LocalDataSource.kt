@@ -102,4 +102,9 @@ class LocalDataSource @Inject constructor(
     suspend fun insertSchedule(student: List<ScheduleEntity>) =
         mStudentDao.insertSchedule(student)
 
+    // -> ScheduleList -> DetailSchedule -> Materi
+    fun getMateriSchedule(): Flow<List<MateriScheduleEntity>> = mStudentDao.getMateriSchedule()
+    suspend fun insertMateriSchedule(student: List<MateriScheduleEntity>) =
+        mStudentDao.insertMateriSchedule(student)
+
 }

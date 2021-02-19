@@ -49,4 +49,9 @@ interface StudentDao {
     fun getForumComment(): Flow<List<ForumCommentEntity>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertForumComment(student: List<ForumCommentEntity>)
+
+    @Query("SELECT * FROM materischedule")
+    fun getMateriSchedule(): Flow<List<MateriScheduleEntity>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMateriSchedule(student: List<MateriScheduleEntity>)
 }

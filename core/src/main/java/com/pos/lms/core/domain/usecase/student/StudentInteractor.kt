@@ -83,5 +83,11 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
     override fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>> =
         studentRepository.getSchedule(sessionId)
 
+    override fun getMateriSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MateriSchedule>>>  = studentRepository.getMateriSchedule(parentId, begda, endda)
+
 
 }

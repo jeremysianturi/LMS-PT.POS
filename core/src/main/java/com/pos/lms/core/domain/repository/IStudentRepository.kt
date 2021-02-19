@@ -50,4 +50,6 @@ interface IStudentRepository {
     ): Flow<Resource<List<InsightList>>>
 
     fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>>
+
+    fun getMateriSchedule(parentId :String , begda: String, endda: String) : Flow<Resource<List<MateriSchedule>>>
 }

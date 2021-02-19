@@ -4,19 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pos.lms.core.domain.model.Schedule
+import com.pos.lms.core.domain.model.MateriSchedule
 import com.pos.lms.mobile.R
-import com.pos.lms.mobile.databinding.ItemListScheduleBinding
-import com.pos.lms.mobile.helper.DateTimeConverter
+import com.pos.lms.mobile.databinding.ItemListMateriBinding
 
 
 class MateriAdapter : RecyclerView.Adapter<MateriAdapter.UserViewHolder>() {
 
-    var onItemClick: ((Schedule) -> Unit)? = null
+    var onItemClick: ((MateriSchedule) -> Unit)? = null
 
-    private val mData = ArrayList<Schedule>()
+    private val mData = ArrayList<MateriSchedule>()
 
-    fun setData(newListData: List<Schedule>?) {
+    fun setData(newListData: List<MateriSchedule>?) {
         if (newListData == null) return
         mData.clear()
         mData.addAll(newListData)
@@ -28,7 +27,7 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.UserViewHolder>() {
         viewType: Int
     ): MateriAdapter.UserViewHolder {
         val mView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_schedule, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_materi, parent, false)
         return UserViewHolder(mView)
     }
 
@@ -39,20 +38,16 @@ class MateriAdapter : RecyclerView.Adapter<MateriAdapter.UserViewHolder>() {
     }
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemListScheduleBinding.bind(itemView)
-        fun bind(data: Schedule) {
+        private val binding = ItemListMateriBinding.bind(itemView)
+        fun bind(data: MateriSchedule) {
 
             // concat string
-            val startTime = data.beginTime?.let { DateTimeConverter.toHourMinutes(it) }
-            val endTime = data.endTime?.let { DateTimeConverter.toHourMinutes(it) }
-            val time = "$startTime - $endTime"
+            val contentProposal = "${data.companyName} - ${data.materiTypeName}"
 
-            data.dayNumber.toString().also { binding.tvContentDayNum.text = it }
-            data.scheduleName.also { binding.tvTitle.text = it }
-            data.topic.also { binding.tvContentdesc.text = it }
-            data.scheduleDate?.let { DateTimeConverter.dateWithDayConverter(it) }
-                .also { binding.tvDate.text = it }
-            time.also { binding.tvTime.text = it }
+            binding.tvTitleListProposal.text = data.materiName
+            binding.tvContentProposal.text = contentProposal
+            binding.tvDetailContentProposal.text = data.competenceName
+            binding.tvLevelProposal.text = data.plCodeName
         }
 
         init {
