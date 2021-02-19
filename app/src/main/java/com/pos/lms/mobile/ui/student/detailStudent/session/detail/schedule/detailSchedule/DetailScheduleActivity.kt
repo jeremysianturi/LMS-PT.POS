@@ -50,6 +50,7 @@ class DetailScheduleActivity : AppCompatActivity() {
 
         setupObserver(dataIntent)
         buildRecycleView()
+        setupDataIntent(dataIntent)
     }
 
     private fun setupObserver(dataIntent: Schedule?) {
@@ -104,6 +105,30 @@ class DetailScheduleActivity : AppCompatActivity() {
 //        }
 
     }
+
+    private fun setupDataIntent(dataIntent: Schedule?) {
+        if (dataIntent != null) {
+            binding.apply {
+                tvTitleActivity.text = dataIntent.scheduleName
+                with(contentDetailSchedule) {
+
+                    val tittle = "Learning Activity : ${dataIntent.scheduleName}"
+                    val topic = "Topic : ${dataIntent.topic}"
+                    val begindate = "Begin Date : ${dataIntent.beginDate}"
+                    val enddate = "End Date : ${dataIntent.endDate}"
+                    val time = "Time : ${dataIntent.beginTime} - ${dataIntent.endTime}"
+
+                    tvLearningActivity.text = tittle
+                    tvTopic.text = topic
+                    tvBeginDate.text = begindate
+                    tvEndDate.text = enddate
+                    tvTime.text = time
+
+                }
+            }
+        }
+    }
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
