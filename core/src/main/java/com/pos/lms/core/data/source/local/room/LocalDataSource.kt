@@ -107,4 +107,47 @@ class LocalDataSource @Inject constructor(
     suspend fun insertMateriSchedule(student: List<MateriScheduleEntity>) =
         mStudentDao.insertMateriSchedule(student)
 
+    // -> ScheduleList -> DetailSchedule -> Test
+    fun getTestSchedule(): Flow<List<TestScheduleEntity>> = mStudentDao.getTestchedule()
+    suspend fun insertTestSchedule(student: List<TestScheduleEntity>) =
+        mStudentDao.insertTestSchedule(student)
+
+    // -> ScheduleList -> DetailSchedule -> Room
+    fun getRoomSchedule(): Flow<List<RoomScheduleEntity>> = mStudentDao.getRoomShedule()
+    suspend fun insertRoomSchedule(student: List<RoomScheduleEntity>) =
+        mStudentDao.insertRoomSchedule(student)
+
+    // -> ScheduleList -> DetailSchedule -> Trainer
+    fun getTrainerSchedule(): Flow<List<TrainerScheduleEntity>> = mStudentDao.getTrainerShedule()
+    suspend fun insertTrainerSchedule(student: List<TrainerScheduleEntity>) =
+        mStudentDao.insertTrainerSchedule(student)
+
+    // -> ScheduleList -> DetailSchedule -> Quisioner
+    fun getQuisionerSchedule(): Flow<List<QuisionerScheduleEntity>> =
+        mStudentDao.getQuisionerchedule()
+
+    suspend fun insertQuisionerSchedule(student: List<QuisionerScheduleEntity>) =
+        mStudentDao.insertQuisionerSchedule(student)
+
+    // -> Session -> Mentoring
+    fun getMentoringList(): Flow<List<MentoringEntity>> =
+        mStudentDao.getMentoring()
+
+    suspend fun insertMentoring(student: List<MentoringEntity>) =
+        mStudentDao.insertMentoring(student)
+
+    // -> Session -> Mentoring -> Chat
+    fun getMentoringChat(): Flow<List<MentoringChatEntity>> =
+        mStudentDao.getMentoringChat()
+
+    suspend fun insertMentoringChat(student: List<MentoringChatEntity>) =
+        mStudentDao.insertMentoringChat(student)
+
+    // -> Session -> Mentoring -> Post Chat
+    fun postMentoringChat(): Flow<SubmitEntity> =
+        mSubmitDao.getSubmit()
+
+    suspend fun insertMentoringChat(student: SubmitEntity) =
+        mSubmitDao.insertSubmit(student)
+
 }

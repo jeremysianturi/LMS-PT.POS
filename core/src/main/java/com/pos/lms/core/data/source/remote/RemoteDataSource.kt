@@ -3,10 +3,7 @@ package com.pos.lms.core.data.source.remote
 import com.pos.lms.core.data.source.remote.network.ApiLogin
 import com.pos.lms.core.data.source.remote.network.ApiResponse
 import com.pos.lms.core.data.source.remote.network.ApiService
-import com.pos.lms.core.data.source.remote.post.CuriculumCreate
-import com.pos.lms.core.data.source.remote.post.CuriculumUpdate
-import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
-import com.pos.lms.core.data.source.remote.post.LoginPost
+import com.pos.lms.core.data.source.remote.post.*
 import com.pos.lms.core.data.source.remote.response.LoginResponse
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.data.source.remote.response.curiculum.CuriculumResponse
@@ -22,7 +19,9 @@ import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
-import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.MateriScheduleResponse
+import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringChatResponse
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -365,6 +364,135 @@ class RemoteDataSource @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getTestSchedule(
+        scheduleId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<TestScheduleResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getTestSchedule(begda, endda, scheduleId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getQuisionerSchedule(
+        scheduleId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<QuisionerScheduleResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getQuisionerSchedule(begda, endda, scheduleId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getTrainerSchedule(
+        parentId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<TrainerScheduleResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getTrainerSchedule(begda, endda, parentId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getRoomSchedule(
+        parentId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<RoomScheduleResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getRoomSchedule(begda, endda, parentId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    // --------------------------------------- Mentoring ----------------------------------------------
+
+    suspend fun getMentoring(
+        sessionId: String, id: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<MentoringResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getMentoring(begda, endda, id, sessionId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun postMentoringChat(
+        mentoringChatPost: MentoringChatPost
+    ): Flow<ApiResponse<SubmitResponse>> {
+        return flow {
+            try {
+                val response = apiService.postChatMentoring(mentoringChatPost)
+                val dataArray = response.message
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getMentoringChat(
+        mentoringId: String
+    ): Flow<ApiResponse<List<MentoringChatResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getChatMentoring(mentoringId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
 
     // --------------------------------------- Dropdown ----------------------------------------------
     suspend fun getCompetency(

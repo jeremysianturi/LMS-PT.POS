@@ -2,6 +2,7 @@ package com.pos.lms.core.domain.usecase.student
 
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
+import com.pos.lms.core.data.source.remote.post.MentoringChatPost
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -14,7 +15,9 @@ import okhttp3.RequestBody
 interface StudentUsecase {
 
     fun getStudent(parid: String): Flow<Resource<List<Student>>>
+
     fun getDetailSession(eventId: String): Flow<Resource<List<DetailSession>>>
+
     fun getSessionList(
         batchId: String,
         begda: String,
@@ -22,6 +25,7 @@ interface StudentUsecase {
     ): Flow<Resource<List<SessionList>>>
 
     fun getForumList(batchId: String, begda: String, endda: String): Flow<Resource<List<ForumList>>>
+
     fun createForum(
         businesCode: RequestBody,
         batch: RequestBody,
@@ -42,6 +46,7 @@ interface StudentUsecase {
     ): Flow<Resource<List<ForumComment>>>
 
     fun postForumComment(forumCommnetPost: ForumCommnetPost): Flow<Resource<Submit>>
+
     fun getInsightList(
         batchId: String,
         begda: String,
@@ -50,7 +55,50 @@ interface StudentUsecase {
 
     fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>>
 
-    fun getMateriSchedule(parentId :String , begda: String, endda: String) : Flow<Resource<List<MateriSchedule>>>
+    fun getMateriSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MateriSchedule>>>
+
+    fun getTestSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestSchedule>>>
+
+    fun getQuisionerSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerSchedule>>>
+
+    fun getTrainerSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TrainerSchedule>>>
+
+    fun getRoomSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<RoomSchedule>>>
+
+    fun getMentoring(
+        sessionId: String,
+        id: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<Mentoring>>>
+
+    fun getMentoringChat(
+        mentoringId: String,
+    ): Flow<Resource<List<MentoringChat>>>
+
+    fun postMentoringChat(
+        mentoringChatPost: MentoringChatPost,
+    ): Flow<Resource<Submit>>
 
 
 }

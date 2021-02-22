@@ -6,6 +6,7 @@ import com.pos.lms.core.data.source.local.room.LocalDataSource
 import com.pos.lms.core.data.source.remote.RemoteDataSource
 import com.pos.lms.core.data.source.remote.network.ApiResponse
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
+import com.pos.lms.core.data.source.remote.post.MentoringChatPost
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumCommentResponse
@@ -13,12 +14,14 @@ import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
-import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.MateriScheduleResponse
+import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringChatResponse
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import com.pos.lms.core.domain.model.*
 import com.pos.lms.core.domain.repository.IStudentRepository
+import com.pos.lms.core.helper.dataMapper.*
 import com.pos.lms.core.utils.AppExecutors
-import com.pos.lms.core.utils.dataMapper.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import okhttp3.MultipartBody
@@ -296,6 +299,178 @@ class StudentRepository @Inject constructor(
 
         }.asFlow()
 
+    override fun getTestSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestSchedule>>> =
+        object : NetworkBoundResource<List<TestSchedule>, List<TestScheduleResponse>>() {
+            override fun loadFromDB(): Flow<List<TestSchedule>> {
+                return localDataSource.getTestSchedule().map {
+                    DataMapperTestSchedule.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<TestSchedule>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<TestScheduleResponse>>> =
+                remoteDataSource.getTestSchedule(scheduleId, begda, endda)
+
+            override suspend fun saveCallResult(data: List<TestScheduleResponse>) {
+                val list = DataMapperTestSchedule.mapResponsesToEntities(data)
+                localDataSource.insertTestSchedule(list)
+            }
+
+        }.asFlow()
+
+
+    override fun getQuisionerSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerSchedule>>> =
+        object : NetworkBoundResource<List<QuisionerSchedule>, List<QuisionerScheduleResponse>>() {
+            override fun loadFromDB(): Flow<List<QuisionerSchedule>> {
+                return localDataSource.getQuisionerSchedule().map {
+                    DataMapperQuisionerSchedule.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<QuisionerSchedule>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<QuisionerScheduleResponse>>> =
+                remoteDataSource.getQuisionerSchedule(scheduleId, begda, endda)
+
+            override suspend fun saveCallResult(data: List<QuisionerScheduleResponse>) {
+                val list = DataMapperQuisionerSchedule.mapResponsesToEntities(data)
+                localDataSource.insertQuisionerSchedule(list)
+            }
+
+        }.asFlow()
+
+
+    override fun getTrainerSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TrainerSchedule>>> =
+        object : NetworkBoundResource<List<TrainerSchedule>, List<TrainerScheduleResponse>>() {
+            override fun loadFromDB(): Flow<List<TrainerSchedule>> {
+                return localDataSource.getTrainerSchedule().map {
+                    DataMapperTrainerSchedule.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<TrainerSchedule>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<TrainerScheduleResponse>>> =
+                remoteDataSource.getTrainerSchedule(parentId, begda, endda)
+
+            override suspend fun saveCallResult(data: List<TrainerScheduleResponse>) {
+                val list = DataMapperTrainerSchedule.mapResponsesToEntities(data)
+                localDataSource.insertTrainerSchedule(list)
+            }
+
+        }.asFlow()
+
+
+    override fun getRoomSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<RoomSchedule>>> =
+        object : NetworkBoundResource<List<RoomSchedule>, List<RoomScheduleResponse>>() {
+            override fun loadFromDB(): Flow<List<RoomSchedule>> {
+                return localDataSource.getRoomSchedule().map {
+                    DataMapperRoomSchedule.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<RoomSchedule>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<RoomScheduleResponse>>> =
+                remoteDataSource.getRoomSchedule(parentId, begda, endda)
+
+            override suspend fun saveCallResult(data: List<RoomScheduleResponse>) {
+                val list = DataMapperRoomSchedule.mapResponsesToEntities(data)
+                localDataSource.insertRoomSchedule(list)
+            }
+
+        }.asFlow()
+
+    override fun getMentoring(
+        sessionId: String,
+        id: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<Mentoring>>> =
+        object : NetworkBoundResource<List<Mentoring>, List<MentoringResponse>>() {
+            override fun loadFromDB(): Flow<List<Mentoring>> {
+                return localDataSource.getMentoringList().map {
+                    DataMapperMentoring.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<Mentoring>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<MentoringResponse>>> =
+                remoteDataSource.getMentoring(sessionId, id, begda, endda)
+
+            override suspend fun saveCallResult(data: List<MentoringResponse>) {
+                val list = DataMapperMentoring.mapResponsesToEntities(data)
+                localDataSource.insertMentoring(list)
+            }
+
+        }.asFlow()
+
+    override fun getMentoringChat(mentoringId: String): Flow<Resource<List<MentoringChat>>> =
+        object : NetworkBoundResource<List<MentoringChat>, List<MentoringChatResponse>>() {
+            override fun loadFromDB(): Flow<List<MentoringChat>> {
+                return localDataSource.getMentoringChat().map {
+                    DataMapperMentoringChat.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<MentoringChat>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<MentoringChatResponse>>> =
+                remoteDataSource.getMentoringChat(mentoringId)
+
+
+            override suspend fun saveCallResult(data: List<MentoringChatResponse>) {
+                val list = DataMapperMentoringChat.mapResponsesToEntities(data)
+                localDataSource.insertMentoringChat(list)
+            }
+
+        }.asFlow()
+
+    override fun postMentoringChat(mentoringChatPost: MentoringChatPost): Flow<Resource<Submit>> =
+        object : NetworkBoundResource<Submit, SubmitResponse>() {
+
+            override fun loadFromDB(): Flow<Submit> {
+                return localDataSource.postMentoringChat().map {
+                    DataMapperSubmit.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Submit?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<SubmitResponse>> =
+                remoteDataSource.postMentoringChat(mentoringChatPost)
+
+            override suspend fun saveCallResult(data: SubmitResponse) {
+                val list = DataMapperSubmit.mapResponsetoEntities(data)
+                localDataSource.insertMentoringChat(list)
+            }
+
+        }.asFlow()
 
 
 }

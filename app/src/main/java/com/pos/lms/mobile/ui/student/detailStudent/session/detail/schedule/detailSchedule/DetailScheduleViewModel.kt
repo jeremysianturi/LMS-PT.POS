@@ -14,4 +14,28 @@ class DetailScheduleViewModel @ViewModelInject constructor(private val studentUs
         endda: String
     ) = studentUsecase.getMateriSchedule(parentId, begda, endda).asLiveData()
 
+    fun getTest(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ) = studentUsecase.getTestSchedule(scheduleId, begda, endda).asLiveData()
+
+    fun getQuisioner(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ) = studentUsecase.getQuisionerSchedule(scheduleId, begda, endda).asLiveData()
+
+    fun getTrainer(
+        parentId: String,
+        begda: String,
+        endda: String
+    ) = studentUsecase.getTrainerSchedule(parentId, begda, endda).asLiveData()
+
+    fun getRoom(
+        parentId: String,
+        begda: String,
+        endda: String
+    ) = studentUsecase.getRoomSchedule(parentId, begda, endda).asLiveData()
+
 }

@@ -4,19 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pos.lms.core.domain.model.Schedule
+import com.pos.lms.core.domain.model.QuisionerSchedule
 import com.pos.lms.mobile.R
-import com.pos.lms.mobile.databinding.ItemListScheduleBinding
-import com.pos.lms.mobile.helper.DateTimeConverter
+import com.pos.lms.mobile.databinding.ItemListRoomBinding
 
 
 class QuisionerAdapter : RecyclerView.Adapter<QuisionerAdapter.UserViewHolder>() {
 
-    var onItemClick: ((Schedule) -> Unit)? = null
+    var onItemClick: ((QuisionerSchedule) -> Unit)? = null
 
-    private val mData = ArrayList<Schedule>()
+    private val mData = ArrayList<QuisionerSchedule>()
 
-    fun setData(newListData: List<Schedule>?) {
+    fun setData(newListData: List<QuisionerSchedule>?) {
         if (newListData == null) return
         mData.clear()
         mData.addAll(newListData)
@@ -28,7 +27,7 @@ class QuisionerAdapter : RecyclerView.Adapter<QuisionerAdapter.UserViewHolder>()
         viewType: Int
     ): QuisionerAdapter.UserViewHolder {
         val mView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_schedule, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_room, parent, false)
         return UserViewHolder(mView)
     }
 
@@ -39,20 +38,19 @@ class QuisionerAdapter : RecyclerView.Adapter<QuisionerAdapter.UserViewHolder>()
     }
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemListScheduleBinding.bind(itemView)
-        fun bind(data: Schedule) {
+        private val binding = ItemListRoomBinding.bind(itemView)
+        fun bind(data: QuisionerSchedule) {
 
-            // concat string
-            val startTime = data.beginTime?.let { DateTimeConverter.toHourMinutes(it) }
-            val endTime = data.endTime?.let { DateTimeConverter.toHourMinutes(it) }
-            val time = "$startTime - $endTime"
+            binding.tvMeetingRoom.text = data.templateCodeName
+            binding.tvBuilding.text = data.templateTypeName
+            binding.tvFloor.text = "0(hardcode)"
 
-            data.dayNumber.toString().also { binding.tvContentDayNum.text = it }
-            data.scheduleName.also { binding.tvTitle.text = it }
-            data.topic.also { binding.tvContentdesc.text = it }
-            data.scheduleDate?.let { DateTimeConverter.dateWithDayConverter(it) }
-                .also { binding.tvDate.text = it }
-            time.also { binding.tvTime.text = it }
+//            if (data.score == "" || data.score == null) {
+//                tvFloor.visibility = View.GONE
+//            } else {
+//                tvFloor.text = data.score
+//
+//            }
         }
 
         init {

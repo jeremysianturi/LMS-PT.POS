@@ -34,6 +34,12 @@ import com.pos.lms.core.data.source.local.room.dao.*
         InsightListEntity::class,
         ScheduleEntity::class,
         MateriScheduleEntity::class,
+        TestScheduleEntity::class,
+        QuisionerScheduleEntity::class,
+        TrainerScheduleEntity::class,
+        RoomScheduleEntity::class,
+        MentoringEntity::class,
+        MentoringChatEntity::class
     ],
     version = 1,
     exportSchema = false

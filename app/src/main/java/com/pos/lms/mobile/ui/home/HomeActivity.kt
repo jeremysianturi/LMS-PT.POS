@@ -46,7 +46,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding.content.learningProposal.setOnClickListener(this)
         binding.content.searchMateri.setOnClickListener(this)
 
-        supportActionBar?.title = "HOME"
+//        supportActionBar?.title = "HOME"
 
         setupObserver()
 

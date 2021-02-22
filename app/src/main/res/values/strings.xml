@@ -88,4 +88,6 @@
     <string name="txt_description_forum">Forum Description</string>
     <string name="txt_image">Image</string>
     <string name="txt_pilih_file">Pilih file</string>
+    <string name="type_here">Tulis disini...</string>
+    <string name="txt_chat">Chat</string>
 </resources>

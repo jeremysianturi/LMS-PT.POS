@@ -12,9 +12,9 @@ import com.pos.lms.core.data.source.remote.response.curiculum.CuriculumResponse
 import com.pos.lms.core.domain.model.Curiculum
 import com.pos.lms.core.domain.model.Submit
 import com.pos.lms.core.domain.repository.ICuriculumRepository
+import com.pos.lms.core.helper.dataMapper.DataMapperCuriculum
+import com.pos.lms.core.helper.dataMapper.DataMapperSubmit
 import com.pos.lms.core.utils.AppExecutors
-import com.pos.lms.core.utils.dataMapper.DataMapperCuriculum
-import com.pos.lms.core.utils.dataMapper.DataMapperSubmit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

@@ -9,7 +9,7 @@ import com.pos.lms.core.data.source.remote.response.materi.MateriResponse
 import com.pos.lms.core.domain.model.Materi
 import com.pos.lms.core.domain.repository.IMateriRepository
 import com.pos.lms.core.utils.AppExecutors
-import com.pos.lms.core.utils.dataMapper.DataMapperMateri
+import com.pos.lms.core.helper.dataMapper.DataMapperMateri
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

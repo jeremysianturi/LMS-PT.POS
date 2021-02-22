@@ -1,22 +1,22 @@
 package com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pos.lms.core.domain.model.Schedule
+import com.pos.lms.core.domain.model.TrainerSchedule
 import com.pos.lms.mobile.R
-import com.pos.lms.mobile.databinding.ItemListScheduleBinding
-import com.pos.lms.mobile.helper.DateTimeConverter
+import com.pos.lms.mobile.databinding.ItemListRoomBinding
 
 
 class TrainerAdapter : RecyclerView.Adapter<TrainerAdapter.UserViewHolder>() {
 
-    var onItemClick: ((Schedule) -> Unit)? = null
+    var onItemClick: ((TrainerSchedule) -> Unit)? = null
 
-    private val mData = ArrayList<Schedule>()
+    private val mData = ArrayList<TrainerSchedule>()
 
-    fun setData(newListData: List<Schedule>?) {
+    fun setData(newListData: List<TrainerSchedule>?) {
         if (newListData == null) return
         mData.clear()
         mData.addAll(newListData)
@@ -28,7 +28,7 @@ class TrainerAdapter : RecyclerView.Adapter<TrainerAdapter.UserViewHolder>() {
         viewType: Int
     ): TrainerAdapter.UserViewHolder {
         val mView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_schedule, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_room, parent, false)
         return UserViewHolder(mView)
     }
 
@@ -39,20 +39,30 @@ class TrainerAdapter : RecyclerView.Adapter<TrainerAdapter.UserViewHolder>() {
     }
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemListScheduleBinding.bind(itemView)
-        fun bind(data: Schedule) {
+        private val binding = ItemListRoomBinding.bind(itemView)
+        fun bind(data: TrainerSchedule) {
 
-            // concat string
-            val startTime = data.beginTime?.let { DateTimeConverter.toHourMinutes(it) }
-            val endTime = data.endTime?.let { DateTimeConverter.toHourMinutes(it) }
-            val time = "$startTime - $endTime"
+            var status = ""
 
-            data.dayNumber.toString().also { binding.tvContentDayNum.text = it }
-            data.scheduleName.also { binding.tvTitle.text = it }
-            data.topic.also { binding.tvContentdesc.text = it }
-            data.scheduleDate?.let { DateTimeConverter.dateWithDayConverter(it) }
-                .also { binding.tvDate.text = it }
-            time.also { binding.tvTime.text = it }
+            when (data.relation) {
+                "ST02" -> {
+                    status = "Approved"
+                    binding.tvBuilding.setTextColor(Color.GREEN)
+                }
+                "ST01" -> {
+                    status = "Not approved yet"
+                    binding.tvBuilding.setTextColor(Color.YELLOW)
+
+                }
+                else -> {
+                    status = " Disapproved"
+                    binding.tvBuilding.setTextColor(Color.RED)
+                }
+            }
+
+            binding.tvMeetingRoom.text = data.trainerName
+            binding.tvBuilding.text = status
+            binding.tvFloor.text = data.companyName
         }
 
         init {

@@ -1,9 +1,6 @@
 package com.pos.lms.core.data.source.remote.network
 
-import com.pos.lms.core.data.source.remote.post.CuriculumCreate
-import com.pos.lms.core.data.source.remote.post.CuriculumUpdate
-import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
-import com.pos.lms.core.data.source.remote.post.LoginPost
+import com.pos.lms.core.data.source.remote.post.*
 import com.pos.lms.core.data.source.remote.response.LoginResponse
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.data.source.remote.response.curiculum.ListCuriculumResponse
@@ -19,7 +16,9 @@ import com.pos.lms.core.data.source.remote.response.student.forum.ListForumRespo
 import com.pos.lms.core.data.source.remote.response.student.insight.ListInsightResponse
 import com.pos.lms.core.data.source.remote.response.student.session.ListDetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.ListSessionListResponse
-import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.ListMateriScheduleResponse
+import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.ListMentoringChatResponse
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.ListMentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ListScheduleResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -113,17 +112,17 @@ interface ApiService {
     @Multipart
     @POST("lms/api/forum")
     suspend fun createForum(
-        @Part("business_code") businessode : RequestBody,
-        @Part("batch") batchid : RequestBody,
-        @Part("owner") owner : RequestBody,
-        @Part("forum_title") forumTitle : RequestBody,
-        @Part("forum_text") forumText : RequestBody,
-        @Part("forum_type") forumType : RequestBody,
-        @Part("forum_image") forumImage : MultipartBody.Part,
-        @Part("forum_time") forumTime : RequestBody,
-        @Part("begin_date") beginDate : RequestBody,
-        @Part("end_date") endDate : RequestBody,
-        ): SubmitResponse
+        @Part("business_code") businessode: RequestBody,
+        @Part("batch") batchid: RequestBody,
+        @Part("owner") owner: RequestBody,
+        @Part("forum_title") forumTitle: RequestBody,
+        @Part("forum_text") forumText: RequestBody,
+        @Part("forum_type") forumType: RequestBody,
+        @Part("forum_image") forumImage: MultipartBody.Part,
+        @Part("forum_time") forumTime: RequestBody,
+        @Part("begin_date") beginDate: RequestBody,
+        @Part("end_date") endDate: RequestBody,
+    ): SubmitResponse
 
     // -> forum -> forum Comment
     @GET("lms/api/forumcomment")
@@ -159,13 +158,66 @@ interface ApiService {
         @Query("session[]") sessionId: String,
     ): ListScheduleResponse
 
-    // -> session -> schedule -> detail schedule
+    // -> session -> schedule -> detailschedule -> Materi
     @GET("lms/api/android/lmsrelation/schdl-mater?order[object_identifier]=DESC&relation=S003")
     suspend fun getMateriSchedule(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endda: String,
         @Query("parent_id") parentId: String,
     ): ListMateriScheduleResponse
+
+    // -> session -> schedule -> detailschedule -> Test
+    @GET("lms/api/android/relation-question?order[object_identifier]=DESC")
+    suspend fun getTestSchedule(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("schedule_id") scheduleId: String,
+    ): ListTestScheduleResponse
+
+    // -> session -> schedule -> detailschedule -> Quisioner
+    @GET("lms/api/android/relation-questioner?order[object_identifier]=DESC")
+    suspend fun getQuisionerSchedule(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("schedule_id") scheduleId: String,
+    ): ListQuisionerScheduleResponse
+
+    // -> session -> schedule -> detailschedule -> Trainer
+    @GET("lms/api/android/lmsrelation/schdl-trainr?order[object_identifier]=DESC&relation=ST02")
+    suspend fun getTrainerSchedule(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("parent_id") paerentId: String,
+    ): ListTrainerScheduleResponse
+
+    // -> session -> schedule -> detailschedule -> Room
+    @GET("lms/api/android/lmsrelation/schdl-rooms?order[object_identifier]=DESC&relation=S001")
+    suspend fun getRoomSchedule(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("parent_id") paerentId: String,
+    ): ListRoomScheduleResponse
+
+    // session -> schedule -> mentoring
+    @GET("lms/api/android/mentoring-participant/session?order[begin_date]=asc&fn_otype=PARTI")
+    suspend fun getMentoring(
+        @Query("fn_begin_date") begda: String,
+        @Query("fn_end_date") endda: String,
+        @Query("fn_id") id: String,
+        @Query("fn_session") paerentId: String,
+    ): ListMentoringResponse
+
+    // session -> schedule -> mentoring -> chat
+    @GET("lms/api/android/mentoring-chat?order[object_identifier]=desc")
+    suspend fun getChatMentoring(
+        @Query("fn_mentoring_id") mentoringId: String,
+    ): ListMentoringChatResponse
+
+    // session -> schedule -> mentoring -> chat
+    @POST("lms/api/mentoringchat")
+    suspend fun postChatMentoring(
+        @Body mentoringChatPost: MentoringChatPost
+    ): SubmitResponse
 
 
 }

@@ -2,6 +2,8 @@ package com.pos.lms.core.domain.repository
 
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
+import com.pos.lms.core.data.source.remote.post.MentoringChatPost
+import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -51,5 +53,50 @@ interface IStudentRepository {
 
     fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>>
 
-    fun getMateriSchedule(parentId :String , begda: String, endda: String) : Flow<Resource<List<MateriSchedule>>>
+    fun getMateriSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MateriSchedule>>>
+
+    fun getTestSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestSchedule>>>
+
+    fun getQuisionerSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerSchedule>>>
+
+    fun getTrainerSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TrainerSchedule>>>
+
+    fun getRoomSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<RoomSchedule>>>
+
+    // mentoring
+    fun getMentoring(
+        sessionId: String,
+        id: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<Mentoring>>>
+
+    fun getMentoringChat(
+        mentoringId: String,
+    ): Flow<Resource<List<MentoringChat>>>
+
+    fun postMentoringChat(
+        mentoringChatPost: MentoringChatPost,
+    ): Flow<Resource<Submit>>
+
 }

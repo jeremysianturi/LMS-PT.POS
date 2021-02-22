@@ -3,6 +3,7 @@ package com.pos.lms.core.domain.usecase.student
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.repository.StudentRepository
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
+import com.pos.lms.core.data.source.remote.post.MentoringChatPost
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -87,7 +88,50 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
         parentId: String,
         begda: String,
         endda: String
-    ): Flow<Resource<List<MateriSchedule>>>  = studentRepository.getMateriSchedule(parentId, begda, endda)
+    ): Flow<Resource<List<MateriSchedule>>> =
+        studentRepository.getMateriSchedule(parentId, begda, endda)
+
+    override fun getTestSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestSchedule>>> =
+        studentRepository.getTestSchedule(scheduleId, begda, endda)
+
+    override fun getQuisionerSchedule(
+        scheduleId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerSchedule>>> =
+        studentRepository.getQuisionerSchedule(scheduleId, begda, endda)
+
+    override fun getTrainerSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TrainerSchedule>>> =
+        studentRepository.getTrainerSchedule(parentId, begda, endda)
+
+    override fun getRoomSchedule(
+        parentId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<RoomSchedule>>> =
+        studentRepository.getRoomSchedule(parentId, begda, endda)
+
+    override fun getMentoring(
+        sessionId: String,
+        id: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<Mentoring>>> =
+        studentRepository.getMentoring(sessionId, id, begda, endda)
+
+    override fun getMentoringChat(mentoringId: String): Flow<Resource<List<MentoringChat>>> =
+        studentRepository.getMentoringChat(mentoringId)
+
+    override fun postMentoringChat(mentoringChatPost: MentoringChatPost): Flow<Resource<Submit>> =
+        studentRepository.postMentoringChat(mentoringChatPost)
 
 
 }
