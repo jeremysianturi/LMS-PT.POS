@@ -100,5 +100,10 @@ interface StudentUsecase {
         mentoringChatPost: MentoringChatPost,
     ): Flow<Resource<Submit>>
 
+    fun getMentoringDetail(
+        mentoringId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MentoringDetail>>>
 
 }

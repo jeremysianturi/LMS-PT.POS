@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.DetailSession
 import com.pos.lms.core.domain.model.Student
+import com.pos.lms.core.utils.PreferenceEntity
+import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ForumFragmentBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.student.detailStudent.forum.create.CreateForumActivity
 import com.pos.lms.mobile.ui.student.detailStudent.forum.detail.DetailForumActivity
+import com.pos.lms.mobile.ui.student.detailStudent.forum.update.UpdateForumActivity
 import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -34,6 +37,9 @@ class ForumFragment : Fragment() {
     private var _binding: ForumFragmentBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var mPreference: UserPreference
+    private lateinit var mPreferenceEntity: PreferenceEntity
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +50,9 @@ class ForumFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mPreference = UserPreference(requireActivity())
+        mPreferenceEntity = mPreference.getPref()
 
         val bundle = arguments
         var dataBundle: Student? = null
@@ -97,7 +106,7 @@ class ForumFragment : Fragment() {
                     is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
                     is Resource.Success -> {
                         binding.progressBar2.visibility = View.GONE
-                        adapter.setData(data.data)
+                        adapter.setData(data.data, mPreferenceEntity.username )
 //                        setupBatch(data.data)
 //                        setupSession(data.data)
                         Timber.tag(tag).d("observer_Forum_adapter ${data.data}")
@@ -178,6 +187,12 @@ class ForumFragment : Fragment() {
             adapter.onItemClick = { selectedData ->
                 val mIntent = Intent(requireContext(), DetailForumActivity::class.java)
                 mIntent.putExtra(DetailForumActivity.EXTRA_DATA, selectedData)
+                startActivity(mIntent)
+            }
+
+            adapter.onItemUpdateClick = {selectedData ->
+                val mIntent = Intent(requireContext(), UpdateForumActivity::class.java)
+                mIntent.putExtra(UpdateForumActivity.EXTRA_DATA, selectedData)
                 startActivity(mIntent)
             }
 

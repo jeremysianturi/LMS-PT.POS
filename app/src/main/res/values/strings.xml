@@ -84,10 +84,11 @@
     <string name="txt_add_new_comment">type here ...</string>
     <string name="txt_create_new_forum">Create New Forum</string>
     <string name="txt_buat_obrolan_baru_disini">Buat obrolan baru disini :)</string>
-    <string name="txt_forum_name">"Forum name "</string>
+    <string name="txt_forum_name">Forum name</string>
     <string name="txt_description_forum">Forum Description</string>
     <string name="txt_image">Image</string>
     <string name="txt_pilih_file">Pilih file</string>
     <string name="type_here">Tulis disini...</string>
     <string name="txt_chat">Chat</string>
+    <string name="txt_update_forum">Update Forum</string>
 </resources>

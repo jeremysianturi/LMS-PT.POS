@@ -3,7 +3,6 @@ package com.pos.lms.core.domain.repository
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
-import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -99,4 +98,13 @@ interface IStudentRepository {
         mentoringChatPost: MentoringChatPost,
     ): Flow<Resource<Submit>>
 
+    fun getAbsensi(
+        mentoringChatPost: MentoringChatPost,
+    ): Flow<Resource<Submit>>
+
+    fun getMentoringDetail(
+        mentoringId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MentoringDetail>>>
 }

@@ -35,8 +35,6 @@ class MentoringFragment : Fragment() {
     private var _binding: MentoringFragmentBinding? = null
     private val binding get() = _binding!!
 
-
-
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
 

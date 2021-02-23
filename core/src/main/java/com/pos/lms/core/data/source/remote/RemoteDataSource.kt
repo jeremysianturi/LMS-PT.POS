@@ -21,6 +21,7 @@ import com.pos.lms.core.data.source.remote.response.student.session.DetailSessio
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringChatResponse
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringDetailResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import kotlinx.coroutines.Dispatchers
@@ -457,6 +458,24 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getMentoringDetail(
+        mentoringId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<MentoringDetailResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getDetailMentoring(begda, endda, mentoringId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun postMentoringChat(
         mentoringChatPost: MentoringChatPost
     ): Flow<ApiResponse<SubmitResponse>> {
@@ -493,6 +512,24 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    // --------------------------------------- Absensi ----------------------------------------------
+    suspend fun getAbsensi(
+        parid: String, sessionId: String
+    ): Flow<ApiResponse<String>> {
+        return flow {
+            try {
+                val response = apiService.postAbsensi(parid,sessionId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 
     // --------------------------------------- Dropdown ----------------------------------------------
     suspend fun getCompetency(

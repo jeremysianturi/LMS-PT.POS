@@ -136,6 +136,13 @@ class LocalDataSource @Inject constructor(
     suspend fun insertMentoring(student: List<MentoringEntity>) =
         mStudentDao.insertMentoring(student)
 
+    // -> Session -> Mentoring -> Detail
+    fun getMentoringDetail(): Flow<List<MentoringDetailEntity>> =
+        mStudentDao.getMentoringDetail()
+
+    suspend fun insertMentoringDetail(student: List<MentoringDetailEntity>) =
+        mStudentDao.insertMentoringDetail(student)
+
     // -> Session -> Mentoring -> Chat
     fun getMentoringChat(): Flow<List<MentoringChatEntity>> =
         mStudentDao.getMentoringChat()
@@ -149,5 +156,13 @@ class LocalDataSource @Inject constructor(
 
     suspend fun insertMentoringChat(student: SubmitEntity) =
         mSubmitDao.insertSubmit(student)
+
+    // -> Absensi
+    fun getAbsensi(): Flow<List<AbsensiEntity>> =
+        mStudentDao.getAbsensi()
+
+    suspend fun insertAbsensi(student: List<AbsensiEntity>) =
+        mStudentDao.insertAbsesnsi(student)
+
 
 }

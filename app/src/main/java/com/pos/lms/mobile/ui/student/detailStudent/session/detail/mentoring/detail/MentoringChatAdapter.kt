@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pos.lms.core.domain.model.MentoringChat
 import com.pos.lms.mobile.R
-import com.pos.lms.mobile.databinding.ItemListChatBinding
+import com.pos.lms.mobile.databinding.ItemListChatLeftBinding
 
 
 class MentoringChatAdapter : RecyclerView.Adapter<MentoringChatAdapter.UserViewHolder>() {
@@ -27,7 +27,7 @@ class MentoringChatAdapter : RecyclerView.Adapter<MentoringChatAdapter.UserViewH
         viewType: Int
     ): MentoringChatAdapter.UserViewHolder {
         val mView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_chat, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_chat_left, parent, false)
         return UserViewHolder(mView)
     }
 
@@ -38,7 +38,7 @@ class MentoringChatAdapter : RecyclerView.Adapter<MentoringChatAdapter.UserViewH
     }
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemListChatBinding.bind(itemView)
+        private val binding = ItemListChatLeftBinding.bind(itemView)
         fun bind(data: MentoringChat) {
 
             binding.tvChat.text = data.chatText

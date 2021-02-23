@@ -39,7 +39,9 @@ import com.pos.lms.core.data.source.local.room.dao.*
         TrainerScheduleEntity::class,
         RoomScheduleEntity::class,
         MentoringEntity::class,
-        MentoringChatEntity::class
+        MentoringDetailEntity::class,
+        MentoringChatEntity::class,
+        AbsensiEntity::class
     ],
     version = 1,
     exportSchema = false

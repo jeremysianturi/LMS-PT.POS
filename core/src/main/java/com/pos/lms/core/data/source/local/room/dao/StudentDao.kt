@@ -99,4 +99,16 @@ interface StudentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMentoringChat(student: List<MentoringChatEntity>)
 
+    @Query("SELECT * FROM absensi")
+    fun getAbsensi(): Flow<List<AbsensiEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAbsesnsi(student: List<AbsensiEntity>)
+
+    @Query("SELECT * FROM mentoringDetail")
+    fun getMentoringDetail(): Flow<List<MentoringDetailEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertMentoringDetail(student: List<MentoringDetailEntity>)
+
 }

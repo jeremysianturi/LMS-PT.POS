@@ -12,10 +12,12 @@ import com.github.dhaval2404.form_validation.validation.FormValidator
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
 import com.pos.lms.core.domain.model.Mentoring
+import com.pos.lms.core.domain.model.MentoringDetail
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityDetailMentoringBinding
+import com.pos.lms.mobile.helper.CurrentDate
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
@@ -52,6 +54,7 @@ class DetailMentoringActivity : AppCompatActivity() {
         // metnhod
         buildRecycleView()
         setupObserver()
+        setupObserverDetail()
 
         // onclick
         binding.ivComment.setOnClickListener {
@@ -65,6 +68,43 @@ class DetailMentoringActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         actionbar?.title = "Detail Mentoring"
         actionbar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setupObserverDetail() {
+        val mentoringId = dataIntent?.mentoringId
+        val dateStart = CurrentDate.getToday()
+        val dateEnd = CurrentDate.getToday()
+
+        viewModel.getDetail(mentoringId.toString(), dateStart, dateEnd).observe(this, { data ->
+            if (data != null) {
+                when (data) {
+                    is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar2.visibility = View.GONE
+//                        adapter.setData(data.data)
+                        collectData(data.data)
+
+                    }
+                    is Resource.Error -> {
+                        val loginMessage = getString(R.string.something_wrong)
+                        binding.progressBar2.visibility = View.GONE
+                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+
+        })
+    }
+
+    private fun collectData(data: List<MentoringDetail>?) {
+        val datas = data?.get(0)
+
+        binding.contentDetail.tvContentTitle.text = datas?.mentoringTitle ?: ""
+        binding.contentDetail.tvContentTopic.text = datas?.mentoringTopic ?: ""
+        binding.contentDetail.tvContentDescription.text = datas?.mentoringDescription ?: ""
+        binding.contentDetail.tvContentLink.text = "- (harcode) "
+
     }
 
     private fun setupObserver() {

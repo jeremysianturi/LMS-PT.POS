@@ -15,5 +15,9 @@ class DetailMentoringViewModel @ViewModelInject constructor(private val studentU
 
     fun getChat(mentoringId: String) = studentUsecase.getMentoringChat(mentoringId).asLiveData()
 
-    fun postChat(mentoringPostChatPost: MentoringChatPost) = studentUsecase.postMentoringChat(mentoringPostChatPost).asLiveData()
+    fun postChat(mentoringPostChatPost: MentoringChatPost) =
+        studentUsecase.postMentoringChat(mentoringPostChatPost).asLiveData()
+
+    fun getDetail(mentoringId: String, begda: String, endda: String) =
+        studentUsecase.getMentoringDetail(mentoringId, begda, endda).asLiveData()
 }

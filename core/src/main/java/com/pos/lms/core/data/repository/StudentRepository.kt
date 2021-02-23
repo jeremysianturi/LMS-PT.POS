@@ -16,6 +16,7 @@ import com.pos.lms.core.data.source.remote.response.student.session.DetailSessio
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringChatResponse
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringDetailResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
 import com.pos.lms.core.domain.model.*
@@ -468,6 +469,36 @@ class StudentRepository @Inject constructor(
             override suspend fun saveCallResult(data: SubmitResponse) {
                 val list = DataMapperSubmit.mapResponsetoEntities(data)
                 localDataSource.insertMentoringChat(list)
+            }
+
+        }.asFlow()
+
+    override fun getAbsensi(mentoringChatPost: MentoringChatPost): Flow<Resource<Submit>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getMentoringDetail(
+        mentoringId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MentoringDetail>>> =
+        object : NetworkBoundResource<List<MentoringDetail>, List<MentoringDetailResponse>>() {
+            override fun loadFromDB(): Flow<List<MentoringDetail>> {
+                return localDataSource.getMentoringDetail().map {
+                    DataMapperMentoringDetail.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<MentoringDetail>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<MentoringDetailResponse>>> =
+                remoteDataSource.getMentoringDetail(mentoringId, begda, endda)
+
+
+            override suspend fun saveCallResult(data: List<MentoringDetailResponse>) {
+                val list = DataMapperMentoringDetail.mapResponsesToEntities(data)
+                localDataSource.insertMentoringDetail(list)
             }
 
         }.asFlow()

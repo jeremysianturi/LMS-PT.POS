@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_16dp"
+    android:layout_marginEnd="@dimen/margin_16dp"
+    android:layout_marginTop="@dimen/margin_8"
+    android:paddingBottom="@dimen/margin_8">
+
+
+    <TextView
+        android:id="@+id/tvTittle"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvContentTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTittle"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Judul mentoring" />
+
+    <TextView
+        android:id="@+id/tvTopic"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Topic : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentTitle" />
+
+    <TextView
+        android:id="@+id/tvContentTopic"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvTopic"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentTitle"
+        tools:text="Topic Mentoring" />
+
+    <TextView
+        android:id="@+id/tvDescription"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentTopic" />
+
+    <TextView
+        android:id="@+id/tvContentDescription"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentTopic"
+        tools:text="Topic Mentoring" />
+
+    <TextView
+        android:id="@+id/tvLink"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="External Link : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentDescription" />
+
+    <TextView
+        android:id="@+id/tvContentLink"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvLink"
+        app:layout_constraintTop_toBottomOf="@+id/tvContentDescription"
+        tools:text="Topic Mentoring" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

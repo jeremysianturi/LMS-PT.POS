@@ -16,8 +16,10 @@ import com.pos.lms.core.data.source.remote.response.student.forum.ListForumRespo
 import com.pos.lms.core.data.source.remote.response.student.insight.ListInsightResponse
 import com.pos.lms.core.data.source.remote.response.student.session.ListDetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.ListSessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.absensi.AbsensiResponse
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.ListMentoringChatResponse
+import com.pos.lms.core.data.source.remote.response.student.session.mentoring.ListMentoringDetailResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.ListMentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ListScheduleResponse
 import okhttp3.MultipartBody
@@ -62,7 +64,7 @@ interface ApiService {
 
 
     // curiculum
-    @GET("lms/api/android/curriculum-request?order[object_identifier]=DESC")
+    @GET("lms/api/android/curriculum-request?order[object_identifier]=DESC&per_page=9000000")
     suspend fun getCuriculum(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endDa: String,
@@ -80,7 +82,7 @@ interface ApiService {
 
 
     // materi
-    @GET("lms/api/android/materi?order[object_identifier]=DESC")
+    @GET("lms/api/android/materi?order[object_identifier]=DESC&per_page=9000000")
     suspend fun getMateri(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endDa: String,
@@ -94,7 +96,7 @@ interface ApiService {
 
 
     // -> insight
-    @GET("lms/api/forum?order[BEGDA]=asc&forum_type[]=2")
+    @GET("lms/api/forum?order[BEGDA]=asc&forum_type[]=2&per_page=9000000")
     suspend fun getListInsight(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endDa: String,
@@ -102,7 +104,7 @@ interface ApiService {
     ): ListInsightResponse
 
     // -> forum
-    @GET("lms/api/android/forum?order[object_identifier]=DESC&per_page=99&forum_type_id=1")
+    @GET("lms/api/android/forum?order[object_identifier]=DESC&per_page=9000000&forum_type_id=1")
     suspend fun getListForum(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endDa: String,
@@ -145,7 +147,7 @@ interface ApiService {
     ): ListDetailSessionResponse
 
     // -> list session
-    @GET("lms/api/android/session/learning-activity?order[begin_date]=ASC&limit&per_page=99")
+    @GET("lms/api/android/session/learning-activity?order[begin_date]=ASC&limit&per_page=9000000")
     suspend fun getSessionList(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endDa: String,
@@ -153,13 +155,13 @@ interface ApiService {
     ): ListSessionListResponse
 
     // -> session -> schedule
-    @GET("lms/api/schedule?order[BEGDA]=asc")
+    @GET("lms/api/schedule?order[BEGDA]=asc&per_page=9000000")
     suspend fun getSchedule(
         @Query("session[]") sessionId: String,
     ): ListScheduleResponse
 
     // -> session -> schedule -> detailschedule -> Materi
-    @GET("lms/api/android/lmsrelation/schdl-mater?order[object_identifier]=DESC&relation=S003")
+    @GET("lms/api/android/lmsrelation/schdl-mater?order[object_identifier]=DESC&relation=S003&per_page=9000000")
     suspend fun getMateriSchedule(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endda: String,
@@ -167,7 +169,7 @@ interface ApiService {
     ): ListMateriScheduleResponse
 
     // -> session -> schedule -> detailschedule -> Test
-    @GET("lms/api/android/relation-question?order[object_identifier]=DESC")
+    @GET("lms/api/android/relation-question?order[object_identifier]=DESC&per_page=9000000")
     suspend fun getTestSchedule(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endda: String,
@@ -175,7 +177,7 @@ interface ApiService {
     ): ListTestScheduleResponse
 
     // -> session -> schedule -> detailschedule -> Quisioner
-    @GET("lms/api/android/relation-questioner?order[object_identifier]=DESC")
+    @GET("lms/api/android/relation-questioner?order[object_identifier]=DESC&per_page=9000000")
     suspend fun getQuisionerSchedule(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endda: String,
@@ -207,17 +209,33 @@ interface ApiService {
         @Query("fn_session") paerentId: String,
     ): ListMentoringResponse
 
+    // session -> schedule -> Detail mentoring
+    @GET("lms/api/android/mentoring-participant/to-mentor?order[begin_date]=asc")
+    suspend fun getDetailMentoring(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("mentoring_id") mentoringid: String,
+    ): ListMentoringDetailResponse
+
     // session -> schedule -> mentoring -> chat
-    @GET("lms/api/android/mentoring-chat?order[object_identifier]=desc")
+    @GET("lms/api/android/mentoring-chat?order[object_identifier]=desc&per_page=9000000")
     suspend fun getChatMentoring(
         @Query("fn_mentoring_id") mentoringId: String,
     ): ListMentoringChatResponse
 
-    // session -> schedule -> mentoring -> chat
+    // session -> schedule -> mentoring -> Postchat
     @POST("lms/api/mentoringchat")
     suspend fun postChatMentoring(
         @Body mentoringChatPost: MentoringChatPost
     ): SubmitResponse
+
+    // session -> schedule -> mentoring -> chat
+    @FormUrlEncoded
+    @POST("lms/api/attendance/qr")
+    suspend fun postAbsensi(
+        @Field("parid") parid: String,
+        @Field("sesid") sesid: String
+    ): AbsensiResponse
 
 
 }

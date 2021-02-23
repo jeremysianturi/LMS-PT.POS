@@ -133,5 +133,12 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
     override fun postMentoringChat(mentoringChatPost: MentoringChatPost): Flow<Resource<Submit>> =
         studentRepository.postMentoringChat(mentoringChatPost)
 
+    override fun getMentoringDetail(
+        mentoringId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<MentoringDetail>>> =
+        studentRepository.getMentoringDetail(mentoringId, begda, endda)
+
 
 }
