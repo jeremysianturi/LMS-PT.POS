@@ -51,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+//        appDatabase.clearAllTables()
         // onclclick listener
         binding.btnLogin.setOnClickListener {
             if (validationField()) {

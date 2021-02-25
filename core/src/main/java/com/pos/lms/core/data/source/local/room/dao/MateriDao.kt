@@ -1,9 +1,6 @@
 package com.pos.lms.core.data.source.local.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -19,5 +16,14 @@ interface MateriDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMateri(materi: List<MateriEntity>)
+
+    @Query("DELETE FROM materi")
+    suspend fun deleteMateri()
+
+    @Transaction
+    suspend fun insertAndDeleteMateri(student: List<MateriEntity>) {
+        deleteMateri()
+        insertMateri(student)
+    }
 
 }

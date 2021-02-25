@@ -39,4 +39,7 @@ class DatabaseModule {
 
     @Provides
     fun provideStudentDao(database: LmsDataBase) : StudentDao = database.student()
+
+    @Provides
+    fun provideRoadmapDao(database: LmsDataBase) : RoadmapDao = database.roadmapDao()
 }

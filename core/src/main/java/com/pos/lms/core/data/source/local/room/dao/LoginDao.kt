@@ -1,9 +1,6 @@
 package com.pos.lms.core.data.source.local.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pos.lms.core.data.source.local.entity.ItemParIdEntity
 import com.pos.lms.core.data.source.local.entity.LoginEntity
 import kotlinx.coroutines.flow.Flow
@@ -26,4 +23,13 @@ interface LoginDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insetParId(parId : List<ItemParIdEntity>)
+
+    @Query("DELETE FROM ParId")
+    suspend fun deleteParId()
+
+    @Transaction
+    suspend fun insertAndDeleteStudent(student: List<ItemParIdEntity>) {
+        deleteParId()
+        insetParId(student)
+    }
 }

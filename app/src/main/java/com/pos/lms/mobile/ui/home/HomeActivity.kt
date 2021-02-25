@@ -65,10 +65,10 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 when (parid) {
                     is Resource.Loading -> binding.content.progressBar.visibility = View.VISIBLE
                     is Resource.Success -> {
+                        Timber.d("parIDHome : ${parid.data?.get(0)?.id}")
+
                         mPreferenceEntity.parId = parid.data?.get(0)?.id ?: 0
                         mPreference.setPref(mPreferenceEntity)
-
-
 
                         binding.content.progressBar.visibility = View.GONE
                     }

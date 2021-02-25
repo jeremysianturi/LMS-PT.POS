@@ -39,6 +39,10 @@ interface StudentUsecase {
         endda: RequestBody
     ): Flow<Resource<Submit>>
 
+    fun deteleForum(
+        oid: String
+    ): Flow<Resource<Submit>>
+
     fun getForumComment(
         forumId: String,
         begda: String,

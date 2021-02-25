@@ -59,6 +59,7 @@ class StudentRepository @Inject constructor(
             override suspend fun saveCallResult(data: List<StudentResponse>) {
                 val list = DataMapperStudent.mapResponsetoEntities(data)
                 localDataSource.insertStudent(list)
+
             }
 
         }.asFlow()
@@ -177,6 +178,29 @@ class StudentRepository @Inject constructor(
             }
 
         }.asFlow()
+
+    override fun deteleForum(oid: String): Flow<Resource<Submit>> =
+        object : NetworkBoundResource<Submit, SubmitResponse>() {
+
+            override fun loadFromDB(): Flow<Submit> {
+                return localDataSource.getSubmitResponse().map {
+                    DataMapperSubmit.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Submit?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<SubmitResponse>> =
+                remoteDataSource.deteleForum(oid)
+
+            override suspend fun saveCallResult(data: SubmitResponse) {
+                val list = DataMapperSubmit.mapResponsetoEntities(data)
+                localDataSource.insertSubmitResponse(list)
+            }
+
+        }.asFlow()
+
 
 
     override fun getForumComment(

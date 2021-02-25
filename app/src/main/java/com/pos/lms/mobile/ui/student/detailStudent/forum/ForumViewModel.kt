@@ -10,4 +10,6 @@ class ForumViewModel @ViewModelInject constructor(private val studentUsecase: St
     fun getDetailSession(eventId: String) = studentUsecase.getDetailSession(eventId).asLiveData()
 
     fun getForumList(batchId : String, begda :String, endda : String) = studentUsecase.getForumList(batchId, begda, endda).asLiveData()
+
+    fun deleteForum(objectIdentifier  :String) = studentUsecase.deteleForum(objectIdentifier).asLiveData()
 }

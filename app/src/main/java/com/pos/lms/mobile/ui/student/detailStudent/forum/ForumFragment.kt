@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.DetailSession
+import com.pos.lms.core.domain.model.ForumList
 import com.pos.lms.core.domain.model.Student
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
@@ -39,6 +40,7 @@ class ForumFragment : Fragment() {
 
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
+    private var dataBundle : Student? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,7 +57,7 @@ class ForumFragment : Fragment() {
         mPreferenceEntity = mPreference.getPref()
 
         val bundle = arguments
-        var dataBundle: Student? = null
+//        dataBundle: Student? = null
 
         if (bundle != null) {
             dataBundle = bundle.getParcelable(SessionFragment.EXTRA_DATA) as Student?
@@ -67,17 +69,40 @@ class ForumFragment : Fragment() {
             startActivity(mIntent)
         }
 
+        // method
         buildRecycleView()
         setupObserver(dataBundle)
+        setupObserverListForum()
+
+    }
+
+    private fun setupObserverDeleteForum(selectedData: ForumList) {
+
+        viewModel.deleteForum(selectedData.objectIdentifier)
+            .observe(viewLifecycleOwner, { data ->
+                if (data != null) {
+                    when (data) {
+                        is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
+                        is Resource.Success -> {
+                            binding.progressBar2.visibility = View.GONE
+                            setupObserverListForum()
+                            Timber.tag(tag).d("Delete Forum ${data.data}")
+                        }
+                        is Resource.Error -> {
+                            val loginMessage = getString(R.string.something_wrong)
+                            binding.progressBar2.visibility = View.GONE
+                            Toast.makeText(requireContext(), loginMessage, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+
+                }
+            })
 
     }
 
     private fun setupObserver(bundle: Student?) {
         val eventId = bundle?.eventId.toString()
-        val batchId = bundle?.batch.toString()
-
-        val begindate = CurrentDate.getToday()
-        val enddate = CurrentDate.getToday()
 
         viewModel.getDetailSession(eventId).observe(viewLifecycleOwner, { data ->
             if (data != null) {
@@ -100,28 +125,10 @@ class ForumFragment : Fragment() {
             }
         })
 
-        viewModel.getForumList(batchId, begindate, enddate).observe(viewLifecycleOwner, { data ->
-            if (data != null) {
-                when (data) {
-                    is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
-                    is Resource.Success -> {
-                        binding.progressBar2.visibility = View.GONE
-                        adapter.setData(data.data, mPreferenceEntity.username )
-//                        setupBatch(data.data)
-//                        setupSession(data.data)
-                        Timber.tag(tag).d("observer_Forum_adapter ${data.data}")
-                    }
-                    is Resource.Error -> {
-                        val loginMessage = getString(R.string.something_wrong)
-                        binding.progressBar2.visibility = View.GONE
-                        Toast.makeText(requireContext(), loginMessage, Toast.LENGTH_SHORT).show()
-                    }
-                }
 
-            }
-        })
 
     }
+
 
     private fun setupSession(sessionData: List<DetailSession>?) {
         binding.apply {
@@ -148,6 +155,35 @@ class ForumFragment : Fragment() {
 //                tvContentEndDate.text = enda
             }
         }
+    }
+
+    private fun setupObserverListForum () {
+        val batchId = dataBundle?.batch.toString()
+
+        val begindate = CurrentDate.getToday()
+        val enddate = CurrentDate.getToday()
+
+        viewModel.getForumList(batchId, begindate, enddate).observe(viewLifecycleOwner, { data ->
+            if (data != null) {
+                when (data) {
+                    is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar2.visibility = View.GONE
+                        adapter.setData(data.data, mPreferenceEntity.username)
+//                        setupBatch(data.data)
+//                        setupSession(data.data)
+                        Timber.tag(tag).d("observer_Forum_adapter ${data.data}")
+                    }
+                    is Resource.Error -> {
+                        val loginMessage = getString(R.string.something_wrong)
+                        binding.progressBar2.visibility = View.GONE
+                        Toast.makeText(requireContext(), loginMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+        })
+
     }
 
     private fun setupBatch(datas: List<DetailSession>?) {
@@ -183,17 +219,21 @@ class ForumFragment : Fragment() {
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             rvForum.adapter = adapter
 
-
+            // onClick
             adapter.onItemClick = { selectedData ->
                 val mIntent = Intent(requireContext(), DetailForumActivity::class.java)
                 mIntent.putExtra(DetailForumActivity.EXTRA_DATA, selectedData)
                 startActivity(mIntent)
             }
 
-            adapter.onItemUpdateClick = {selectedData ->
+            adapter.onItemUpdateClick = { selectedData ->
                 val mIntent = Intent(requireContext(), UpdateForumActivity::class.java)
                 mIntent.putExtra(UpdateForumActivity.EXTRA_DATA, selectedData)
                 startActivity(mIntent)
+            }
+
+            adapter.onItemDeleteClick = { selectedData ->
+                setupObserverDeleteForum(selectedData)
             }
 
         }

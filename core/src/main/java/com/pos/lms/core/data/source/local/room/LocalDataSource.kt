@@ -9,6 +9,7 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
+import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
 import com.pos.lms.core.data.source.local.room.dao.*
 import kotlinx.coroutines.flow.Flow
@@ -26,14 +27,16 @@ class LocalDataSource @Inject constructor(
     private val mCuriculumDao: CuriculumnDao,
     private val mDropDownDao: DropDownDao,
     private val mMateriDao: MateriDao,
-    private val mStudentDao: StudentDao
+    private val mStudentDao: StudentDao,
+    private val mRoadmapDao: RoadmapDao
+
 ) {
 
     fun getLogin(): Flow<LoginEntity> = mLoginDao.getLogin()
     suspend fun insertLogin(login: LoginEntity) = mLoginDao.insetLogin(login)
 
     fun getParId(): Flow<List<ItemParIdEntity>> = mLoginDao.getParId()
-    suspend fun insertParId(parId: List<ItemParIdEntity>) = mLoginDao.insetParId(parId)
+    suspend fun insertParId(parId: List<ItemParIdEntity>) = mLoginDao.insertAndDeleteStudent(parId)
 
     // dropdown
     fun getCompetency(): Flow<List<CompetencyEntity>> = mDropDownDao.getCompetency()
@@ -59,16 +62,17 @@ class LocalDataSource @Inject constructor(
 
     fun getSubmitResponse(): Flow<SubmitEntity> = mSubmitDao.getSubmit()
     suspend fun insertSubmitResponse(submitEntity: SubmitEntity) =
-        mSubmitDao.insertSubmit(submitEntity)
+        mSubmitDao.insertAndDeleteMentoringChat(submitEntity)
 
     // materi
     fun getMateri(): Flow<List<MateriEntity>> = mMateriDao.getMateri()
     suspend fun insertMateri(materi: List<MateriEntity>) =
-        mMateriDao.insertMateri(materi)
+        mMateriDao.insertAndDeleteMateri(materi)
 
     // student
     fun getStudent(): Flow<List<StudentEntity>> = mStudentDao.getStudent()
-    suspend fun insertStudent(student: List<StudentEntity>) = mStudentDao.insertStudent(student)
+    suspend fun insertStudent(student: List<StudentEntity>) =
+        mStudentDao.insertAndDeleteStudent(student)
 
     //    -> Detail session
     fun getDetailSession(): Flow<List<DetailSessionEntity>> = mStudentDao.getDetailSessiont()
@@ -80,82 +84,82 @@ class LocalDataSource @Inject constructor(
     //    -> sessionList
     fun getSessionList(): Flow<List<SessionListEntity>> = mStudentDao.getSessionList()
     suspend fun insertSessionList(student: List<SessionListEntity>) =
-        mStudentDao.insertSessionList(student)
+        mStudentDao.insertAndDeleteSessionList(student)
 
     //    -> forumList
     fun getForumList(): Flow<List<ForumListEntity>> = mStudentDao.getForumList()
     suspend fun insertForumList(student: List<ForumListEntity>) =
-        mStudentDao.insertForumList(student)
+        mStudentDao.insertAndDeleteForumList(student)
 
     // -> forumList -> ForumComment
     fun getForumComment(): Flow<List<ForumCommentEntity>> = mStudentDao.getForumComment()
     suspend fun insertForumComment(student: List<ForumCommentEntity>) =
-        mStudentDao.insertForumComment(student)
+        mStudentDao.insertAndDeleteForumComment(student)
 
     //    -> InsightList
     fun getInsightList(): Flow<List<InsightListEntity>> = mStudentDao.getInsightList()
     suspend fun insertInsightList(student: List<InsightListEntity>) =
-        mStudentDao.insertInsightList(student)//
+        mStudentDao.insertAndDeleteInsightList(student)//
 
     // -> ScheduleList
     fun getSchedule(): Flow<List<ScheduleEntity>> = mStudentDao.getSchedule()
     suspend fun insertSchedule(student: List<ScheduleEntity>) =
-        mStudentDao.insertSchedule(student)
+        mStudentDao.insertAndDeleteSchedule(student)
 
     // -> ScheduleList -> DetailSchedule -> Materi
     fun getMateriSchedule(): Flow<List<MateriScheduleEntity>> = mStudentDao.getMateriSchedule()
     suspend fun insertMateriSchedule(student: List<MateriScheduleEntity>) =
-        mStudentDao.insertMateriSchedule(student)
+        mStudentDao.insertAndDeleteScheduleMateri(student)
 
     // -> ScheduleList -> DetailSchedule -> Test
     fun getTestSchedule(): Flow<List<TestScheduleEntity>> = mStudentDao.getTestchedule()
     suspend fun insertTestSchedule(student: List<TestScheduleEntity>) =
-        mStudentDao.insertTestSchedule(student)
+        mStudentDao.insertAndDeleteTestSchedule(student)
 
     // -> ScheduleList -> DetailSchedule -> Room
     fun getRoomSchedule(): Flow<List<RoomScheduleEntity>> = mStudentDao.getRoomShedule()
     suspend fun insertRoomSchedule(student: List<RoomScheduleEntity>) =
-        mStudentDao.insertRoomSchedule(student)
+        mStudentDao.insertAndDeleteRoomSchedule(student)
 
     // -> ScheduleList -> DetailSchedule -> Trainer
     fun getTrainerSchedule(): Flow<List<TrainerScheduleEntity>> = mStudentDao.getTrainerShedule()
     suspend fun insertTrainerSchedule(student: List<TrainerScheduleEntity>) =
-        mStudentDao.insertTrainerSchedule(student)
+        mStudentDao.insertAndDeleteTrainerSchedule(student)
 
     // -> ScheduleList -> DetailSchedule -> Quisioner
     fun getQuisionerSchedule(): Flow<List<QuisionerScheduleEntity>> =
         mStudentDao.getQuisionerchedule()
 
     suspend fun insertQuisionerSchedule(student: List<QuisionerScheduleEntity>) =
-        mStudentDao.insertQuisionerSchedule(student)
+        mStudentDao.insertAndDeleteQuisionerSchedule(student)
 
     // -> Session -> Mentoring
     fun getMentoringList(): Flow<List<MentoringEntity>> =
         mStudentDao.getMentoring()
 
     suspend fun insertMentoring(student: List<MentoringEntity>) =
-        mStudentDao.insertMentoring(student)
+        mStudentDao.insertAndDeleteMentoring(student)
 
     // -> Session -> Mentoring -> Detail
     fun getMentoringDetail(): Flow<List<MentoringDetailEntity>> =
         mStudentDao.getMentoringDetail()
 
     suspend fun insertMentoringDetail(student: List<MentoringDetailEntity>) =
-        mStudentDao.insertMentoringDetail(student)
+        mStudentDao.insertAndDeleteMentoringDetail(student)
 
     // -> Session -> Mentoring -> Chat
     fun getMentoringChat(): Flow<List<MentoringChatEntity>> =
         mStudentDao.getMentoringChat()
 
     suspend fun insertMentoringChat(student: List<MentoringChatEntity>) =
-        mStudentDao.insertMentoringChat(student)
+        mStudentDao.insertAndDeleteMentoringChat(student)
 
     // -> Session -> Mentoring -> Post Chat
     fun postMentoringChat(): Flow<SubmitEntity> =
         mSubmitDao.getSubmit()
 
     suspend fun insertMentoringChat(student: SubmitEntity) =
-        mSubmitDao.insertSubmit(student)
+        mSubmitDao.insertAndDeleteMentoringChat(student)
 
     // -> Absensi
     fun getAbsensi(): Flow<List<AbsensiEntity>> =
@@ -164,5 +168,42 @@ class LocalDataSource @Inject constructor(
     suspend fun insertAbsensi(student: List<AbsensiEntity>) =
         mStudentDao.insertAbsesnsi(student)
 
+
+    //    --------- ROADMAP ------------
+
+    // eventRoadmap
+    fun getEventRoadmap(): Flow<List<EventRoadmapEntity>> = mRoadmapDao.getEventRoadmap()
+    suspend fun insertAndDeleteEventRoadmap(data: List<EventRoadmapEntity>) =
+        mRoadmapDao.insertAndDeleteEventRoadmap(data)
+
+    // ECP Rotasi
+    fun getECPRotasi(): Flow<List<ECPRotasiEntity>> = mRoadmapDao.getECPRotasi()
+    suspend fun insertAndDeleteECPRotasi(data: List<ECPRotasiEntity>) =
+        mRoadmapDao.insertAndDeleteECPRotasi(data)
+
+    // ECP Promosi
+    fun getECPPromosi(): Flow<List<ECPPromosiEntity>> = mRoadmapDao.getECPPromosi()
+    suspend fun insertAndDeleteECPPromosi(data: List<ECPPromosiEntity>) =
+        mRoadmapDao.insertAndDeleteECPPromosi(data)
+
+    // MCP Rotasi
+    fun getMCPRotasi(): Flow<List<MCPRotasiEntity>> = mRoadmapDao.getMCPRotasi()
+    suspend fun insertAndDeleteMCPRotasi(data: List<MCPRotasiEntity>) =
+        mRoadmapDao.insertAndDeleteMCPRotasi(data)
+
+    // MCP Promosi
+    fun getMCPPromosi(): Flow<List<MCPPromosiEntity>> = mRoadmapDao.getMCPPromosi()
+    suspend fun insertAndDeleteMCPPromosi(data: List<MCPPromosiEntity>) =
+        mRoadmapDao.insertAndDeleteMCPPromosi(data)
+
+    // SCP Rotasi
+    fun getSCPRotasi(): Flow<List<SCPRotasiEntity>> = mRoadmapDao.getSCPRotasi()
+    suspend fun insertAndDeleteSCPRotasi(data: List<SCPRotasiEntity>) =
+        mRoadmapDao.insertAndDeleteSCPRotasi(data)
+
+    // SCP Promosi
+    fun getSCPPromosi(): Flow<List<SCPPromosiEntity>> = mRoadmapDao.getSCPPromosi()
+    suspend fun insertAndDeleteSCPPromosi(data: List<SCPPromosiEntity>) =
+        mRoadmapDao.insertAndDeleteSCPPromosi(data)
 
 }

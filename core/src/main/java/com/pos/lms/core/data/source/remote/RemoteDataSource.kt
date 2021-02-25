@@ -1,5 +1,6 @@
 package com.pos.lms.core.data.source.remote
 
+import com.pos.lms.core.data.source.remote.network.ApiITMS
 import com.pos.lms.core.data.source.remote.network.ApiLogin
 import com.pos.lms.core.data.source.remote.network.ApiResponse
 import com.pos.lms.core.data.source.remote.network.ApiService
@@ -13,6 +14,8 @@ import com.pos.lms.core.data.source.remote.response.dropdown.PLResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.TypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.MateriResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
+import com.pos.lms.core.data.source.remote.response.roadmap.ECPResponse
+import com.pos.lms.core.data.source.remote.response.roadmap.EventRoadmapResponse
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumCommentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
@@ -42,7 +45,8 @@ import javax.inject.Singleton
 @Singleton
 class RemoteDataSource @Inject constructor(
     private val apiService: ApiService,
-    private val apiLogin: ApiLogin
+    private val apiLogin: ApiLogin,
+    private val apiITMS: ApiITMS
 ) {
 
     private val tag = RemoteDataSource::class.java.simpleName.toString()
@@ -148,6 +152,153 @@ class RemoteDataSource @Inject constructor(
         return flow {
             try {
                 val response = apiService.getMateri(begda, endda)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    // --------------------------------------- roadmap ----------------------------------------------
+
+    suspend fun getEventRoadmap(
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<EventRoadmapResponse>>> {
+        return flow {
+            try {
+                val response = apiITMS.eventRoadmap(begda, endda)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getECPRotasi(
+        eventCode: String,
+        personalNumber: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ECPResponse>>> {
+        return flow {
+            try {
+                val response = apiITMS.ecpRotasi(begda, endda, eventCode, personalNumber)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getECPPromosi(
+        eventCode: String,
+        personalNumber: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ECPResponse>>> {
+        return flow {
+            try {
+                val response = apiITMS.ecpPromosi(begda, endda, eventCode, personalNumber)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getMCPRotasi(
+        eventCode: String,
+        personalNumber: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ECPResponse>>> {
+        return flow {
+            try {
+                val response = apiITMS.mcpRotasi(begda, endda, eventCode, personalNumber)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getMCPPromosi(
+        eventCode: String,
+        personalNumber: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ECPResponse>>> {
+        return flow {
+            try {
+                val response = apiITMS.mcpPromosi(begda, endda, eventCode, personalNumber)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getSCPRotasi(
+        eventCode: String,
+        personalNumber: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ECPResponse>>> {
+        return flow {
+            try {
+                val response = apiITMS.scpRotasi(begda, endda, eventCode, personalNumber)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getSCPPromosi(
+        eventCode: String,
+        personalNumber: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<ECPResponse>>> {
+        return flow {
+            try {
+                val response = apiITMS.scpPromosi(begda, endda, eventCode, personalNumber)
                 val dataArray = response.data
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))
@@ -271,6 +422,24 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun deteleForum(oid: String): Flow<ApiResponse<SubmitResponse>> {
+        //get data from remote APi
+        return flow {
+            try {
+                val response = apiService.deleteForum(oid)
+                val data = response.message
+                if (data.isEmpty()) {
+                    emit(ApiResponse.Empty)
+                } else {
+                    emit(ApiResponse.Success(response))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    }
+
     suspend fun getForumComment(
         forumId: String,
         begda: String,
@@ -308,7 +477,6 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
 
     }
-
 
     suspend fun getInsightList(
         batchId: String,
@@ -518,7 +686,7 @@ class RemoteDataSource @Inject constructor(
     ): Flow<ApiResponse<String>> {
         return flow {
             try {
-                val response = apiService.postAbsensi(parid,sessionId)
+                val response = apiService.postAbsensi(parid, sessionId)
                 val dataArray = response.data
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))

@@ -8,6 +8,8 @@ import com.pos.lms.core.domain.usecase.login.LoginInteractor
 import com.pos.lms.core.domain.usecase.login.LoginUsecase
 import com.pos.lms.core.domain.usecase.materi.MateriInteractor
 import com.pos.lms.core.domain.usecase.materi.MateriUsecase
+import com.pos.lms.core.domain.usecase.roadmap.RoadmapInteractor
+import com.pos.lms.core.domain.usecase.roadmap.RoadmapUsecase
 import com.pos.lms.core.domain.usecase.student.StudentInteractor
 import com.pos.lms.core.domain.usecase.student.StudentUsecase
 import dagger.Binds
@@ -37,5 +39,8 @@ abstract class AppModule {
 
     @Binds
     abstract fun provideStudentUseCase(studentInteractor: StudentInteractor) : StudentUsecase
+
+    @Binds
+    abstract fun provideRoadmapUseCase(roadmapInteractor: RoadmapInteractor) : RoadmapUsecase
 
 }

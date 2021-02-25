@@ -1,9 +1,6 @@
 package com.pos.lms.core.data.source.local.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pos.lms.core.data.source.local.entity.SubmitEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -20,5 +17,14 @@ interface SubmitDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSubmit(submit : SubmitEntity)
+
+    @Query("DELETE FROM submit")
+    suspend fun deleteSubmit()
+
+    @Transaction
+    suspend fun insertAndDeleteMentoringChat(student: SubmitEntity) {
+        deleteSubmit()
+        insertSubmit(student)
+    }
 
 }

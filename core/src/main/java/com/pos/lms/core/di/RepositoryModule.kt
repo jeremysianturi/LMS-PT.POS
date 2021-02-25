@@ -26,4 +26,7 @@ abstract class RepositoryModule {
     @Binds
     abstract fun provideStudentRepository(studentRepository: StudentRepository) : IStudentRepository
 
+    @Binds
+    abstract fun provideRoadmapRepository(roadmapRepository: RoadmapRepository) : IRoadmapRepository
+
 }

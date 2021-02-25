@@ -62,6 +62,9 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
             endda
         )
 
+    override fun deteleForum(oid: String): Flow<Resource<Submit>> =
+        studentRepository.deteleForum(oid)
+
 
     override fun getForumComment(
         forumId: String,

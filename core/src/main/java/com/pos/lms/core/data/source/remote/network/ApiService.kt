@@ -126,6 +126,11 @@ interface ApiService {
         @Part("end_date") endDate: RequestBody,
     ): SubmitResponse
 
+    @POST("lms/api/forum")
+    suspend fun deleteForum(
+        @Query("object_identifier") oid: String
+    ): SubmitResponse
+
     // -> forum -> forum Comment
     @GET("lms/api/forumcomment")
     suspend fun getForumComment(
@@ -138,7 +143,6 @@ interface ApiService {
     suspend fun postForumComment(
         @Body forumCommnetPost: ForumCommnetPost
     ): SubmitResponse
-
 
     // -> session
     @GET("lms/api/android/session?per_page=10")

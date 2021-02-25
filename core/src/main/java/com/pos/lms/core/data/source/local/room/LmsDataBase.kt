@@ -11,6 +11,7 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
+import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
 import com.pos.lms.core.data.source.local.room.dao.*
 
@@ -41,9 +42,16 @@ import com.pos.lms.core.data.source.local.room.dao.*
         MentoringEntity::class,
         MentoringDetailEntity::class,
         MentoringChatEntity::class,
-        AbsensiEntity::class
+        AbsensiEntity::class,
+        EventRoadmapEntity::class,
+        ECPPromosiEntity::class,
+        ECPRotasiEntity::class,
+        MCPPromosiEntity::class,
+        MCPRotasiEntity::class,
+        SCPPromosiEntity::class,
+        SCPRotasiEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class LmsDataBase : RoomDatabase() {
@@ -57,6 +65,8 @@ abstract class LmsDataBase : RoomDatabase() {
     abstract fun submit(): SubmitDao
 
     abstract fun materi(): MateriDao
+
+    abstract fun roadmapDao(): RoadmapDao
 
     abstract fun student(): StudentDao
 

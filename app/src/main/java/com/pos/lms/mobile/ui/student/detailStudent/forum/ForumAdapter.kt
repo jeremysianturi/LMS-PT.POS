@@ -17,7 +17,7 @@ class ForumAdapter : RecyclerView.Adapter<ForumAdapter.UserViewHolder>() {
     var onItemDeleteClick: ((ForumList) -> Unit)? = null
 
     private val mData = ArrayList<ForumList>()
-    private var mOwner : String = ""
+    private var mOwner: String = ""
 
     fun setData(newListData: List<ForumList>?, username: String?) {
         if (newListData == null) return
@@ -45,7 +45,9 @@ class ForumAdapter : RecyclerView.Adapter<ForumAdapter.UserViewHolder>() {
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemListForumBinding.bind(itemView)
         fun bind(data: ForumList) {
+
             // concat string
+
 //            binding.tvTitleItem.text = data.sessionName
 //            binding.tvContent.text = data.activityName
             binding.tvTittle.text = data.forumTitle
