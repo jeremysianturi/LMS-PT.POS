@@ -35,7 +35,7 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
     private var binding: ActivityVideoPlayerBinding? = null
 
     private lateinit var simpleExoplayer: SimpleExoPlayer
-    private var playbackPosition: Long = 0
+    private var playbackPosition: Long = 108000
 
     private var mp4Url: String? = ""
     private lateinit var mPreference: UserPreference
@@ -68,8 +68,9 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 
         val materiId = dataIntent?.materiTypeId ?: 0
 
+//        val videoUrl = dataIntent?.address
         val videoUrl =
-            "https://pos-lms.digitalevent.id/lms/api/materistream?materi_id=$materiId&token=$token"
+            "https://ankylosaurus.digitalevent.id/materi/1613016690Paking%20Tutorial%20Reguler%2C%20Pecah%20Belah%20dan%20Cairan.mp4?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nhbOhRFD52OnMwQaRr3qkfaYR%2F20210226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210226T031951Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Signature=7229d7c572f8f7e45ac92c1ef303d92700819e500dc027067c606aee643d0fef"
 
         mp4Url = videoUrl
         Log.d(TAG, "urlVideo : $mp4Url")
@@ -94,6 +95,11 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 //                }
 //            }
 //        }
+
+        //setup Actionbar and navigasi up
+        val actionbar = supportActionBar
+        actionbar?.title = "Video Materi"
+        actionbar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
@@ -150,5 +156,11 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         else if (playbackState == Player.STATE_READY || playbackState == Player.STATE_ENDED)
             binding?.progressBar?.visibility = View.INVISIBLE
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
 
 }

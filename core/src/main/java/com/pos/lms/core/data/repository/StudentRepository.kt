@@ -1,6 +1,7 @@
 package com.pos.lms.core.data.repository
 
 import com.pos.lms.core.data.NetworkBoundResource
+import com.pos.lms.core.data.NetworkBoundResourceWithDeleteLocalData
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.local.room.LocalDataSource
 import com.pos.lms.core.data.source.remote.RemoteDataSource
@@ -42,7 +43,7 @@ class StudentRepository @Inject constructor(
 ) : IStudentRepository {
 
     override fun getStudent(parId: String): Flow<Resource<List<Student>>> =
-        object : NetworkBoundResource<List<Student>, List<StudentResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<Student>, List<StudentResponse>>() {
 
             override fun loadFromDB(): Flow<List<Student>> {
                 return localDataSource.getStudent().map {
@@ -60,6 +61,10 @@ class StudentRepository @Inject constructor(
                 val list = DataMapperStudent.mapResponsetoEntities(data)
                 localDataSource.insertStudent(list)
 
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteStudent()
             }
 
         }.asFlow()
@@ -200,7 +205,6 @@ class StudentRepository @Inject constructor(
             }
 
         }.asFlow()
-
 
 
     override fun getForumComment(
@@ -374,6 +378,97 @@ class StudentRepository @Inject constructor(
             }
 
         }.asFlow()
+
+    override fun getQuisionerAnswer(
+        quisionerId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerAnswer>>> =
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<QuisionerAnswer>, List<QuisionerAnswerResponse>>() {
+            override fun loadFromDB(): Flow<List<QuisionerAnswer>> {
+                return localDataSource.getQuisionerAnswer().map {
+                    DataMapperQuisionerAnswer.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<QuisionerAnswer>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<QuisionerAnswerResponse>>> =
+                remoteDataSource.getQuisionerAnswer(quisionerId, begda, endda)
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteQuisionerAnswer()
+            }
+
+            override suspend fun saveCallResult(data: List<QuisionerAnswerResponse>) {
+                val list = DataMapperQuisionerAnswer.mapResponsesToEntities(data)
+                localDataSource.insertQuisionerAnswer(list)
+            }
+
+        }.asFlow()
+
+    override fun getQuisionerPertanyaan(
+        objects: String,
+        tableCode: String,
+        relation: String,
+        otype: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerPertanyaan>>> =
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<QuisionerPertanyaan>, List<QuisionerPertanyaanResponse>>() {
+            override fun loadFromDB(): Flow<List<QuisionerPertanyaan>> {
+                return localDataSource.getQuisionerPertanyaan().map {
+                    DataMapperQuisionerPertanyaan.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<QuisionerPertanyaan>?): Boolean =
+                data == null || data.isEmpty()
+
+            override suspend fun createCall(): Flow<ApiResponse<List<QuisionerPertanyaanResponse>>> =
+                remoteDataSource.getQuisionerPertanyaan(
+                    objects,
+                    tableCode,
+                    relation,
+                    otype,
+                    begda,
+                    endda
+                )
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteQuisionerPertanyaan()
+            }
+
+            override suspend fun saveCallResult(data: List<QuisionerPertanyaanResponse>) {
+                val list = DataMapperQuisionerPertanyaan.mapResponsesToEntities(data)
+                localDataSource.insertQuisionerPertanyaan(list)
+            }
+
+        }.asFlow()
+
+    override fun getQuisionerPertanyaanWithId(id: Long): Flow<List<QuisionerPertanyaan>> {
+        return localDataSource.getQuisionerWithId(id)
+            .map { DataMapperQuisionerPertanyaan.mapEntitiesToDomain(it) }
+    }
+
+    override fun deleteQuisionerPertanyaan() =
+        appExecutors.diskIO().execute { localDataSource.deleteQuisionerPertanyaan() }
+
+
+    override fun setCheckedQuisionerAnswer(answer: QuisionerAnswer, state: Boolean) {
+        val answerEntity = DataMapperQuisionerAnswer.mapDomainToEntity(answer)
+        appExecutors.diskIO()
+            .execute { localDataSource.setCheckedQuisionerAnswer(answerEntity, state) }
+    }
+
+    override fun getCheckedQuisionerAnswer(): Flow<List<QuisionerAnswer>> {
+        return localDataSource.getCheckedQuisionerAnswer().map {
+            DataMapperQuisionerAnswer.mapEntitiesToDomain(it)
+        }
+    }
 
 
     override fun getTrainerSchedule(

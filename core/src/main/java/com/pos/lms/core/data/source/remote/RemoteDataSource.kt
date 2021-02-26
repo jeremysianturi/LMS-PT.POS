@@ -570,6 +570,47 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getQuisionerAnswer(
+        quisionerId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<QuisionerAnswerResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getQuisionerAnswer(begda, endda, quisionerId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getQuisionerPertanyaan(
+        objects: String,
+        tableCode: String,
+        relation: String,
+        otype: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<QuisionerPertanyaanResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getQuisionerPertanyaan(objects, tableCode, relation,otype, begda, endda )
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun getTrainerSchedule(
         parentId: String, begda: String, endda: String
     ): Flow<ApiResponse<List<TrainerScheduleResponse>>> {

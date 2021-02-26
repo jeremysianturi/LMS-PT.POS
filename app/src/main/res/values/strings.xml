@@ -91,4 +91,6 @@
     <string name="type_here">Tulis disini...</string>
     <string name="txt_chat">Chat</string>
     <string name="txt_update_forum">Update Forum</string>
+    <string name="txt_next">NEXT</string>
+    <string name="no_data">NO DATA</string>
 </resources>

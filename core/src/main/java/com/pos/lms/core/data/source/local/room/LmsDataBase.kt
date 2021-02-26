@@ -37,6 +37,7 @@ import com.pos.lms.core.data.source.local.room.dao.*
         MateriScheduleEntity::class,
         TestScheduleEntity::class,
         QuisionerScheduleEntity::class,
+        QuisionerAnswerEntity::class,
         TrainerScheduleEntity::class,
         RoomScheduleEntity::class,
         MentoringEntity::class,

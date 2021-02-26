@@ -162,6 +162,49 @@ interface StudentDao {
         insertQuisionerSchedule(student)
     }
 
+    /// quesioner answer
+    @Query("SELECT * FROM quisionerAnswer")
+    fun getQuisionerAnswer(): Flow<List<QuisionerAnswerEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertQuisionerAnswer(student: List<QuisionerAnswerEntity>)
+
+    @Query("DELETE FROM quisionerAnswer")
+    suspend fun deleteQuisionerAnswer()
+
+    @Transaction
+    suspend fun insertAndDeleteQuisionerAnswer(student: List<QuisionerAnswerEntity>) {
+        deleteQuisionerAnswer()
+        insertQuisionerAnswer(student)
+    }
+
+    @Update
+    fun updateAnswer(answer: QuisionerAnswerEntity)
+
+    @Transaction
+    @Query("SELECT * FROM quisionerAnswer")
+    fun getCheckedAnswer(): Flow<List<QuisionerAnswerEntity>>
+
+    // quesioner Pertanyaan
+    @Query("SELECT * FROM quisionerPertanyaan")
+    fun getQuisionerPertanyaan(): Flow<List<QuisionerPertanyaanEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertQuisionerPertanyaan(student: List<QuisionerPertanyaanEntity>)
+
+    @Query("DELETE FROM quisionerPertanyaan")
+    fun deleteQuisionerPertanyaan()
+
+    @Transaction
+    suspend fun insertAndDeleteQuisionerPertanyaan(student: List<QuisionerPertanyaanEntity>) {
+        deleteQuisionerPertanyaan()
+        insertQuisionerPertanyaan(student)
+    }
+
+    @Transaction
+    @Query("SELECT * FROM quisionerPertanyaan WHERE _id LIKE '%'|| :id || '%'")
+    fun getQuisionerPertanyaanWithId(id: Long): Flow<List<QuisionerPertanyaanEntity>>
+
     //    --------------- schedule Room -------------------
     @Query("SELECT * FROM RoomSchedule")
     fun getRoomShedule(): Flow<List<RoomScheduleEntity>>

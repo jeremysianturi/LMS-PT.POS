@@ -1,5 +1,6 @@
 package com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -14,6 +15,8 @@ import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityDetailScheduleBinding
 import com.pos.lms.mobile.helper.CurrentDate
+import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.detailQuisioner.QuisionerActivity
+import com.pos.lms.mobile.util.VideoPlayerActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -177,13 +180,19 @@ class DetailScheduleActivity : AppCompatActivity() {
             )
         )
 
-//        adapter.onItemClick = { selectData ->
-//            val mIntent = Intent(requireContext(), DetailScheduleActivity::class.java)
-//            mIntent.putExtra(DetailScheduleActivity.EXTRA_DATA, selectData)
-//            startActivity(mIntent)
-//
-//
-//        }
+        adapterMateri.onItemClick = { selectData ->
+            if (selectData.fileType == "VIDEO") {
+                val mIntent = Intent(this, VideoPlayerActivity::class.java)
+                mIntent.putExtra(VideoPlayerActivity.EXTRA_DATA, selectData)
+                startActivity(mIntent)
+            } else {
+                val mIntent = Intent(this, VideoPlayerActivity::class.java)
+                mIntent.putExtra(VideoPlayerActivity.EXTRA_DATA, selectData)
+                startActivity(mIntent)
+            }
+
+
+        }
 
         // Test
         adapterTest = TestAdapter()
@@ -223,13 +232,13 @@ class DetailScheduleActivity : AppCompatActivity() {
             )
         )
 
-//        adapter.onItemClick = { selectData ->
-//            val mIntent = Intent(requireContext(), DetailScheduleActivity::class.java)
-//            mIntent.putExtra(DetailScheduleActivity.EXTRA_DATA, selectData)
-//            startActivity(mIntent)
-//
-//
-//        }
+        adapterQuisioner.onItemClick = { selectData ->
+            val mIntent = Intent(this, QuisionerActivity::class.java)
+            mIntent.putExtra(QuisionerActivity.EXTRA_DATA, selectData)
+            startActivity(mIntent)
+
+
+        }
 
         // Trainer
         adapterTrainer = TrainerAdapter()
@@ -246,7 +255,7 @@ class DetailScheduleActivity : AppCompatActivity() {
             )
         )
 
-         // Room
+        // Room
         adapterRoom = RoomAdapter()
         binding.rvRoom.setHasFixedSize(true)
         binding.rvRoom.layoutManager =

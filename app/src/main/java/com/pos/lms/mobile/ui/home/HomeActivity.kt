@@ -69,8 +69,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
                         mPreferenceEntity.parId = parid.data?.get(0)?.id ?: 0
                         mPreference.setPref(mPreferenceEntity)
-
                         binding.content.progressBar.visibility = View.GONE
+
                     }
                     is Resource.Error -> {
                         val loginMessage = getString(R.string.something_wrong)

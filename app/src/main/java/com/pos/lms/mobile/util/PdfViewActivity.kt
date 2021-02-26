@@ -4,10 +4,18 @@ import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.pos.lms.core.domain.model.MateriSchedule
 import com.pos.lms.mobile.databinding.ActivityPdfViewBinding
 
 
 class PdfViewActivity : AppCompatActivity() {
+
+
+    companion object {
+        const val EXTRA_DATA = "extra_data"
+        private const val PDF_SELECTION_CODE = 99
+
+    }
 
     private lateinit var binding: ActivityPdfViewBinding
 
@@ -16,8 +24,9 @@ class PdfViewActivity : AppCompatActivity() {
         binding = ActivityPdfViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val dataIntent = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
 
-        val url = "https://pos-lms.digitalevent.id/lms/api/materistream?materi_id=7"
+        val url = dataIntent?.address
         val openUurl = "https://docs.google.com/viewer?embedded = true&url = $url"
 
         showPdf(openUurl)

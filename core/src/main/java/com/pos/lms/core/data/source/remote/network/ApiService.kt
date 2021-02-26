@@ -188,6 +188,26 @@ interface ApiService {
         @Query("schedule_id") scheduleId: String,
     ): ListQuisionerScheduleResponse
 
+    //    -> session -> schedule -> detailschedule -> Quisioner -> quisionerAnswer
+    @GET("lms/api/quesionerchoice?per_page=999")
+    suspend fun getQuisionerAnswer(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("quesioner[]") quesionerId: String,
+    ): ListQuisionerAnswerResponse
+
+    //    -> session -> schedule -> detailschedule -> Quisioner -> quisionerPertanyaan
+    @GET("/api/android/lmsrelation-object/to-quesioner?per_page=999")
+    suspend fun getQuisionerPertanyaan(
+        @Query("object") objects: String,
+        @Query("tableCode") tableCode: String,
+        @Query("relation") relation: String,
+        @Query("otype") otype: String,
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+    ): ListQuisionerPertanyaanResponse
+
+
     // -> session -> schedule -> detailschedule -> Trainer
     @GET("lms/api/android/lmsrelation/schdl-trainr?order[object_identifier]=DESC&relation=ST02")
     suspend fun getTrainerSchedule(

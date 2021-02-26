@@ -77,6 +77,29 @@ interface StudentUsecase {
         endda: String
     ): Flow<Resource<List<QuisionerSchedule>>>
 
+    fun getQuisionerAnswer(
+        quisionerId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerAnswer>>>
+
+    fun setCheckedQuisionerAnswer(answer: QuisionerAnswer, state : Boolean)
+
+    fun getCheckedQuisionerAnswer(): Flow<List<QuisionerAnswer>>
+
+    fun getQuisionerPertanyaan(
+        objects: String,
+        tableCode: String,
+        relation: String,
+        otype: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerPertanyaan>>>
+
+    fun getQuisionerPertanyaanWithId(id : Long) : Flow<List<QuisionerPertanyaan>>
+
+    fun deleteQuisionerPertanyaan()
+
     fun getTrainerSchedule(
         parentId: String,
         begda: String,

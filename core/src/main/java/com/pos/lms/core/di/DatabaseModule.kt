@@ -22,6 +22,13 @@ class DatabaseModule {
         LmsDataBase::class.java, "LMS.db"
     ).fallbackToDestructiveMigration().build()
 
+//    @Singleton
+//    @Provides
+//    fun provideDatabase(@ApplicationContext context: Context): LmsDataBase = Room.inMemoryDatabaseBuilder(
+//        context,
+//        LmsDataBase::class.java
+//    ).fallbackToDestructiveMigration().build()
+
     @Provides
     fun provideLoginDao(database: LmsDataBase): LoginDao = database.loginDao()
 

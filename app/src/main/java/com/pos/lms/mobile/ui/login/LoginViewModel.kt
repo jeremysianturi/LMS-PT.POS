@@ -18,6 +18,5 @@ class LoginViewModel @ViewModelInject constructor(private val loginUsecase: Logi
 //    val getParId = loginUsecase.getParid().asLiveData()
 
     fun  getParId(token : String) = loginUsecase.getParid(token).asLiveData()
-
-
+    
 }

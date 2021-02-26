@@ -66,6 +66,9 @@ dependencies {
     // exo pLayer
     implementation "com.google.android.exoplayer:exoplayer:2.12.2"
 
+    //lottie
+    implementation "com.airbnb.android:lottie:$lottie_version"
+
     // pdf
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
     implementation 'com.mindorks.android:prdownloader:0.6.0'

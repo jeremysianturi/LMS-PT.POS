@@ -108,6 +108,34 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
     ): Flow<Resource<List<QuisionerSchedule>>> =
         studentRepository.getQuisionerSchedule(scheduleId, begda, endda)
 
+    override fun getQuisionerAnswer(
+        quisionerId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerAnswer>>> =
+        studentRepository.getQuisionerAnswer(quisionerId, begda, endda)
+
+    override fun setCheckedQuisionerAnswer(answer: QuisionerAnswer, state: Boolean) =
+        studentRepository.setCheckedQuisionerAnswer(answer, state)
+
+    override fun getCheckedQuisionerAnswer(): Flow<List<QuisionerAnswer>> =
+        studentRepository.getCheckedQuisionerAnswer()
+
+    override fun getQuisionerPertanyaan(
+        objects: String,
+        tableCode: String,
+        relation: String,
+        otype: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<QuisionerPertanyaan>>> =
+        studentRepository.getQuisionerPertanyaan(objects, tableCode, relation, otype, begda, endda)
+
+    override fun getQuisionerPertanyaanWithId(id: Long): Flow<List<QuisionerPertanyaan>> =
+        studentRepository.getQuisionerPertanyaanWithId(id)
+
+    override fun deleteQuisionerPertanyaan() = studentRepository.deleteQuisionerPertanyaan()
+
     override fun getTrainerSchedule(
         parentId: String,
         begda: String,

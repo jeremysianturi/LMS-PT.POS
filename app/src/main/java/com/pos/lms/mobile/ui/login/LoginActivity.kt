@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.dhaval2404.form_validation.rule.NonEmptyRule
 import com.github.dhaval2404.form_validation.validation.FormValidator
 import com.pos.lms.core.data.Resource
+import com.pos.lms.core.data.source.local.room.LmsDataBase
 import com.pos.lms.core.data.source.remote.post.LoginPost
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
@@ -49,6 +50,8 @@ class LoginActivity : AppCompatActivity() {
             binding.edtUsernameLogin.setText(username)
             binding.edtPasswordLogin.setText(password)
         }
+
+
 
 
 //        appDatabase.clearAllTables()

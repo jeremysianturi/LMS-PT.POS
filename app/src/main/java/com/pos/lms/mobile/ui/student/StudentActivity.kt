@@ -80,6 +80,9 @@ class StudentActivity : AppCompatActivity() {
                     is Resource.Success -> {
                         binding.progressBar2.visibility = View.GONE
                         adapter.setData(data.data)
+                        binding.emptyData.root.visibility =
+                            if (data.data?.isNotEmpty() == true) View.GONE else View.VISIBLE
+
                         Timber.tag(tag).d("observer_student_adapter ${data.data}")
                     }
                     is Resource.Error -> {
