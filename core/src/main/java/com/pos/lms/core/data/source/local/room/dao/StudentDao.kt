@@ -185,6 +185,10 @@ interface StudentDao {
     @Query("SELECT * FROM quisionerAnswer")
     fun getCheckedAnswer(): Flow<List<QuisionerAnswerEntity>>
 
+    @Transaction
+    @Query("SELECT text_choice FROM quisionerAnswer WHERE isChecked = 1")
+    fun getOnlyCheckedAnswer(): Flow<List<String>>
+
     // quesioner Pertanyaan
     @Query("SELECT * FROM quisionerPertanyaan")
     fun getQuisionerPertanyaan(): Flow<List<QuisionerPertanyaanEntity>>

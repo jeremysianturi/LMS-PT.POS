@@ -19,7 +19,7 @@ interface SubmitDao {
     suspend fun insertSubmit(submit : SubmitEntity)
 
     @Query("DELETE FROM submit")
-    suspend fun deleteSubmit()
+    fun deleteSubmit()
 
     @Transaction
     suspend fun insertAndDeleteMentoringChat(student: SubmitEntity) {

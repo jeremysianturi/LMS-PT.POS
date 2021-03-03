@@ -4,6 +4,7 @@ import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.repository.StudentRepository
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
+import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -120,6 +121,12 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
 
     override fun getCheckedQuisionerAnswer(): Flow<List<QuisionerAnswer>> =
         studentRepository.getCheckedQuisionerAnswer()
+
+    override fun getOnlyCheckedAnswer(): Flow<List<String>> =
+        studentRepository.getOnlyCheckedQuisionerAnswer()
+
+    override fun postQuisionerAnswer(quisionerAnswerPost: QuisionerAnswerPost): Flow<Resource<Submit>>  =
+        studentRepository.postQuisionerAnswer(quisionerAnswerPost)
 
     override fun getQuisionerPertanyaan(
         objects: String,

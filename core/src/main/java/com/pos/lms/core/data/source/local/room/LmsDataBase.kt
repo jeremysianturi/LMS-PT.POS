@@ -15,7 +15,6 @@ import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
 import com.pos.lms.core.data.source.local.room.dao.*
 
-
 @Database(
     entities = [
         LoginEntity::class,
@@ -38,6 +37,7 @@ import com.pos.lms.core.data.source.local.room.dao.*
         TestScheduleEntity::class,
         QuisionerScheduleEntity::class,
         QuisionerAnswerEntity::class,
+        QuisionerPertanyaanEntity::class,
         TrainerScheduleEntity::class,
         RoomScheduleEntity::class,
         MentoringEntity::class,

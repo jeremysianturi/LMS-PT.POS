@@ -196,8 +196,13 @@ interface ApiService {
         @Query("quesioner[]") quesionerId: String,
     ): ListQuisionerAnswerResponse
 
+    @POST("lms/api/quesionerparticipantchoice")
+    suspend fun postQuisionerAnswer(
+        @Body quisionerAnswers: QuisionerAnswerPost
+    ): SubmitResponse
+
     //    -> session -> schedule -> detailschedule -> Quisioner -> quisionerPertanyaan
-    @GET("/api/android/lmsrelation-object/to-quesioner?per_page=999")
+    @GET("lms/api/android/lmsrelation-object/to-quesioner?per_page=999")
     suspend fun getQuisionerPertanyaan(
         @Query("object") objects: String,
         @Query("tableCode") tableCode: String,
@@ -206,7 +211,6 @@ interface ApiService {
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endda: String,
     ): ListQuisionerPertanyaanResponse
-
 
     // -> session -> schedule -> detailschedule -> Trainer
     @GET("lms/api/android/lmsrelation/schdl-trainr?order[object_identifier]=DESC&relation=ST02")

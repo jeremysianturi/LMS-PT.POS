@@ -23,7 +23,7 @@ data class QuisionerAnswerEntity(
     val beginDate: String,
 
     @ColumnInfo(name = "text_choice")
-    val textChoice: String,
+    val textChoice: String? = "",
 
     @ColumnInfo(name = "change_user")
     val changeUser: String,

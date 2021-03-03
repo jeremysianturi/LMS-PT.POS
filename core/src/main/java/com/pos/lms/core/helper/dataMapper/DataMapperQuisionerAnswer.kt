@@ -35,7 +35,7 @@ object DataMapperQuisionerAnswer {
                 changeDate = it.changeDate,
                 changeUser = it.changeUser,
                 beginDate = it.beginDate,
-                textChoice = it.textChoice,
+                textChoice = it.textChoice.toString(),
                 sequenceNo = it.sequenceNo,
                 isChecked = it.isChecked
             )

@@ -8,6 +8,7 @@ import com.pos.lms.core.data.source.remote.RemoteDataSource
 import com.pos.lms.core.data.source.remote.network.ApiResponse
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
+import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumCommentResponse
@@ -469,6 +470,37 @@ class StudentRepository @Inject constructor(
             DataMapperQuisionerAnswer.mapEntitiesToDomain(it)
         }
     }
+
+    override fun getOnlyCheckedQuisionerAnswer(): Flow<List<String>> {
+        return localDataSource.getOnlyCheckedAnswer()
+    }
+
+    override fun postQuisionerAnswer(quisionerAnswerPost: QuisionerAnswerPost): Flow<Resource<Submit>> =
+        object : NetworkBoundResourceWithDeleteLocalData<Submit, SubmitResponse>() {
+
+            override fun loadFromDB(): Flow<Submit> {
+                return localDataSource.getSubmitResponse().map {
+                    DataMapperSubmit.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Submit?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<SubmitResponse>> =
+                remoteDataSource.postQuisionerAnswer(quisionerAnswerPost)
+
+            override suspend fun saveCallResult(data: SubmitResponse) {
+                val list = DataMapperSubmit.mapResponsetoEntities(data)
+                localDataSource.insertSubmitResponse(list)
+            }
+
+            override suspend fun emptyDataBase() {
+             localDataSource.deleteSubmit()
+            }
+
+        }.asFlow()
+
 
 
     override fun getTrainerSchedule(

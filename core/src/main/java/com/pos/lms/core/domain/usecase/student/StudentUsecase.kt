@@ -3,6 +3,7 @@ package com.pos.lms.core.domain.usecase.student
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
+import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -83,9 +84,16 @@ interface StudentUsecase {
         endda: String
     ): Flow<Resource<List<QuisionerAnswer>>>
 
-    fun setCheckedQuisionerAnswer(answer: QuisionerAnswer, state : Boolean)
+    fun setCheckedQuisionerAnswer(answer: QuisionerAnswer, state: Boolean)
 
     fun getCheckedQuisionerAnswer(): Flow<List<QuisionerAnswer>>
+
+    fun getOnlyCheckedAnswer(): Flow<List<String>>
+
+    fun postQuisionerAnswer(
+        quisionerAnswerPost: QuisionerAnswerPost,
+    ): Flow<Resource<Submit>>
+
 
     fun getQuisionerPertanyaan(
         objects: String,
@@ -96,7 +104,7 @@ interface StudentUsecase {
         endda: String
     ): Flow<Resource<List<QuisionerPertanyaan>>>
 
-    fun getQuisionerPertanyaanWithId(id : Long) : Flow<List<QuisionerPertanyaan>>
+    fun getQuisionerPertanyaanWithId(id: Long): Flow<List<QuisionerPertanyaan>>
 
     fun deleteQuisionerPertanyaan()
 

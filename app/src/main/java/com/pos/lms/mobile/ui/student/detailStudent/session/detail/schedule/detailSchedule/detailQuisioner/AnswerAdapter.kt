@@ -1,5 +1,6 @@
 package com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.detailQuisioner
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,8 +46,8 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.UserViewHolder>() {
             binding.tvAnswer.text = data.textChoice
 
             when (data.isChecked) {
-                false -> binding.tvAnswer.text = data.textChoice
-                true -> binding.tvAnswer.text = checked
+                false -> binding.tvAnswer.setBackgroundColor(Color.GREEN)
+                true -> binding.tvAnswer.setBackgroundColor(Color.WHITE)
             }
         }
 

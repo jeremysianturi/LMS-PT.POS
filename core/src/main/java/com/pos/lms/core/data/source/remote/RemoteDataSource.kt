@@ -588,6 +588,24 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun postQuisionerAnswer(
+        quisionerAnswerPost: QuisionerAnswerPost
+    ) :Flow<ApiResponse<SubmitResponse>> {
+        return flow {
+            try {
+                val response = apiService.postQuisionerAnswer(quisionerAnswerPost)
+                val dataArray = response.message
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
     suspend fun getQuisionerPertanyaan(
         objects: String,
         tableCode: String,

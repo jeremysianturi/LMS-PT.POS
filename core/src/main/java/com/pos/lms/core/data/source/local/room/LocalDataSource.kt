@@ -38,6 +38,8 @@ class LocalDataSource @Inject constructor(
     fun getParId(): Flow<List<ItemParIdEntity>> = mLoginDao.getParId()
     suspend fun insertParId(parId: List<ItemParIdEntity>) = mLoginDao.insertAndDeleteStudent(parId)
 
+    fun deleteSubmit() = mSubmitDao.deleteSubmit()
+
     // dropdown
     fun getCompetency(): Flow<List<CompetencyEntity>> = mDropDownDao.getCompetency()
     suspend fun insertCompetency(competency: List<CompetencyEntity>) =
@@ -138,6 +140,9 @@ class LocalDataSource @Inject constructor(
     //    Quisioner Answer
     fun getQuisionerAnswer(): Flow<List<QuisionerAnswerEntity>> =
         mStudentDao.getQuisionerAnswer()
+
+    fun getOnlyCheckedAnswer(): Flow<List<String>> =
+        mStudentDao.getOnlyCheckedAnswer()
 
     fun setCheckedQuisionerAnswer(data: QuisionerAnswerEntity, newState: Boolean) {
         data.isChecked = newState
