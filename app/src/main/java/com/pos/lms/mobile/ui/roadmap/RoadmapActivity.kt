@@ -22,6 +22,8 @@ class RoadmapActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRoadmapBinding
     private val viewModel: RoadmapViewModel by viewModels()
 
+    private var datarRoadmap: List<EventRoadmap>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRoadmapBinding.inflate(layoutInflater)
@@ -36,7 +38,6 @@ class RoadmapActivity : AppCompatActivity() {
         val actionbar = supportActionBar
         actionbar?.title = "RoadMap"
         actionbar?.setDisplayHomeAsUpEnabled(true)
-
     }
 
     private fun setupObserver(begda: String, enda: String) {
@@ -46,8 +47,13 @@ class RoadmapActivity : AppCompatActivity() {
                 when (data) {
                     is Resource.Loading -> binding.progressBarProposal.visibility = View.VISIBLE
                     is Resource.Success -> {
+                        if (data.data?.isEmpty() == true) {
+                            binding.emptyData.root.visibility = View.VISIBLE
+                        } else {
+                            setupViewPager(data.data)
+                        }
                         binding.progressBarProposal.visibility = View.GONE
-                        setupViewPager(data.data)
+//                        setupViewPager(data.data)
                     }
                     is Resource.Error -> {
                         val loginMessage = getString(R.string.something_wrong)

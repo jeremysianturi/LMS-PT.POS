@@ -46,8 +46,8 @@ class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.UserViewHolder>() {
             binding.tvAnswer.text = data.textChoice
 
             when (data.isChecked) {
-                false -> binding.tvAnswer.setBackgroundColor(Color.GREEN)
-                true -> binding.tvAnswer.setBackgroundColor(Color.WHITE)
+                true -> binding.tvAnswer.setBackgroundColor(Color.GREEN)
+                false -> binding.tvAnswer.setBackgroundColor(Color.WHITE)
             }
         }
 

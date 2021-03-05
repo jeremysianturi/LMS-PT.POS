@@ -202,12 +202,16 @@ class QuisionerActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnNext -> {
-                if (choicesAnswer.isNotEmpty() || choicesAnswer != "") {
+                if (posisiPertanyaan == jumlahPertanyaan) {
+                    finish()
+                    Toast.makeText(this, "Selesai", Toast.LENGTH_SHORT).show()
+                } else if (choicesAnswer.isNotEmpty() || choicesAnswer != "") {
                     submitQuisionerChoice()
                     Timber.d("validate_Data : ${validateData()}")
-//                    idCount++
-//                    getSinglePertanyaan()
-//                    choicesAnswer = ""
+                    idCount++
+                    Timber.tag(TAG).d("COUNT_ : $idCount")
+                    getSinglePertanyaan()
+                    choicesAnswer = ""
                 } else {
                     Toast.makeText(this, "Anda belum Memilih jawaban", Toast.LENGTH_SHORT).show()
                 }
@@ -237,9 +241,9 @@ class QuisionerActivity : AppCompatActivity(), View.OnClickListener {
                     is Resource.Success -> {
                         binding.progressBar.visibility = View.GONE
                         Toast.makeText(this, "${data.data?.message}", Toast.LENGTH_SHORT).show()
-                        idCount++
-                        getSinglePertanyaan()
-                        choicesAnswer = ""
+//                        idCount++
+//                        getSinglePertanyaan()
+//                        choicesAnswer = ""
 
                     }
                     is Resource.Error -> {

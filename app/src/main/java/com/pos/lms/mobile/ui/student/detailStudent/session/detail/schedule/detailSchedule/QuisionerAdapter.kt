@@ -42,8 +42,9 @@ class QuisionerAdapter : RecyclerView.Adapter<QuisionerAdapter.UserViewHolder>()
         fun bind(data: QuisionerSchedule) {
 
             binding.tvMeetingRoom.text = data.templateCodeName
-            binding.tvBuilding.text = data.templateTypeName
-            binding.tvFloor.text = "0(hardcode)"
+            binding.tvBuilding.text =
+                if (data.templateTypeName == "") data.templateTypeId else data.templateTypeName
+            binding.tvFloor.text = "Start Quisioner"
 
 //            if (data.score == "" || data.score == null) {
 //                tvFloor.visibility = View.GONE
