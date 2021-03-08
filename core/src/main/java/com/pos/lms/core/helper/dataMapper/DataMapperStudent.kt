@@ -47,29 +47,29 @@ object DataMapperStudent {
     fun mapEntitiestoDomain(input: List<StudentEntity>): List<Student> =
         input.map {
             Student(
-                endDate = it.endDate,
-                bussinesCode = it.bussinesCode,
-                partiNicknm = it.partiNicknm,
-                beginDate = it.beginDate,
+                endDate = it.endDate.toString(),
+                bussinesCode = it.bussinesCode.toString(),
+                partiNicknm = it.partiNicknm.toString(),
+                beginDate = it.beginDate.toString(),
                 participantId = it.participantId,
                 batch = it.batch,
-                eventCurrStat = it.eventCurrStat,
+                eventCurrStat = it.eventCurrStat.toString(),
                 bUSCD = it.bUSCD,
-                curriculum = it.curriculum,
-                locationId = it.locationId,
-                curriculumBuscd = it.curriculumBuscd,
-                curId = it.curId,
-                batchName = it.batchName,
-                evntCurrStatid = it.evntCurrStatid,
+                curriculum = it.curriculum.toString(),
+                locationId = it.locationId.toString(),
+                curriculumBuscd = it.curriculumBuscd.toString(),
+                curId = it.curId.toString(),
+                batchName = it.batchName.toString(),
+                evntCurrStatid = it.evntCurrStatid.toString(),
                 eventId = it.eventId,
-                eventType = it.eventType,
-                companyName = it.companyName,
-                eventName = it.eventName,
-                location = it.location,
-                partcipantName = it.partcipantName,
-                eventStatId = it.eventStatId,
-                curiculum1Buscd = it.curiculum1Buscd,
-                eventStatus = it.eventStatus
+                eventType = it.eventType.toString(),
+                companyName = it.companyName.toString(),
+                eventName = it.eventName.toString(),
+                location = it.location.toString(),
+                partcipantName = it.partcipantName.toString(),
+                eventStatId = it.eventStatId.toString(),
+                curiculum1Buscd = it.curiculum1Buscd.toString(),
+                eventStatus = it.eventStatus.toString()
             )
         }
 

@@ -71,6 +71,8 @@ class LocalDataSource @Inject constructor(
     suspend fun insertMateri(materi: List<MateriEntity>) =
         mMateriDao.insertAndDeleteMateri(materi)
 
+    suspend fun deleteMateri() = mMateriDao.deleteMateri()
+
     // student
     fun getStudent(): Flow<List<StudentEntity>> = mStudentDao.getStudent()
     suspend fun insertStudent(student: List<StudentEntity>) =
@@ -95,6 +97,8 @@ class LocalDataSource @Inject constructor(
     suspend fun insertForumList(student: List<ForumListEntity>) =
         mStudentDao.insertAndDeleteForumList(student)
 
+    suspend fun deleteForumList() = mStudentDao.deleteForumList()
+
     // -> forumList -> ForumComment
     fun getForumComment(): Flow<List<ForumCommentEntity>> = mStudentDao.getForumComment()
     suspend fun insertForumComment(student: List<ForumCommentEntity>) =
@@ -103,7 +107,9 @@ class LocalDataSource @Inject constructor(
     //    -> InsightList
     fun getInsightList(): Flow<List<InsightListEntity>> = mStudentDao.getInsightList()
     suspend fun insertInsightList(student: List<InsightListEntity>) =
-        mStudentDao.insertAndDeleteInsightList(student)//
+        mStudentDao.insertAndDeleteInsightList(student)
+
+    suspend fun deleteInsightList() = mStudentDao.deleteInsightList()
 
     // -> ScheduleList
     fun getSchedule(): Flow<List<ScheduleEntity>> = mStudentDao.getSchedule()
@@ -220,29 +226,43 @@ class LocalDataSource @Inject constructor(
     suspend fun insertAndDeleteECPRotasi(data: List<ECPRotasiEntity>) =
         mRoadmapDao.insertAndDeleteECPRotasi(data)
 
+    suspend fun deleteECPRotasi() = mRoadmapDao.deleteECPRotasi()
+
     // ECP Promosi
     fun getECPPromosi(): Flow<List<ECPPromosiEntity>> = mRoadmapDao.getECPPromosi()
     suspend fun insertAndDeleteECPPromosi(data: List<ECPPromosiEntity>) =
         mRoadmapDao.insertAndDeleteECPPromosi(data)
+
+    suspend fun deleteECPromosi() = mRoadmapDao.deleteECPPromosi()
 
     // MCP Rotasi
     fun getMCPRotasi(): Flow<List<MCPRotasiEntity>> = mRoadmapDao.getMCPRotasi()
     suspend fun insertAndDeleteMCPRotasi(data: List<MCPRotasiEntity>) =
         mRoadmapDao.insertAndDeleteMCPRotasi(data)
 
+    suspend fun deleteMCRotasi() = mRoadmapDao.deleteMCPRotasi()
+
     // MCP Promosi
     fun getMCPPromosi(): Flow<List<MCPPromosiEntity>> = mRoadmapDao.getMCPPromosi()
     suspend fun insertAndDeleteMCPPromosi(data: List<MCPPromosiEntity>) =
         mRoadmapDao.insertAndDeleteMCPPromosi(data)
+
+    suspend fun deleteMCPPromosi() = mRoadmapDao.deleteMCPPromosi()
 
     // SCP Rotasi
     fun getSCPRotasi(): Flow<List<SCPRotasiEntity>> = mRoadmapDao.getSCPRotasi()
     suspend fun insertAndDeleteSCPRotasi(data: List<SCPRotasiEntity>) =
         mRoadmapDao.insertAndDeleteSCPRotasi(data)
 
+    suspend fun deleteSCPRotasi() = mRoadmapDao.deleteSCPRotasi()
+
+
     // SCP Promosi
     fun getSCPPromosi(): Flow<List<SCPPromosiEntity>> = mRoadmapDao.getSCPPromosi()
     suspend fun insertAndDeleteSCPPromosi(data: List<SCPPromosiEntity>) =
         mRoadmapDao.insertAndDeleteSCPPromosi(data)
+
+    suspend fun deleteSCPPromosi() = mRoadmapDao.deleteSCPPromosi()
+
 
 }

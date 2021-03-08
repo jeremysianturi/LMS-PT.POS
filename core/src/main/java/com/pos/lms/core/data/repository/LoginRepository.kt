@@ -51,7 +51,7 @@ class LoginRepository @Inject constructor(
         }.asFlow()
 
 
-    override fun getParId(token : String): Flow<Resource<List<ParId>>> =
+    override fun getParId(token: String): Flow<Resource<List<ParId>>> =
         object : NetworkBoundResource<List<ParId>, List<ItemParId>>() {
             override fun loadFromDB(): Flow<List<ParId>> {
                 return localDataSource.getParId().map {

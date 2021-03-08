@@ -99,6 +99,4 @@ class Curiculumrepository @Inject constructor(
         }.asFlow()
 
 
-
-
 }

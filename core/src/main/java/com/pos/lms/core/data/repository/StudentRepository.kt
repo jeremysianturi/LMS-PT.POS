@@ -121,7 +121,7 @@ class StudentRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<ForumList>>> =
-        object : NetworkBoundResource<List<ForumList>, List<ForumResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<ForumList>, List<ForumResponse>>() {
             override fun loadFromDB(): Flow<List<ForumList>> {
                 return localDataSource.getForumList().map {
                     DataMapperForum.mapEntitiestoDomain(it)
@@ -137,6 +137,10 @@ class StudentRepository @Inject constructor(
             override suspend fun saveCallResult(data: List<ForumResponse>) {
                 val list = DataMapperForum.mapResponsetoEntities(data)
                 localDataSource.insertForumList(list)
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteForumList()
             }
 
         }.asFlow()
@@ -263,7 +267,8 @@ class StudentRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<InsightList>>> =
-        object : NetworkBoundResource<List<InsightList>, List<InsightListResponse>>() {
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<InsightList>, List<InsightListResponse>>() {
             override fun loadFromDB(): Flow<List<InsightList>> {
                 return localDataSource.getInsightList().map {
                     DataMapperInsightList.mapEntitiestoDomain(it)
@@ -279,6 +284,10 @@ class StudentRepository @Inject constructor(
             override suspend fun saveCallResult(data: List<InsightListResponse>) {
                 val list = DataMapperInsightList.mapResponsetoEntities(data)
                 localDataSource.insertInsightList(list)
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteInsightList()
             }
 
         }.asFlow()
@@ -496,11 +505,10 @@ class StudentRepository @Inject constructor(
             }
 
             override suspend fun emptyDataBase() {
-             localDataSource.deleteSubmit()
+                localDataSource.deleteSubmit()
             }
 
         }.asFlow()
-
 
 
     override fun getTrainerSchedule(

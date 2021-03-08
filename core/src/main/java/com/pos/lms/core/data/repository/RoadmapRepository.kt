@@ -1,6 +1,7 @@
 package com.pos.lms.core.data.repository
 
 import com.pos.lms.core.data.NetworkBoundResource
+import com.pos.lms.core.data.NetworkBoundResourceWithDeleteLocalData
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.local.room.LocalDataSource
 import com.pos.lms.core.data.source.remote.RemoteDataSource
@@ -58,7 +59,7 @@ class RoadmapRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<ECPRotasi>>> =
-        object : NetworkBoundResource<List<ECPRotasi>, List<ECPResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<ECPRotasi>, List<ECPResponse>>() {
 
             override fun loadFromDB(): Flow<List<ECPRotasi>> {
                 return localDataSource.getECPRotasi().map {
@@ -78,6 +79,10 @@ class RoadmapRepository @Inject constructor(
 
             }
 
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteECPRotasi()
+            }
+
         }.asFlow()
 
 
@@ -87,7 +92,7 @@ class RoadmapRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<ECPPromosi>>> =
-        object : NetworkBoundResource<List<ECPPromosi>, List<ECPResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<ECPPromosi>, List<ECPResponse>>() {
 
             override fun loadFromDB(): Flow<List<ECPPromosi>> {
                 return localDataSource.getECPPromosi().map {
@@ -107,6 +112,10 @@ class RoadmapRepository @Inject constructor(
 
             }
 
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteECPromosi()
+            }
+
         }.asFlow()
 
 
@@ -116,7 +125,7 @@ class RoadmapRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<MCPRotasi>>> =
-        object : NetworkBoundResource<List<MCPRotasi>, List<ECPResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<MCPRotasi>, List<ECPResponse>>() {
 
             override fun loadFromDB(): Flow<List<MCPRotasi>> {
                 return localDataSource.getMCPRotasi().map {
@@ -136,6 +145,10 @@ class RoadmapRepository @Inject constructor(
 
             }
 
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteMCRotasi()
+            }
+
         }.asFlow()
 
 
@@ -145,7 +158,7 @@ class RoadmapRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<MCPPromosi>>> =
-        object : NetworkBoundResource<List<MCPPromosi>, List<ECPResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<MCPPromosi>, List<ECPResponse>>() {
 
             override fun loadFromDB(): Flow<List<MCPPromosi>> {
                 return localDataSource.getMCPPromosi().map {
@@ -165,6 +178,10 @@ class RoadmapRepository @Inject constructor(
 
             }
 
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteMCPPromosi()
+            }
+
         }.asFlow()
 
 
@@ -174,7 +191,7 @@ class RoadmapRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<SCPRotasi>>> =
-        object : NetworkBoundResource<List<SCPRotasi>, List<ECPResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<SCPRotasi>, List<ECPResponse>>() {
 
             override fun loadFromDB(): Flow<List<SCPRotasi>> {
                 return localDataSource.getSCPRotasi().map {
@@ -194,6 +211,10 @@ class RoadmapRepository @Inject constructor(
 
             }
 
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteSCPRotasi()
+            }
+
         }.asFlow()
 
 
@@ -203,7 +224,7 @@ class RoadmapRepository @Inject constructor(
         begda: String,
         endda: String
     ): Flow<Resource<List<SCPPromosi>>> =
-        object : NetworkBoundResource<List<SCPPromosi>, List<ECPResponse>>() {
+        object : NetworkBoundResourceWithDeleteLocalData<List<SCPPromosi>, List<ECPResponse>>() {
 
             override fun loadFromDB(): Flow<List<SCPPromosi>> {
                 return localDataSource.getSCPPromosi().map {
@@ -221,6 +242,10 @@ class RoadmapRepository @Inject constructor(
                 val list = DataMapperSCPPromosi.mapResponsesToEntities(data)
                 localDataSource.insertAndDeleteSCPPromosi(list)
 
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteSCPPromosi()
             }
 
         }.asFlow()
