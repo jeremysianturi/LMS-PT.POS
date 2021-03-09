@@ -15,6 +15,7 @@ import javax.inject.Inject
  * Created by Muhammad Zaim Milzam on 10/02/21.
  * linkedin : Muhammad Zaim Milzam
  */
+
 class StudentInteractor @Inject constructor(private val studentRepository: StudentRepository) :
     StudentUsecase {
 
@@ -37,6 +38,12 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
         endda: String
     ): Flow<Resource<List<ForumList>>> =
         studentRepository.getForumList(batchId, begda, endda)
+
+    override fun getSearchForum(search: String): Flow<List<ForumList>> =
+        studentRepository.getSearchForum(search)
+
+    override fun getOwnerForum(owner: String): Flow<List<ForumList>> =
+        studentRepository.getOwnerForum(owner)
 
     override fun createForum(
         businesCode: RequestBody,
@@ -74,7 +81,6 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
     ): Flow<Resource<List<ForumComment>>> =
         studentRepository.getForumComment(forumId, begda, endda)
 
-
     override fun postForumComment(forumCommnetPost: ForumCommnetPost): Flow<Resource<Submit>> =
         studentRepository.postForumComment(forumCommnetPost)
 
@@ -84,6 +90,15 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
         endda: String
     ): Flow<Resource<List<InsightList>>> =
         studentRepository.getInsightList(batchId, begda, endda)
+
+    override fun deteleInsight(oid: String): Flow<Resource<Submit>> =
+        studentRepository.deteleInsight(oid)
+
+    override fun getSearchInsight(search: String): Flow<List<InsightList>> =
+        studentRepository.getSearchInsight(search)
+
+    override fun getOwnerInsight(owner: String): Flow<List<InsightList>> =
+        studentRepository.getOwnerInsight(owner)
 
     override fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>> =
         studentRepository.getSchedule(sessionId)
@@ -125,7 +140,7 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
     override fun getOnlyCheckedAnswer(): Flow<List<String>> =
         studentRepository.getOnlyCheckedQuisionerAnswer()
 
-    override fun postQuisionerAnswer(quisionerAnswerPost: QuisionerAnswerPost): Flow<Resource<Submit>>  =
+    override fun postQuisionerAnswer(quisionerAnswerPost: QuisionerAnswerPost): Flow<Resource<Submit>> =
         studentRepository.postQuisionerAnswer(quisionerAnswerPost)
 
     override fun getQuisionerPertanyaan(

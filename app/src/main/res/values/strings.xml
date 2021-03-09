@@ -93,4 +93,8 @@
     <string name="txt_update_forum">Update Forum</string>
     <string name="txt_next">NEXT</string>
     <string name="no_data">NO DATA</string>
+    <string name="txt_create_new_insight">Create New Insight</string>
+    <string name="txt_create_title_insight">Insight Name</string>
+    <string name="txt_update_insight">Update Insight</string>
+    <string name="txt_list_insight">List Insight</string>
 </resources>

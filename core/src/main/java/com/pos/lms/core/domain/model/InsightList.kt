@@ -16,5 +16,7 @@ data class InsightList(
     val forumTitle: String,
     val objectIdentifier: String,
     val owner: String,
+    val batchName: String,
+    val batchId: String,
 
     ) : Parcelable

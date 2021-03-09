@@ -498,6 +498,24 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun deteleInsight(oid: String): Flow<ApiResponse<SubmitResponse>> {
+        //get data from remote APi
+        return flow {
+            try {
+                val response = apiService.deleteInsight(oid)
+                val data = response.message
+                if (data.isEmpty()) {
+                    emit(ApiResponse.Empty)
+                } else {
+                    emit(ApiResponse.Success(response))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    }
+
     suspend fun getScheduleList(
         sessionId: String,
     ): Flow<ApiResponse<List<ScheduleResponse>>> {
@@ -590,7 +608,7 @@ class RemoteDataSource @Inject constructor(
 
     suspend fun postQuisionerAnswer(
         quisionerAnswerPost: QuisionerAnswerPost
-    ) :Flow<ApiResponse<SubmitResponse>> {
+    ): Flow<ApiResponse<SubmitResponse>> {
         return flow {
             try {
                 val response = apiService.postQuisionerAnswer(quisionerAnswerPost)
@@ -616,7 +634,14 @@ class RemoteDataSource @Inject constructor(
     ): Flow<ApiResponse<List<QuisionerPertanyaanResponse>>> {
         return flow {
             try {
-                val response = apiService.getQuisionerPertanyaan(objects, tableCode, relation,otype, begda, endda )
+                val response = apiService.getQuisionerPertanyaan(
+                    objects,
+                    tableCode,
+                    relation,
+                    otype,
+                    begda,
+                    endda
+                )
                 val dataArray = response.data
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.data))

@@ -99,6 +99,11 @@ class LocalDataSource @Inject constructor(
 
     suspend fun deleteForumList() = mStudentDao.deleteForumList()
 
+    fun getSearchForum(search: String): Flow<List<ForumListEntity>> =
+        mStudentDao.getSearchForumList(search)
+
+    fun getMyForum(owner: String): Flow<List<ForumListEntity>> = mStudentDao.getMyForumList(owner)
+
     // -> forumList -> ForumComment
     fun getForumComment(): Flow<List<ForumCommentEntity>> = mStudentDao.getForumComment()
     suspend fun insertForumComment(student: List<ForumCommentEntity>) =
@@ -108,6 +113,11 @@ class LocalDataSource @Inject constructor(
     fun getInsightList(): Flow<List<InsightListEntity>> = mStudentDao.getInsightList()
     suspend fun insertInsightList(student: List<InsightListEntity>) =
         mStudentDao.insertAndDeleteInsightList(student)
+
+    fun getSearchInsight(search: String): Flow<List<InsightListEntity>> =
+        mStudentDao.getSearchInsight(search)
+
+    fun getMyInsight(owner: String): Flow<List<InsightListEntity>> = mStudentDao.getMyInsight(owner)
 
     suspend fun deleteInsightList() = mStudentDao.deleteInsightList()
 

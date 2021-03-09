@@ -13,21 +13,12 @@
 
         <EditText
             android:id="@+id/edtSearch"
+            style="@style/edt_search"
             android:layout_width="0dp"
-            android:textSize="@dimen/text_14"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:drawableEnd="@drawable/ic_search_24"
-            android:ems="10"
-            android:hint="@string/txt_cari_disini"
-            android:imeOptions="actionSearch"
-            android:inputType="textPersonName"
-            android:paddingStart="5dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="List Insight"
+            android:text="@string/txt_list_insight"
             app:layout_constraintEnd_toStartOf="@+id/ivCreateInsight"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleMyForum" />
@@ -70,18 +61,18 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/image_description"
             android:padding="5dp"
             android:src="@drawable/ic_add_orange"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleMyForum"
-            android:contentDescription="@string/image_description" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleMyForum" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvInsight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +90,6 @@
             app:layout_constraintEnd_toEndOf="@+id/rvInsight"
             app:layout_constraintStart_toStartOf="@+id/rvInsight"
             app:layout_constraintTop_toBottomOf="@+id/tvTitleList" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

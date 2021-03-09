@@ -14,9 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningManagementSystemPOS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.student.detailStudent.forum.update.UpdateForumActivity"></activity>
-        <activity android:name=".util.VideoPlayerActivity"></activity>
-        <activity android:name=".ui.student.detailStudent.session.detail.schedule.detailSchedule.detailQuisioner.QuisionerActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.insight.update.UpdateInsightActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.insight.create.CreateInsightActivity" />
+        <activity android:name=".ui.student.detailStudent.forum.update.UpdateForumActivity" />
+        <activity
+            android:name=".util.VideoPlayerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity android:name=".util.PdfViewActivity" />
+        <activity android:name=".ui.student.detailStudent.session.detail.schedule.detailSchedule.detailQuisioner.QuisionerActivity" />
         <activity android:name=".ui.student.detailStudent.session.detail.mentoring.detail.DetailMentoringActivity" />
         <activity android:name=".ui.student.detailStudent.forum.create.CreateForumActivity" />
         <activity android:name=".ui.student.detailStudent.forum.detail.DetailForumActivity" />

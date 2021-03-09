@@ -27,6 +27,10 @@ interface StudentUsecase {
 
     fun getForumList(batchId: String, begda: String, endda: String): Flow<Resource<List<ForumList>>>
 
+    fun getSearchForum(search: String): Flow<List<ForumList>>
+
+    fun getOwnerForum(owner: String): Flow<List<ForumList>>
+
     fun createForum(
         businesCode: RequestBody,
         batch: RequestBody,
@@ -57,6 +61,14 @@ interface StudentUsecase {
         begda: String,
         endda: String
     ): Flow<Resource<List<InsightList>>>
+
+    fun deteleInsight(
+        oid: String
+    ): Flow<Resource<Submit>>
+
+    fun getSearchInsight(search: String): Flow<List<InsightList>>
+
+    fun getOwnerInsight(owner: String): Flow<List<InsightList>>
 
     fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>>
 

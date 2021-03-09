@@ -67,6 +67,14 @@ interface StudentDao {
         insertForumList(student)
     }
 
+    @Transaction
+    @Query("SELECT * FROM ForumList where forum_title LIKE '%'|| :search || '%'")
+    fun getSearchForumList(search: String): Flow<List<ForumListEntity>>
+
+    @Transaction
+    @Query("SELECT * FROM ForumList where owner LIKE '%'|| :search || '%'")
+    fun getMyForumList(search: String): Flow<List<ForumListEntity>>
+
     @Query("SELECT * FROM forumcomment")
     fun getForumComment(): Flow<List<ForumCommentEntity>>
 
@@ -97,6 +105,15 @@ interface StudentDao {
         deleteInsightList()
         insertInsightList(student)
     }
+
+    @Transaction
+    @Query("SELECT * FROM InsightList where forum_title LIKE '%'|| :search || '%'")
+    fun getSearchInsight(search: String): Flow<List<InsightListEntity>>
+
+    @Transaction
+    @Query("SELECT * FROM InsightList where owner LIKE '%'|| :search || '%'")
+    fun getMyInsight(search: String): Flow<List<InsightListEntity>>
+
 
     //    --------------- schedule -------------------
     @Query("SELECT * FROM schedule")

@@ -24,7 +24,9 @@ object DataMapperInsightList {
                 forumTime = it.forumTime,
                 forumTitle = it.forumTitle,
                 objectIdentifier = it.objectIdentifier,
-                owner = it.owner,
+                owner = it.forumOwner,
+                batchName = it.batchName,
+                batchId = it.batchId
             )
             curiculumList.add(entity)
         }
@@ -46,6 +48,8 @@ object DataMapperInsightList {
                 forumTitle = it.forumTitle,
                 objectIdentifier = it.objectIdentifier,
                 owner = it.owner,
+                batchName = it.batchName,
+                batchId = it.batchId
             )
         }
 }

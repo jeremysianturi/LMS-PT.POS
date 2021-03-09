@@ -1,11 +1,10 @@
-package com.pos.lms.mobile.ui.student.detailStudent.forum.create
+package com.pos.lms.mobile.ui.student.detailStudent.insight.update
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
@@ -14,30 +13,24 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.github.dhaval2404.form_validation.rule.NonEmptyRule
 import com.github.dhaval2404.form_validation.validation.FormValidator
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.pos.lms.core.data.source.remote.response.SubmitResponse
-import com.pos.lms.core.domain.model.Student
+import com.pos.lms.core.domain.model.InsightList
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
-import com.pos.lms.mobile.databinding.ActivityCreateForumBinding
+import com.pos.lms.mobile.databinding.ActivityUpdateInsightBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.helper.CurrentTime
 import com.pos.lms.mobile.helper.DatePickerFragment
+import com.pos.lms.mobile.util.ErrorLog
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.MultipartBody.Part.Companion.createFormData
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 @AndroidEntryPoint
-class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener,
+class UpdateInsightActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener,
     View.OnClickListener {
 
     companion object {
@@ -47,53 +40,58 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
         private const val DATE_PICKER_TAG_END = "DatePickerEnd"
     }
 
-    private lateinit var binding: ActivityCreateForumBinding
-    private val viewModel: CreateForumViewModel by viewModels()
-
-    private lateinit var mPreference: UserPreference
-    private lateinit var mPreferenceEntity: PreferenceEntity
-
     var token: String? = ""
     var batchId: String? = ""
     var owner: String? = ""
     var time: String? = ""
     var currentDate: String? = ""
 
-    private var dataIntent: Student? = null
+    private lateinit var mPreference: UserPreference
+    private lateinit var mPreferenceEntity: PreferenceEntity
+
+    private var dataIntent: InsightList? = null
     private var mFile: File? = null
     private var mFileName: String = ""
 
+    private lateinit var binding: ActivityUpdateInsightBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCreateForumBinding.inflate(layoutInflater)
+        binding = ActivityUpdateInsightBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        dataIntent = intent.getParcelableExtra(EXTRA_DATA)
+        batchId = dataIntent?.batchId
 
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()
-
-        dataIntent = intent.getParcelableExtra(EXTRA_DATA)
-
-        if (dataIntent != null) {
-            batchId = dataIntent!!.batch.toString()
-        }
 
         token = mPreferenceEntity.token
         owner = mPreferenceEntity.username
         time = CurrentTime().getCurrentTime()
         currentDate = CurrentDate.getToday()
 
-        // onclick
         binding.btnSave.setOnClickListener(this)
         binding.tvDropdownStartDate.setOnClickListener(this)
         binding.tvDropdownEndDate.setOnClickListener(this)
         binding.tvDropdownImage.setOnClickListener(this)
 
+        // method
+        dataIntent?.let { setupDataUpdate(it) }
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
-        actionbar?.title = "Create Forum"
+        actionbar?.title = "Update Insight"
         actionbar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setupDataUpdate(data: InsightList) {
+        binding.apply {
+            edtTitle.setText(data.forumTitle)
+            edtDescription.setText(data.forumText)
+            tvDropdownStartDate.text = data.beginDate
+            tvDropdownEndDate.text = data.endDate
+        }
     }
 
     override fun onDialogDateSet(tag: String?, year: Int, month: Int, dayOfMonth: Int) {
@@ -111,6 +109,7 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
             }
         }
     }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -164,6 +163,7 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
                 NonEmptyRule(getString(R.string.ERROR_FIELD_REQUIRED))
             )
             .validate()
+
     }
 
     private fun isValidField() {
@@ -171,22 +171,38 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
         val description = binding.edtDescription.text.toString()
         val startDate = binding.tvDropdownStartDate.text.toString().trim()
         val endDate = binding.tvDropdownEndDate.text.toString().trim()
+        val oid = dataIntent?.objectIdentifier
 
-        submitData(title, description, startDate, endDate)
+        submitData(title, description, startDate, endDate, oid)
     }
 
-    private fun submitData(title: String, description: String, startDate: String, endDate: String) {
-        // sementara selama retrofit blm bisa upload image "Lebih ke tolol sih "
-        AndroidNetworking.upload("${com.pos.lms.core.BuildConfig.API_URL}lms/api/forum")
+    private fun submitData(
+        title: String,
+        description: String,
+        startDate: String,
+        endDate: String,
+        oid: String?
+    ) {
+
+        binding.progressBar2.visibility = View.VISIBLE
+//        val url = "${BuildConfig.API_URL}lms/api/forum/update"
+
+        val url = "https://pos-lms.digitalevent.id/lms/api/forum/update"
+
+        Timber.tag("DATA_UPDATE_FORUM")
+            .d("oid : $oid , batchId : $batchId , tittle : $title ,  description : $description, time : $time, date : $startDate - $endDate, owner : $owner")
+
+        AndroidNetworking.upload(url)
             .addHeaders("Accept", "application/json")
             .addHeaders("Content-type", "multipart/form-data")
             .addHeaders("Authorization", "Bearer $token")
+            .addMultipartParameter("object_identifier", oid)
             .addMultipartParameter("business_code", "POS")
             .addMultipartParameter("batch", batchId)
             .addMultipartParameter("owner", owner)
             .addMultipartParameter("forum_title", title)
             .addMultipartParameter("forum_text", description)
-            .addMultipartParameter("forum_type", "1")
+            .addMultipartParameter("forum_type", "2")
             .addMultipartFile("forum_image", mFile)
             .addMultipartParameter("forum_time", time)
             .addMultipartParameter("begin_date", startDate)
@@ -199,16 +215,19 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
                     if (response?.getBoolean("status") == true) {
                         val message = response.getString("message")
                         val status = response.getBoolean("status")
-                        val responseSubmit = SubmitResponse(message, status)
-                        Toast.makeText(this@CreateForumActivity, "Sucess", Toast.LENGTH_SHORT)
+                        binding.progressBar2.visibility = View.GONE
+                        Toast.makeText(this@UpdateInsightActivity, "Success", Toast.LENGTH_SHORT)
                             .show()
                         finish()
                     } else {
                         val message = response?.getString("message")
                         val status = response?.getBoolean("status")
-                        val responseSubmit = SubmitResponse(message.toString(), status!!)
-                        Toast.makeText(this@CreateForumActivity, "Failed", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(
+                            this@UpdateInsightActivity,
+                            "Gagal , Periksa Internet Anda",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        binding.progressBar2.visibility = View.GONE
 
                     }
 
@@ -216,11 +235,14 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
                 }
 
                 override fun onError(anError: ANError?) {
-                    Toast.makeText(this@CreateForumActivity, "Error", Toast.LENGTH_SHORT).show()
+                    binding.progressBar2.visibility = View.GONE
+                    ErrorLog.errorLog("ForumUpdate", anError, "ForumUpdate")
+                    Toast.makeText(this@UpdateInsightActivity, "Error", Toast.LENGTH_SHORT).show()
 
                 }
 
             })
+
 
     }
 
@@ -239,14 +261,12 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
         when (resultCode) {
             Activity.RESULT_OK -> {
 
-                Timber.tag("ImagePickerDetail").e("Path:${ImagePicker.getFilePath(data)}")
+                Timber.tag("ImagePickerDetail").d("Path:${ImagePicker.getFilePath(data)}")
 
                 val file = ImagePicker.getFile(data)!!
-                val name = ImagePicker.getFilePath(data)
                 when (requestCode) {
                     PROFILE_IMAGE_REQ_CODE -> {
                         mFile = file
-                        mFileName = name.toString()
                         binding.tvDropdownImage.text = ImagePicker.getFilePath(data)
 //                    img_result_photo.setLocalImage(file, false)
 //                    tv_name_image_helpdesk.text = ImagePicker.getFilePath(data)
@@ -261,103 +281,6 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
                 Toast.makeText(this, "Canceled", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-//    private fun submitData(title: String, description: String, startDate: String, endDate: String) {
-///*
-//        @Part("business_code") businessode : RequestBody,
-//        @Path("batch") batchid : RequestBody,
-//        @Path("owner") owner : RequestBody,
-//        @Path("forum_title") forumTitle : RequestBody,
-//        @Path("forum_text") forumText : RequestBody,
-//        @Path("forum_type") forumType : RequestBody,
-//        @Path("forum_image") forumImage : MultipartBody.Part,
-//        @Path("forum_time") forumTime : RequestBody,
-//        @Path("begin_date") beginDate : RequestBody,
-//        @Path("end_date") endDate : RequestBody,
-//*/
-//        val bussinessCode = "POS"
-//        val types = "1"
-//
-//        val name = "myFile"
-//        val file: File? = mFile
-//        val requestBody = file?.asRequestBody("image/*".toMediaTypeOrNull())
-//        val image: MultipartBody.Part = createFormData("Images", name, requestBody!!)
-//
-//        // new
-//        val businesCode: RequestBody = "POS".toRequestBody("text/plain".toMediaTypeOrNull())
-//        val batch: RequestBody = batchId!!.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val owner: RequestBody = owner!!.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val tittle: RequestBody = title.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val desc: RequestBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val type: RequestBody = "1".toRequestBody("text/plain".toMediaTypeOrNull())
-//        val time: RequestBody = time!!.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val begda: RequestBody = startDate.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val endda: RequestBody = endDate.toRequestBody("text/plain".toMediaTypeOrNull())
-//
-//        //old
-////        val requestFile: RequestBody = mFile!!.asRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val businesCode: RequestBody =
-////            bussinessCode.toRequestBody("text/Palin-data".toMediaTypeOrNull())
-////        val batch: RequestBody = batchId!!.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val owner: RequestBody = owner!!.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val tittle: RequestBody = title.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val desc: RequestBody = description.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val type: RequestBody = types.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val image: MultipartBody.Part = createFormData("image", mFileName, requestFile)
-////        val time: RequestBody = time!!.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val begda: RequestBody = startDate.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-////        val endda: RequestBody = endDate.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-//
-//        viewModel.createForum(
-//            businesCode,
-//            batch,
-//            owner,
-//            tittle,
-//            desc,
-//            type,
-//            image,
-//            time,
-//            begda,
-//            endda
-//        ).observe(this, { data ->
-//            if (data != null) {
-//                when (data) {
-//                    is Resource.Loading -> {
-//                        binding.progressBar.visibility = View.VISIBLE
-//                    }
-//
-//                    is Resource.Success -> {
-//                        val message = data.message.toString()
-//                        Timber.d("messageUpdate $message")
-//
-//                        val msg = "Create Success"
-//                        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-//                        binding.progressBar.visibility = View.GONE
-//
-//                        finish()
-//
-//                    }
-//
-//                    is Resource.Error -> {
-//                        val massage = getString(R.string.something_wrong)
-//                        binding.progressBar.visibility = View.GONE
-//                        Toast.makeText(this, massage, Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//
-//        })
-//
-//
-//    }
-
-    private fun uploadImage() {
-        val file: File? = mFile
-        val requestBody = file?.asRequestBody("image/*".toMediaTypeOrNull())
-        val parts: MultipartBody.Part = createFormData("newimage", file?.name, requestBody!!)
-        val someData = "This is a new Image".toRequestBody("text/plain".toMediaTypeOrNull())
-//
     }
 
     override fun onSupportNavigateUp(): Boolean {

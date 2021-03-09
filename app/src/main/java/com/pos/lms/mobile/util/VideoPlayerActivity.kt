@@ -1,10 +1,11 @@
 package com.pos.lms.mobile.util
 
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
@@ -17,8 +18,10 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
 import com.pos.lms.core.domain.model.MateriSchedule
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
+import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityVideoPlayerBinding
 import com.pos.lms.mobile.databinding.ContentVideoPlayerBinding
+import timber.log.Timber
 
 class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 
@@ -35,7 +38,7 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
     private var binding: ActivityVideoPlayerBinding? = null
 
     private lateinit var simpleExoplayer: SimpleExoPlayer
-    private var playbackPosition: Long = 108000
+    private var playbackPosition: Long = 0
 
     private var mp4Url: String? = ""
     private lateinit var mPreference: UserPreference
@@ -52,6 +55,13 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         ActivityVideoPlayerBinding.inflate(layoutInflater).also { binding = it }
         setContentView(binding!!.root)
 
+        binding2 = ContentVideoPlayerBinding.inflate(layoutInflater)
+
+        binding2!!.exoFullscreen.setOnClickListener {
+            Toast.makeText(this, "full_screen_click", Toast.LENGTH_SHORT).show()
+            Timber.tag(TAG).d("full_screen_click")
+        }
+
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -62,39 +72,41 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()
 
+
         val token = mPreferenceEntity.token.toString()
 
         val dataIntent = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
 
         val materiId = dataIntent?.materiTypeId ?: 0
 
-//        val videoUrl = dataIntent?.address
-        val videoUrl =
-            "https://ankylosaurus.digitalevent.id/materi/1613016690Paking%20Tutorial%20Reguler%2C%20Pecah%20Belah%20dan%20Cairan.mp4?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=nhbOhRFD52OnMwQaRr3qkfaYR%2F20210226%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210226T031951Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Signature=7229d7c572f8f7e45ac92c1ef303d92700819e500dc027067c606aee643d0fef"
+        val videoUrl = dataIntent?.address
 
         mp4Url = videoUrl
-        Log.d(TAG, "urlVideo : $mp4Url")
-
+        Timber.tag(TAG).d("urlVideo : $mp4Url")
         binding2 = ContentVideoPlayerBinding.inflate(layoutInflater)
 
-//        binding2.apply {
-//            btnFullscreen.setOnClickListener {
-//                if (flagFullScreen) {
-//                    // set icon fullscreen enter
-//                    btnFullscreen.setImageDrawable(resources.getDrawable(R.drawable.exo_ic_fullscreen_enter))
-//                    // set orientation lanscape
-//                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//                    flagFullScreen = false
-//                }else{
-//                    // set icon fullscreen exit
-//                    btnFullscreen.setImageDrawable(resources.getDrawable(R.drawable.exo_ic_fullscreen_exit))
-//                    // set orientation lanscape
-//                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-//
-//                    flagFullScreen = true
-//                }
-//            }
-//        }
+        binding2?.apply {
+            exoFullscreen.setOnClickListener {
+                if (flagFullScreen) {
+                    // set icon fullscreen enter
+                    exoFullscreen.setImageDrawable(resources.getDrawable(R.drawable.exo_ic_fullscreen_enter))
+                    // set orientation lanscape
+                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                    Toast.makeText(this@VideoPlayerActivity, "Potrait", Toast.LENGTH_SHORT).show()
+                    flagFullScreen = false
+                } else {
+                    // set icon fullscreen exit
+                    exoFullscreen.setImageDrawable(resources.getDrawable(R.drawable.exo_ic_fullscreen_exit))
+                    // set orientation lanscape
+                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                    Toast.makeText(this@VideoPlayerActivity, "LANDSCAPE", Toast.LENGTH_SHORT).show()
+
+                    flagFullScreen = true
+                }
+            }
+        }
+
+//        binding2.
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
@@ -148,6 +160,8 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 
     override fun onPlayerError(error: ExoPlaybackException) {
         // handle error
+        Toast.makeText(this, "Gagal memutar video, cba beberapa saat lagi", Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {

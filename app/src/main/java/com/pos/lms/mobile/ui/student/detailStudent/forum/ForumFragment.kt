@@ -40,7 +40,7 @@ class ForumFragment : Fragment() {
 
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
-    private var dataBundle : Student? = null
+    private var dataBundle: Student? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +67,15 @@ class ForumFragment : Fragment() {
             val mIntent = Intent(requireContext(), CreateForumActivity::class.java)
             mIntent.putExtra(CreateForumActivity.EXTRA_DATA, dataBundle)
             startActivity(mIntent)
+        }
+
+        binding.cbMyForum.setOnClickListener {
+            val checked = binding.cbMyForum.isChecked
+            if (checked) {
+                viewModel.myForumtQuery.value = mPreferenceEntity.username.toString()
+            } else {
+                viewModel.myForumtQuery.value = ""
+            }
         }
 
         // method
@@ -126,7 +135,6 @@ class ForumFragment : Fragment() {
         })
 
 
-
     }
 
 
@@ -157,7 +165,7 @@ class ForumFragment : Fragment() {
         }
     }
 
-    private fun setupObserverListForum () {
+    private fun setupObserverListForum() {
         val batchId = dataBundle?.batch.toString()
 
         val begindate = CurrentDate.getToday()

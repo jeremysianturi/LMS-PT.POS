@@ -16,11 +16,15 @@ import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityDetailScheduleBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.detailQuisioner.QuisionerActivity
+import com.pos.lms.mobile.util.PdfViewActivity
 import com.pos.lms.mobile.util.VideoPlayerActivity
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class DetailScheduleActivity : AppCompatActivity() {
+
+    private val tag = DetailScheduleActivity::class.java.simpleName
 
     companion object {
         const val EXTRA_DATA = "extra_data"
@@ -181,12 +185,13 @@ class DetailScheduleActivity : AppCompatActivity() {
         )
 
         adapterMateri.onItemClick = { selectData ->
+            Timber.tag(tag).d("fileTypeMateri : ${selectData.fileType}")
             if (selectData.fileType == "VIDEO") {
                 val mIntent = Intent(this, VideoPlayerActivity::class.java)
                 mIntent.putExtra(VideoPlayerActivity.EXTRA_DATA, selectData)
                 startActivity(mIntent)
             } else {
-                val mIntent = Intent(this, VideoPlayerActivity::class.java)
+                val mIntent = Intent(this, PdfViewActivity::class.java)
                 mIntent.putExtra(VideoPlayerActivity.EXTRA_DATA, selectData)
                 startActivity(mIntent)
             }

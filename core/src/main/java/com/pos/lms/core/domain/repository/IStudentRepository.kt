@@ -24,6 +24,10 @@ interface IStudentRepository {
 
     fun getForumList(batchId: String, begda: String, endda: String): Flow<Resource<List<ForumList>>>
 
+    fun getSearchForum(search: String): Flow<List<ForumList>>
+
+    fun getOwnerForum(owner: String): Flow<List<ForumList>>
+
     fun createForum(
         businesCode: RequestBody,
         batch: RequestBody,
@@ -54,6 +58,15 @@ interface IStudentRepository {
         begda: String,
         endda: String
     ): Flow<Resource<List<InsightList>>>
+
+    fun getSearchInsight(search: String): Flow<List<InsightList>>
+
+    fun getOwnerInsight(owner: String): Flow<List<InsightList>>
+
+    fun deteleInsight(
+        oid: String
+    ): Flow<Resource<Submit>>
+
 
     fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>>
 

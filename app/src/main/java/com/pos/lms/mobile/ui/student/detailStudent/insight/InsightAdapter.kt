@@ -18,12 +18,14 @@ class InsightAdapter : RecyclerView.Adapter<InsightAdapter.UserViewHolder>() {
 
     var onUpdateClick: ((InsightList) -> Unit)? = null
 
+    private var mOwner: String = ""
     private val mData = ArrayList<InsightList>()
 
-    fun setData(newListData: List<InsightList>?) {
+    fun setData(newListData: List<InsightList>?, username: String?) {
         if (newListData == null) return
         mData.clear()
         mData.addAll(newListData)
+        this.mOwner = username.toString()
         notifyDataSetChanged()
     }
 
@@ -52,6 +54,11 @@ class InsightAdapter : RecyclerView.Adapter<InsightAdapter.UserViewHolder>() {
             binding.tvTittle.text = data.forumTitle
             binding.tvDescription.text = data.forumText
             binding.tvDate.text = data.forumTime
+
+            if (data.owner != mOwner) {
+                binding.ivDelete.visibility = View.GONE
+                binding.ivUpdate.visibility = View.GONE
+            }
 
             Glide.with(itemView.context)
                 .load(data.forumImage)

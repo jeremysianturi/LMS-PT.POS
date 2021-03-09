@@ -96,12 +96,18 @@ interface ApiService {
 
 
     // -> insight
-    @GET("lms/api/forum?order[BEGDA]=asc&forum_type[]=2&per_page=9000000")
+    @GET("lms/api/android/forum?order[object_identifier]=DESC&per_page=9000000&forum_type_id=2")
     suspend fun getListInsight(
         @Query("begin_date_lte") begda: String,
         @Query("end_date_gte") endDa: String,
-        @Query("batch[]") batchId: String,
+        @Query("batch_id") batchId: String,
     ): ListInsightResponse
+
+    @POST("lms/api/forum")
+    suspend fun deleteInsight(
+        @Query("object_identifier") oid: String
+    ): SubmitResponse
+
 
     // -> forum
     @GET("lms/api/android/forum?order[object_identifier]=DESC&per_page=9000000&forum_type_id=1")

@@ -1,6 +1,7 @@
 package com.pos.lms.mobile.util
 
 import android.os.Bundle
+import android.webkit.WebSettings.PluginState
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +28,13 @@ class PdfViewActivity : AppCompatActivity() {
         val dataIntent = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
 
         val url = dataIntent?.address
-        val openUurl = "https://docs.google.com/viewer?embedded = true&url = $url"
+
+        binding.apply {
+            webview.settings.javaScriptEnabled = true
+            webview.settings.pluginState = PluginState.ON
+            webview.settings.setSupportZoom(true)
+        }
+        val openUurl = "http://docs.google.com/gview?embedded=true&url=$url"
 
         showPdf(openUurl)
 
@@ -41,7 +48,6 @@ class PdfViewActivity : AppCompatActivity() {
     private fun showPdf(openUurl: String) {
 
         binding.webview.loadUrl(openUurl)
-
         binding.webview.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 view.loadUrl(url)

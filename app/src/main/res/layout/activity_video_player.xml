@@ -23,16 +23,6 @@
         app:use_controller="true">
     </com.google.android.exoplayer2.ui.PlayerView>
 
-<!--    <com.github.barteksc.pdfviewer.PDFView-->
-<!--        android:visibility="gone"-->
-<!--        android:id="@+id/pdfView"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"

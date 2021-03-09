@@ -145,6 +145,20 @@ class StudentRepository @Inject constructor(
 
         }.asFlow()
 
+    override fun getSearchForum(search: String): Flow<List<ForumList>> {
+        return localDataSource.getSearchForum(search).map {
+            DataMapperForum.mapEntitiestoDomain(it)
+        }
+
+    }
+
+    override fun getOwnerForum(owner: String): Flow<List<ForumList>> {
+        return localDataSource.getMyForum(owner).map {
+            DataMapperForum.mapEntitiestoDomain(it)
+        }
+
+    }
+
     override fun createForum(
         businesCode: RequestBody,
         batch: RequestBody,
@@ -291,6 +305,42 @@ class StudentRepository @Inject constructor(
             }
 
         }.asFlow()
+
+    override fun getSearchInsight(search: String): Flow<List<InsightList>> {
+        return localDataSource.getSearchInsight(search).map {
+            DataMapperInsightList.mapEntitiestoDomain(it)
+        }
+
+    }
+
+    override fun getOwnerInsight(owner: String): Flow<List<InsightList>> {
+        return localDataSource.getMyInsight(owner).map {
+            DataMapperInsightList.mapEntitiestoDomain(it)
+        }
+    }
+
+    override fun deteleInsight(oid: String): Flow<Resource<Submit>> =
+        object : NetworkBoundResource<Submit, SubmitResponse>() {
+
+            override fun loadFromDB(): Flow<Submit> {
+                return localDataSource.getSubmitResponse().map {
+                    DataMapperSubmit.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Submit?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<SubmitResponse>> =
+                remoteDataSource.deteleInsight(oid)
+
+            override suspend fun saveCallResult(data: SubmitResponse) {
+                val list = DataMapperSubmit.mapResponsetoEntities(data)
+                localDataSource.insertSubmitResponse(list)
+            }
+
+        }.asFlow()
+
 
     override fun getSchedule(sessionId: String): Flow<Resource<List<Schedule>>> =
         object : NetworkBoundResource<List<Schedule>, List<ScheduleResponse>>() {

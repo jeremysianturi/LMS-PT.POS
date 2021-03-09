@@ -50,5 +50,4 @@ data class ForumListEntity(
     val batchId: String,
 
 
-
     )
