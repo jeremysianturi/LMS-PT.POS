@@ -25,5 +25,8 @@ class CuriculumInteractor @Inject constructor(private val curiculumrepository: C
     override fun createCuriculum(curiculumCreate: CuriculumCreate): Flow<Resource<Submit>> =
         curiculumrepository.createCuriculum(curiculumCreate)
 
+    override fun getSearchCuriculum(search: String): Flow<List<Curiculum>> =
+        curiculumrepository.getSearchCuriculum(search)
+
 
 }

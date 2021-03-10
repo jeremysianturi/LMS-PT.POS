@@ -28,6 +28,8 @@ class DetailScheduleActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val PARENT_DATA = "materi_schedule"
+
     }
 
     private val viewModel: DetailScheduleViewModel by viewModels()
@@ -189,10 +191,12 @@ class DetailScheduleActivity : AppCompatActivity() {
             if (selectData.fileType == "VIDEO") {
                 val mIntent = Intent(this, VideoPlayerActivity::class.java)
                 mIntent.putExtra(VideoPlayerActivity.EXTRA_DATA, selectData)
+                mIntent.putExtra(VideoPlayerActivity.PARENT_DATA, PARENT_DATA)
                 startActivity(mIntent)
             } else {
                 val mIntent = Intent(this, PdfViewActivity::class.java)
-                mIntent.putExtra(VideoPlayerActivity.EXTRA_DATA, selectData)
+                mIntent.putExtra(PdfViewActivity.EXTRA_DATA, selectData)
+                mIntent.putExtra(PdfViewActivity.PARENT_DATA, PARENT_DATA)
                 startActivity(mIntent)
             }
 

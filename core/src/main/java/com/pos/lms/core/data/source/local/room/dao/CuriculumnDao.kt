@@ -1,9 +1,6 @@
 package com.pos.lms.core.data.source.local.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.pos.lms.core.data.source.local.entity.curiculum.CuriculumEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -20,4 +17,17 @@ interface CuriculumnDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCuriculum(curiculum: List<CuriculumEntity>)
+
+    @Query("DELETE FROM curiculum")
+    suspend fun deleteCuriculum()
+
+    @Transaction
+    suspend fun insertAndDeleteCuriculum(student: List<CuriculumEntity>) {
+        deleteCuriculum()
+        insertCuriculum(student)
+    }
+
+    @Transaction
+    @Query("SELECT * FROM curiculum where request_name LIKE '%'|| :search || '%'")
+    fun getSearchCuriculum(search: String): Flow<List<CuriculumEntity>>
 }

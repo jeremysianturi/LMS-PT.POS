@@ -60,7 +60,13 @@ class LocalDataSource @Inject constructor(
     // curiculum
     fun getCuriculum(): Flow<List<CuriculumEntity>> = mCuriculumDao.getCuriculum()
     suspend fun insertCuriculum(curiculum: List<CuriculumEntity>) =
-        mCuriculumDao.insertCuriculum(curiculum)
+        mCuriculumDao.insertAndDeleteCuriculum(curiculum)
+
+    suspend fun deleteCuriculum() = mCuriculumDao.deleteCuriculum()
+
+    fun getSearchCuriculum(search: String): Flow<List<CuriculumEntity>> =
+        mCuriculumDao.getSearchCuriculum(search)
+
 
     fun getSubmitResponse(): Flow<SubmitEntity> = mSubmitDao.getSubmit()
     suspend fun insertSubmitResponse(submitEntity: SubmitEntity) =
@@ -72,6 +78,10 @@ class LocalDataSource @Inject constructor(
         mMateriDao.insertAndDeleteMateri(materi)
 
     suspend fun deleteMateri() = mMateriDao.deleteMateri()
+
+    fun getSearchMateri(search: String): Flow<List<MateriEntity>> =
+        mMateriDao.getSearchMateri(search)
+
 
     // student
     fun getStudent(): Flow<List<StudentEntity>> = mStudentDao.getStudent()

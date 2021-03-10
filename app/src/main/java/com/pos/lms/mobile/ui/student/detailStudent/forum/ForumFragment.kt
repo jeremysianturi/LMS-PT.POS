@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,8 +24,10 @@ import com.pos.lms.mobile.ui.student.detailStudent.forum.detail.DetailForumActiv
 import com.pos.lms.mobile.ui.student.detailStudent.forum.update.UpdateForumActivity
 import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class ForumFragment : Fragment() {
 
@@ -78,6 +81,11 @@ class ForumFragment : Fragment() {
             }
         }
 
+        // search
+        binding.edtSearch.doOnTextChanged { text, start, before, count ->
+            viewModel.searchQuery.value = text.toString()
+        }
+
         // method
         buildRecycleView()
         setupObserver(dataBundle)
@@ -111,6 +119,7 @@ class ForumFragment : Fragment() {
     }
 
     private fun setupObserver(bundle: Student?) {
+
         val eventId = bundle?.eventId.toString()
 
         viewModel.getDetailSession(eventId).observe(viewLifecycleOwner, { data ->
@@ -134,6 +143,14 @@ class ForumFragment : Fragment() {
             }
         })
 
+        viewModel.search.observe(viewLifecycleOwner, { data ->
+            adapter.setData(data, mPreferenceEntity.username)
+
+        })
+
+        viewModel.myForum.observe(viewLifecycleOwner, { data ->
+            adapter.setData(data, mPreferenceEntity.username)
+        })
 
     }
 

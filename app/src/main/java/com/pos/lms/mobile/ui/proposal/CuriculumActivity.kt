@@ -7,6 +7,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
@@ -16,8 +17,10 @@ import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.proposal.create.CreateCuriculumActivity
 import com.pos.lms.mobile.ui.proposal.detail.DetailCuriculumActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class CuriculumActivity : AppCompatActivity() {
 
@@ -47,8 +50,13 @@ class CuriculumActivity : AppCompatActivity() {
 
         // onclick
         binding.ivCrateProposal.setOnClickListener {
-            val mIntent = Intent(this,CreateCuriculumActivity::class.java)
+            val mIntent = Intent(this, CreateCuriculumActivity::class.java)
             startActivity(mIntent)
+        }
+
+        // search
+        binding.edtSearchProposal.doOnTextChanged { text, start, before, count ->
+            curiculumViewModel.searchQuery.value = text.toString()
         }
 
         // method
@@ -76,6 +84,12 @@ class CuriculumActivity : AppCompatActivity() {
 
             }
         })
+
+        curiculumViewModel.search.observe(this, { data ->
+            adapter.setData(data)
+
+        })
+
 
     }
 

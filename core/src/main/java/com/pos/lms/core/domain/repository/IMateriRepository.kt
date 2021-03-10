@@ -11,5 +11,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IMateriRepository {
 
-    fun getMateri(begda : String, endda : String) : Flow<Resource<List<Materi>>>
+    fun getMateri(begda: String, endda: String): Flow<Resource<List<Materi>>>
+
+    fun getSearchMateri(search: String): Flow<List<Materi>>
 }

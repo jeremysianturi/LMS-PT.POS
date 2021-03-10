@@ -1,6 +1,7 @@
 package com.pos.lms.core.data.repository
 
 import com.pos.lms.core.data.NetworkBoundResource
+import com.pos.lms.core.data.NetworkBoundResourceWithDeleteLocalData
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.local.room.LocalDataSource
 import com.pos.lms.core.data.source.remote.RemoteDataSource
@@ -33,7 +34,8 @@ class Curiculumrepository @Inject constructor(
 ) : ICuriculumRepository {
 
     override fun getCuriculum(begda: String, enda: String): Flow<Resource<List<Curiculum>>> =
-        object : NetworkBoundResource<List<Curiculum>, List<CuriculumResponse>>() {
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<Curiculum>, List<CuriculumResponse>>() {
 
             override fun loadFromDB(): Flow<List<Curiculum>> {
                 return localDataSource.getCuriculum().map {
@@ -50,6 +52,10 @@ class Curiculumrepository @Inject constructor(
             override suspend fun saveCallResult(data: List<CuriculumResponse>) {
                 val list = DataMapperCuriculum.mapResponsetoEntities(data)
                 localDataSource.insertCuriculum(list)
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteCuriculum()
             }
 
         }.asFlow()
@@ -97,6 +103,13 @@ class Curiculumrepository @Inject constructor(
             }
 
         }.asFlow()
+
+    override fun getSearchCuriculum(search: String): Flow<List<Curiculum>> {
+        return localDataSource.getSearchCuriculum(search).map {
+            DataMapperCuriculum.mapEntitiestoDomain(it)
+        }
+
+    }
 
 
 }

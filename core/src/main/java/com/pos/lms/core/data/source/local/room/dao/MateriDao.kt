@@ -26,4 +26,8 @@ interface MateriDao {
         insertMateri(student)
     }
 
+    @Transaction
+    @Query("SELECT * FROM materi where materi_name LIKE '%'|| :search || '%'")
+    fun getSearchMateri(search: String): Flow<List<MateriEntity>>
+
 }

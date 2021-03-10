@@ -18,4 +18,6 @@ interface ICuriculumRepository {
     fun updateCuriculum(curiculumUpdate: CuriculumUpdate) : Flow<Resource<Submit>>
 
     fun createCuriculum(curiculumCreate: CuriculumCreate) : Flow<Resource<Submit>>
+
+    fun getSearchCuriculum(search: String): Flow<List<Curiculum>>
 }

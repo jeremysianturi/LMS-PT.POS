@@ -4,9 +4,11 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.pos.lms.core.domain.usecase.student.StudentUsecase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 
+@ExperimentalCoroutinesApi
 class ForumViewModel @ViewModelInject constructor(private val studentUsecase: StudentUsecase) :
     ViewModel() {
 
@@ -23,11 +25,11 @@ class ForumViewModel @ViewModelInject constructor(private val studentUsecase: St
         studentUsecase.deteleForum(objectIdentifier).asLiveData()
 
     private val forumFlow = searchQuery.flatMapLatest {
-        studentUsecase.getSearchInsight(it)
+        studentUsecase.getSearchForum(it)
     }
 
     private val myForumFlow = myForumtQuery.flatMapLatest {
-        studentUsecase.getOwnerInsight(it)
+        studentUsecase.getOwnerForum(it)
     }
 
     val search = forumFlow.asLiveData()

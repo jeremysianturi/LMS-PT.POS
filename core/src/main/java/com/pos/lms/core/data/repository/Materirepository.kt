@@ -52,4 +52,11 @@ class Materirepository @Inject constructor(
 
         }.asFlow()
 
+    override fun getSearchMateri(search: String): Flow<List<Materi>> {
+        return localDataSource.getSearchMateri(search).map {
+            DataMapperMateri.mapEntitiestoDomain(it)
+        }
+
+    }
+
 }

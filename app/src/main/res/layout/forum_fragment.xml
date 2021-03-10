@@ -86,6 +86,19 @@
             app:layout_constraintEnd_toEndOf="@+id/tvTittleActivity"
             app:layout_constraintTop_toBottomOf="@+id/ivCreateDiscussion" />
 
+        <EditText
+            android:id="@+id/edtSearch"
+            style="@style/edt_search"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cbMyForum"
+            />
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvForum"
             android:layout_width="0dp"
@@ -93,7 +106,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/tvTittleActivity"
             app:layout_constraintStart_toStartOf="@+id/tvTittleActivity"
-            app:layout_constraintTop_toBottomOf="@+id/cbMyForum" />
+            app:layout_constraintTop_toBottomOf="@+id/edtSearch" />
 
         <ProgressBar
             android:id="@+id/progressBar2"

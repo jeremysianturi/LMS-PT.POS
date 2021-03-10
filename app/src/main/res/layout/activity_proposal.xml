@@ -72,35 +72,28 @@
 
         <EditText
             android:id="@+id/edtSearchProposal"
-            style="@style/text_content_style_grey"
+            style="@style/edt_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp"
-            android:drawableEnd="@drawable/ic_search_24"
-            android:ems="10"
-            android:hint="@string/txt_cari_disini"
-            android:imeOptions="actionSearch"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
+
         <ImageView
-            android:background="?attr/selectableItemBackground"
             android:id="@+id/ivCrateProposal"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/image_description"
             android:src="@drawable/ic_add_orange"
             app:layout_constraintBottom_toBottomOf="@+id/textView13"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView10"
-            android:contentDescription="@string/image_description" />
+            app:layout_constraintTop_toTopOf="@+id/textView10" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProposal"

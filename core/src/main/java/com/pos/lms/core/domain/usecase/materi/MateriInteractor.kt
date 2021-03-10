@@ -10,7 +10,11 @@ import javax.inject.Inject
  * Created by Muhammad Zaim Milzam on 10/02/21.
  * linkedin : Muhammad Zaim Milzam
  */
-class MateriInteractor @Inject constructor(private val materirepository: Materirepository) : MateriUsecase {
+class MateriInteractor @Inject constructor(private val materirepository: Materirepository) :
+    MateriUsecase {
     override fun getMateri(begda: String, enda: String): Flow<Resource<List<Materi>>> =
         materirepository.getMateri(begda, enda)
+
+    override fun getSearchMateri(search: String): Flow<List<Materi>> =
+        materirepository.getSearchMateri(search)
 }

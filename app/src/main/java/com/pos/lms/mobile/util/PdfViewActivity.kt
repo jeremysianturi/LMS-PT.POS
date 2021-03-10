@@ -5,19 +5,24 @@ import android.webkit.WebSettings.PluginState
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
+import com.pos.lms.core.domain.model.Materi
 import com.pos.lms.core.domain.model.MateriSchedule
 import com.pos.lms.mobile.databinding.ActivityPdfViewBinding
+import timber.log.Timber
 
 
 class PdfViewActivity : AppCompatActivity() {
 
+    private val tag = PdfViewActivity::class.java.simpleName
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val PARENT_DATA = "parent_data"
         private const val PDF_SELECTION_CODE = 99
 
     }
 
+    private val parentId = "materi"
     private lateinit var binding: ActivityPdfViewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,9 +30,31 @@ class PdfViewActivity : AppCompatActivity() {
         binding = ActivityPdfViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dataIntent = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
+        var url = ""
+        val parentIdExtra = intent.getStringExtra(PARENT_DATA)
 
-        val url = dataIntent?.address
+        Timber.tag(tag).d("CHECK_DATA_TYPE : ${VideoPlayerActivity.PARENT_DATA} ")
+
+        when (parentIdExtra) {
+            parentId -> {
+                val dataIntentMateri = intent.getParcelableExtra<Materi>(EXTRA_DATA)
+                url = dataIntentMateri?.address.toString()
+            }
+            else -> {
+                val dataIntentMateriSchedule = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
+                url = dataIntentMateriSchedule?.address.toString()
+            }
+        }
+
+//        if (VideoPlayerActivity.PARENT_DATA == "MATERI") {
+//            val dataIntentMateri = intent.getParcelableExtra<Materi>(EXTRA_DATA)
+//            url = dataIntentMateri?.address.toString()
+//        } else {
+//            val dataIntentMateriSchedule = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
+//            url = dataIntentMateriSchedule?.address.toString()
+//
+//        }
+
 
         binding.apply {
             webview.settings.javaScriptEnabled = true

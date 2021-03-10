@@ -15,6 +15,7 @@ import com.google.android.exoplayer2.source.ProgressiveMediaSource
 import com.google.android.exoplayer2.source.dash.DashMediaSource
 import com.google.android.exoplayer2.upstream.DataSource
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.pos.lms.core.domain.model.Materi
 import com.pos.lms.core.domain.model.MateriSchedule
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
@@ -29,9 +30,12 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val PARENT_DATA = "parent_data"
         private const val PDF_SELECTION_CODE = 99
 
     }
+
+    private val parentId = "materi"
 
     private var flagFullScreen: Boolean = false
 
@@ -55,13 +59,7 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         ActivityVideoPlayerBinding.inflate(layoutInflater).also { binding = it }
         setContentView(binding!!.root)
 
-        binding2 = ContentVideoPlayerBinding.inflate(layoutInflater)
-
-        binding2!!.exoFullscreen.setOnClickListener {
-            Toast.makeText(this, "full_screen_click", Toast.LENGTH_SHORT).show()
-            Timber.tag(TAG).d("full_screen_click")
-        }
-
+        val parentIdExtra = intent.getStringExtra(PdfViewActivity.PARENT_DATA)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -72,14 +70,29 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()
 
+        binding2 = ContentVideoPlayerBinding.inflate(layoutInflater)
 
-        val token = mPreferenceEntity.token.toString()
+        binding2!!.exoFullscreen.setOnClickListener {
+            Toast.makeText(this, "full_screen_click", Toast.LENGTH_SHORT).show()
+            Timber.tag(TAG).d("full_screen_click")
+        }
 
-        val dataIntent = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
+        var materiId = 0
 
-        val materiId = dataIntent?.materiTypeId ?: 0
+        var videoUrl = ""
 
-        val videoUrl = dataIntent?.address
+        when (parentIdExtra) {
+            parentId -> {
+                val dataIntentMateri = intent.getParcelableExtra<Materi>(EXTRA_DATA)
+                videoUrl = dataIntentMateri?.address.toString()
+//                materiId = (dataIntentMateri?.materiTypeId ?: 0) as Int
+            }
+            else -> {
+                val dataIntentSchedule = intent.getParcelableExtra<MateriSchedule>(EXTRA_DATA)
+                videoUrl = dataIntentSchedule?.address.toString()
+//                materiId = (dataIntentSchedule?.materiTypeId ?: 0) as Int
+            }
+        }
 
         mp4Url = videoUrl
         Timber.tag(TAG).d("urlVideo : $mp4Url")
