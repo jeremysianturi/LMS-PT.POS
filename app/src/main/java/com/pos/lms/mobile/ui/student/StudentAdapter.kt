@@ -8,7 +8,10 @@ import com.pos.lms.core.domain.model.Student
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListStudentBinding
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class StudentAdapter : RecyclerView.Adapter<StudentAdapter.UserViewHolder>() {
 
     var onItemClick: ((Student) -> Unit)? = null

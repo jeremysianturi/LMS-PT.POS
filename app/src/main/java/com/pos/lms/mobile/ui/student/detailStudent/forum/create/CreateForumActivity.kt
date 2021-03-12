@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +14,11 @@ import com.androidnetworking.AndroidNetworking
 import com.androidnetworking.common.Priority
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.JSONObjectRequestListener
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.form_validation.rule.NonEmptyRule
 import com.github.dhaval2404.form_validation.validation.FormValidator
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.domain.model.Student
 import com.pos.lms.core.utils.PreferenceEntity
@@ -35,7 +40,10 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 @AndroidEntryPoint
 class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener,
     View.OnClickListener {
@@ -46,6 +54,9 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
         private const val DATE_PICKER_TAG_START = "DatePickerStart"
         private const val DATE_PICKER_TAG_END = "DatePickerEnd"
     }
+
+    //bottomSheet
+    private var bottomSheetDialog: BottomSheetDialog? = null
 
     private lateinit var binding: ActivityCreateForumBinding
     private val viewModel: CreateForumViewModel by viewModels()
@@ -71,6 +82,8 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
 
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()
+
+        bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
 
         dataIntent = intent.getParcelableExtra(EXTRA_DATA)
 
@@ -167,15 +180,69 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
     }
 
     private fun isValidField() {
+        popupConfirm()
+    }
+
+    private fun popupConfirm() {
+        //init bottomSheet
+        val views = layoutInflater.inflate(R.layout.bottom_sheet_confirmation, null)
+        bottomSheetDialog?.setContentView(views)
+        val tittle = views.findViewById<TextView>(R.id.tvDialogTittle)
+        val content = views.findViewById<TextView>(R.id.tvDialogMessage)
+        val btnNo = views.findViewById<Button>(R.id.btnDialogNo)
+        val btnYes = views.findViewById<Button>(R.id.btnDialogYes)
+
+        tittle.text = getString(R.string.txt_konfirmasi)
+        content.text = getString(R.string.txt_konfirmasi_content)
+        btnNo.text = getString(R.string.text_batal)
+        btnYes.text = getString(R.string.text_oke)
+        bottomSheetDialog?.show()
+
+        //onclick bottomsheet
+        // positive button
+        btnYes.setOnClickListener {
+            submitData()
+        }
+        // negative button
+        btnNo.setOnClickListener {
+            bottomSheetDialog?.dismiss()
+        }
+
+    }
+
+    private fun popupInformation() {
+
+        val views = layoutInflater.inflate(R.layout.bottom_sheet_information, null)
+        bottomSheetDialog?.setContentView(views)
+
+        val tittle = views.findViewById<TextView>(R.id.tvTittleInfo)
+        val content = views.findViewById<TextView>(R.id.tvContentInfo)
+        val btnYes = views.findViewById<Button>(R.id.btnInfo)
+        val img = views.findViewById<ImageView>(R.id.imgInfo)
+        tittle.text = getString(R.string.text_berhasil)
+        content.text = getString(R.string.txt_confirm_curiculum)
+        Glide.with(this)
+            .load(R.drawable.img_confirm)
+            .into(img)
+
+        btnYes.text = getString(R.string.text_oke)
+        bottomSheetDialog?.show()
+
+        //setOnclick bottomsheet
+        btnYes.setOnClickListener {
+            bottomSheetDialog?.dismiss()
+            finish()
+        }
+
+    }
+
+    private fun submitData() {
+
         val title = binding.edtTitle.text.toString()
         val description = binding.edtDescription.text.toString()
         val startDate = binding.tvDropdownStartDate.text.toString().trim()
         val endDate = binding.tvDropdownEndDate.text.toString().trim()
 
-        submitData(title, description, startDate, endDate)
-    }
-
-    private fun submitData(title: String, description: String, startDate: String, endDate: String) {
         // sementara selama retrofit blm bisa upload image "Lebih ke tolol sih "
         AndroidNetworking.upload("${com.pos.lms.core.BuildConfig.API_URL}lms/api/forum")
             .addHeaders("Accept", "application/json")
@@ -200,9 +267,9 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
                         val message = response.getString("message")
                         val status = response.getBoolean("status")
                         val responseSubmit = SubmitResponse(message, status)
-                        Toast.makeText(this@CreateForumActivity, "Sucess", Toast.LENGTH_SHORT)
-                            .show()
-                        finish()
+
+                        popupInformation()
+
                     } else {
                         val message = response?.getString("message")
                         val status = response?.getBoolean("status")

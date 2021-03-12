@@ -6,11 +6,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
+import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivitySplashScreenBinding
 import com.pos.lms.mobile.ui.login.LoginActivity
 import com.pos.lms.mobile.util.CheckConnection
 import timber.log.Timber
 
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class SplashScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashScreenBinding
@@ -24,6 +29,12 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mPreference = UserPreference(this)
+
+        // animation
+        val leftAnimation =
+            android.view.animation.AnimationUtils.loadAnimation(this, R.anim.left_animation)
+
+        binding.imageView8.animation = leftAnimation
 
         val checkConnection = CheckConnection.internetAvailable(this)
         if (!checkConnection) {

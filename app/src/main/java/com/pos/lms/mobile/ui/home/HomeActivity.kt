@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -14,12 +16,18 @@ import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityHomeBinding
 import com.pos.lms.mobile.ui.materi.MateriActivity
+import com.pos.lms.mobile.ui.profile.ProfileActivity
 import com.pos.lms.mobile.ui.proposal.CuriculumActivity
 import com.pos.lms.mobile.ui.roadmap.RoadmapActivity
 import com.pos.lms.mobile.ui.student.StudentActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import kotlin.system.exitProcess
+
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
@@ -46,14 +54,11 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding.content.learningProposal.setOnClickListener(this)
         binding.content.searchMateri.setOnClickListener(this)
 
-//        supportActionBar?.title = "HOME"
 
         setupObserver()
 
-//        binding.openCourse.setOnClickListener(this)
-//        binding.counseling.setOnClickListener(this)
-//            toolbarHome.ivNavigationBar.setOnClickListener(this)
-//            toolbarHome.ivProfile.setOnClickListener(this)
+        val actionbar = supportActionBar
+        actionbar?.title = "Home"
 
     }
 
@@ -105,25 +110,24 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                 val mIntent = Intent(this, MateriActivity::class.java)
                 startActivity(mIntent)
             }
-//            R.id.openCourse -> {
-//                Toasty.warning(this, "Fitur Not Ready ", Toasty.LENGTH_SHORT).show()
-////                val mIntent = Intent(this, ::class.java)
-////                startActivity(mIntent)
-//            }
-//            R.id.counseling -> {
-//                Toasty.warning(this, "Fitur Not Ready ", Toasty.LENGTH_SHORT).show()
-////                val mIntent = Intent(this, RoadmapActivity::class.java)
-////                startActivity(mIntent)
-//            }
-//            R.id.ivNavigationBar -> {
-//                Toasty.warning(this, "Fitur Not Ready ", Toasty.LENGTH_SHORT).show()
-//            }
-//            R.id.ivProfile -> {
-//                val mIntent = Intent(this, ProfileActivity::class.java)
-//                startActivity(mIntent)
-//            }
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        return super.onCreateOptionsMenu(menu)
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_home, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        return if (id == R.id.action_profile) {
+            val mIntent = Intent(this, ProfileActivity::class.java)
+            startActivity(mIntent)
+            true
+        } else super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {

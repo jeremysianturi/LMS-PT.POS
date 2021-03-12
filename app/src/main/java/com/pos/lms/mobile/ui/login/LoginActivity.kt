@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.github.dhaval2404.form_validation.rule.NonEmptyRule
 import com.github.dhaval2404.form_validation.validation.FormValidator
 import com.pos.lms.core.data.Resource
-import com.pos.lms.core.data.source.local.room.LmsDataBase
 import com.pos.lms.core.data.source.remote.post.LoginPost
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
@@ -21,6 +20,11 @@ import com.pos.lms.mobile.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import kotlin.system.exitProcess
+
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -50,8 +54,6 @@ class LoginActivity : AppCompatActivity() {
             binding.edtUsernameLogin.setText(username)
             binding.edtPasswordLogin.setText(password)
         }
-
-
 
 
 //        appDatabase.clearAllTables()

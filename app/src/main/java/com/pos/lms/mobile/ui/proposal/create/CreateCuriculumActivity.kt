@@ -3,11 +3,16 @@ package com.pos.lms.mobile.ui.proposal.create
 import `in`.galaxyofandroid.spinerdialog.SpinnerDialog
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.form_validation.rule.NonEmptyRule
 import com.github.dhaval2404.form_validation.validation.FormValidator
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.CuriculumCreate
 import com.pos.lms.core.domain.model.Company
@@ -29,6 +34,10 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
     DatePickerFragment.DialogDateListener {
 
     private lateinit var binding: ActivityCreateCompetencyBinding
+
+    //bottomSheet
+    private var bottomSheetDialog: BottomSheetDialog? = null
+
     private val viewmodel: CreateCuriculumViewModel by viewModels()
 
     companion object {
@@ -59,6 +68,8 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
 
         setupObserver()
 
+        bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
+
         // onclick
         binding.tvDropdownType.setOnClickListener(this)
         binding.tvDropdownCompany.setOnClickListener(this)
@@ -73,6 +84,60 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
         val actionbar = supportActionBar
         actionbar?.title = "Create Curiculum"
         actionbar?.setDisplayHomeAsUpEnabled(true)
+
+    }
+
+    private fun popupConfirm() {
+        //init bottomSheet
+        val views = layoutInflater.inflate(R.layout.bottom_sheet_confirmation, null)
+        bottomSheetDialog?.setContentView(views)
+        val tittle = views.findViewById<TextView>(R.id.tvDialogTittle)
+        val content = views.findViewById<TextView>(R.id.tvDialogMessage)
+        val btnNo = views.findViewById<Button>(R.id.btnDialogNo)
+        val btnYes = views.findViewById<Button>(R.id.btnDialogYes)
+
+        tittle.text = getString(R.string.txt_konfirmasi)
+        content.text = getString(R.string.txt_konfirmasi_content)
+        btnNo.text = getString(R.string.text_batal)
+        btnYes.text = getString(R.string.text_oke)
+        bottomSheetDialog?.show()
+
+        //onclick bottomsheet
+        // positive button
+        btnYes.setOnClickListener {
+            submitData()
+        }
+        // negative button
+        btnNo.setOnClickListener {
+            bottomSheetDialog?.dismiss()
+        }
+
+    }
+
+    private fun popupInformation() {
+
+        val views = layoutInflater.inflate(R.layout.bottom_sheet_information, null)
+        bottomSheetDialog?.setContentView(views)
+
+        val tittle = views.findViewById<TextView>(R.id.tvTittleInfo)
+        val content = views.findViewById<TextView>(R.id.tvContentInfo)
+        val btnYes = views.findViewById<Button>(R.id.btnInfo)
+        val img = views.findViewById<ImageView>(R.id.imgInfo)
+        tittle.text = getString(R.string.text_berhasil)
+        content.text = getString(R.string.txt_confirm_curiculum)
+        Glide.with(this)
+            .load(R.drawable.img_confirm)
+            .into(img)
+
+        btnYes.text = getString(R.string.text_oke)
+        bottomSheetDialog?.show()
+
+        //setOnclick bottomsheet
+        btnYes.setOnClickListener {
+            bottomSheetDialog?.dismiss()
+            finish()
+        }
+
     }
 
     private fun setupObserver() {
@@ -295,6 +360,7 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     override fun onDialogDateSet(tag: String?, year: Int, month: Int, dayOfMonth: Int) {
+
         // Siapkan date formatter-nya terlebih dahulu
         val calendar = Calendar.getInstance()
         calendar.set(year, month, dayOfMonth)
@@ -349,16 +415,15 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
     }
 
     private fun isValidField() {
+        popupConfirm()
+    }
+
+    private fun submitData() {
+
         val startDate = binding.tvDropdownStartDate.text.toString()
         val endDate = binding.tvDropdownEndDate.text.toString()
         val requestName = binding.edtCuriculumnRequestName.text.toString()
         val desc = binding.edtCuriculumnDeskripsi.text.toString()
-
-        submitData(startDate, endDate, requestName, desc)
-    }
-
-
-    private fun submitData(startDate: String, endDate: String, requestName: String, desc: String) {
 
         val createCuriculum = CuriculumCreate(
             endDate = endDate,
@@ -387,7 +452,7 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
                         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                         binding.progressBar.visibility = View.GONE
 
-                        finish()
+                        popupInformation()
 
                     }
 

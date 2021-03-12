@@ -9,7 +9,10 @@ import com.pos.lms.mobile.ui.student.detailStudent.session.detail.absensi.Absens
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.mentoring.MentoringFragment
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.ScheduleFragment
 import dagger.hilt.android.AndroidEntryPoint
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 @AndroidEntryPoint
 class DetailSessionActivity : AppCompatActivity() {
 

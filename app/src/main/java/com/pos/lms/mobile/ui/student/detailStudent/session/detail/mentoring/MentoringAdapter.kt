@@ -8,7 +8,10 @@ import com.pos.lms.core.domain.model.Mentoring
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListMentoringBinding
 import com.pos.lms.mobile.helper.DateTimeConverter
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 
 class MentoringAdapter : RecyclerView.Adapter<MentoringAdapter.UserViewHolder>() {
 

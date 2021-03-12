@@ -16,6 +16,10 @@ import com.pos.lms.mobile.ui.roadmap.mcp.MCPFragment
 import com.pos.lms.mobile.ui.roadmap.scp.SCPFragment
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 @AndroidEntryPoint
 class RoadmapActivity : AppCompatActivity() {
 

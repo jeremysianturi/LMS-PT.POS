@@ -7,7 +7,10 @@ import com.pos.lms.core.domain.usecase.student.StudentUsecase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 @ExperimentalCoroutinesApi
 class ForumViewModel @ViewModelInject constructor(private val studentUsecase: StudentUsecase) :
     ViewModel() {

@@ -8,7 +8,10 @@ import com.pos.lms.core.domain.model.Submit
 import com.pos.lms.core.domain.usecase.student.StudentUsecase
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class CreateForumViewModel @ViewModelInject constructor(private val studentUsecase: StudentUsecase) : ViewModel(){
 
     val listGedung = MutableLiveData<Submit>()

@@ -9,7 +9,10 @@ import com.pos.lms.core.domain.model.InsightList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListInsightBinding
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class InsightAdapter : RecyclerView.Adapter<InsightAdapter.UserViewHolder>() {
 
     var onLikeClick: ((InsightList) -> Unit)? = null

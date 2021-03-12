@@ -9,7 +9,10 @@ import com.pos.lms.core.domain.model.TrainerSchedule
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListRoomBinding
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class TrainerAdapter : RecyclerView.Adapter<TrainerAdapter.UserViewHolder>() {
 
     var onItemClick: ((TrainerSchedule) -> Unit)? = null

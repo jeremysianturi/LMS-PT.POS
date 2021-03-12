@@ -9,7 +9,10 @@ import com.pos.lms.core.domain.model.QuisionerAnswer
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListAnswerBinding
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class AnswerAdapter : RecyclerView.Adapter<AnswerAdapter.UserViewHolder>() {
 
     var onItemClick: ((QuisionerAnswer) -> Unit)? = null

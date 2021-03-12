@@ -97,4 +97,19 @@
     <string name="txt_create_title_insight">Insight Name</string>
     <string name="txt_update_insight">Update Insight</string>
     <string name="txt_list_insight">List Insight</string>
+    <string name="txt_email">Email</string>
+    <string name="txt_perusahaan">Perusahaan</string>
+    <string name="txt_street">Address</string>
+    <string name="txt_profile">Profile</string>
+    <string name="txt_logout">Logout</string>
+    <string name="txt_keluar">Keluar</string>
+    <string name="txt_logout_message">Apakah anda yakin keluar dari aplikasi?</string>
+    <string name="txt_btn_batal">Batal</string>
+    <string name="txt_oke_button">Oke</string>
+    <string name="txt_konfirmasi">Konfirmasi</string>
+    <string name="txt_konfirmasi_content">Apakah Anda yakin Data yang di isi sudah benar?</string>
+    <string name="text_batal">Batal</string>
+    <string name="text_oke">Oke</string>
+    <string name="text_berhasil">Berhasil</string>
+    <string name="txt_confirm_curiculum">Curiculum Baru Berhasil Di Buat</string>
 </resources>

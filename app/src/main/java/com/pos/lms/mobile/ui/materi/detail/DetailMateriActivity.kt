@@ -9,6 +9,11 @@ import com.pos.lms.mobile.util.PdfViewActivity
 import com.pos.lms.mobile.util.VideoPlayerActivity
 import timber.log.Timber
 
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
+
 class DetailMateriActivity : AppCompatActivity() {
 
     private val tag = DetailMateriActivity::class.java.simpleName

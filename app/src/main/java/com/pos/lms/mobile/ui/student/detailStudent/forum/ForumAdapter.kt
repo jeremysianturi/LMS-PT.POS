@@ -9,7 +9,10 @@ import com.pos.lms.core.domain.model.ForumList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListForumBinding
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class ForumAdapter : RecyclerView.Adapter<ForumAdapter.UserViewHolder>() {
 
     var onItemClick: ((ForumList) -> Unit)? = null

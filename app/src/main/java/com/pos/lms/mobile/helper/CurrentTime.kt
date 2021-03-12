@@ -17,11 +17,9 @@ class CurrentTime {
         const val HOUR_MINUNUTES = "hh:mm"
     }
 
-    fun getCurrentTime() : String {
+    fun getCurrentTime(): String {
 
-        val currentDate: String
-
-        currentDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern(HOUR_MINUNUTES)
             val answer: String = current.format(formatter)
@@ -34,8 +32,6 @@ class CurrentTime {
             answer
 
         }
-
-        return currentDate
     }
 
 

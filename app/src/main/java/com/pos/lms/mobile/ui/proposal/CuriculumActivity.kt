@@ -20,6 +20,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
+
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class CuriculumActivity : AppCompatActivity() {

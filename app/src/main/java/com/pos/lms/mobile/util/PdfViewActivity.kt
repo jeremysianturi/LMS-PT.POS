@@ -10,7 +10,10 @@ import com.pos.lms.core.domain.model.MateriSchedule
 import com.pos.lms.mobile.databinding.ActivityPdfViewBinding
 import timber.log.Timber
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class PdfViewActivity : AppCompatActivity() {
 
     private val tag = PdfViewActivity::class.java.simpleName

@@ -8,7 +8,10 @@ import com.pos.lms.core.domain.model.ForumComment
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListCommentBinding
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class DetailForumAdapter : RecyclerView.Adapter<DetailForumAdapter.UserViewHolder>() {
 
     var onItemClick: ((ForumComment) -> Unit)? = null

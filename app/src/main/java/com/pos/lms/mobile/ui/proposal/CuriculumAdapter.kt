@@ -8,7 +8,10 @@ import com.pos.lms.core.domain.model.Curiculum
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListProposalBinding
 
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class CuriculumAdapter : RecyclerView.Adapter<CuriculumAdapter.UserViewHolder>() {
 
     var onItemClick: ((Curiculum) -> Unit)? = null

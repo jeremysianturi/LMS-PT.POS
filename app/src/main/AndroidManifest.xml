@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningManagementSystemPOS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.student.detailStudent.insight.update.UpdateInsightActivity"></activity>
+        <activity android:name=".ui.profile.ProfileActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.insight.update.UpdateInsightActivity" />
         <activity android:name=".ui.student.detailStudent.insight.create.CreateInsightActivity" />
         <activity android:name=".ui.student.detailStudent.forum.update.UpdateForumActivity" />
         <activity
@@ -37,8 +38,7 @@
         <activity android:name=".ui.roadmap.RoadmapActivity" />
         <activity android:name=".ui.student.StudentActivity" />
         <activity
-            android:name=".ui.home.HomeActivity"
-            android:theme="@style/Theme.LearningManagementSystemPOS.NoActionBar" />
+            android:name=".ui.home.HomeActivity" />
         <activity
             android:name=".ui.splash.SplashScreenActivity"
             android:theme="@style/Theme.LearningManagementSystemPOS.NoActionBar">

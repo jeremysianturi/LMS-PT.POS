@@ -10,7 +10,10 @@ import com.pos.lms.mobile.ui.student.detailStudent.forum.ForumFragment
 import com.pos.lms.mobile.ui.student.detailStudent.insight.InsightFragment
 import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 @AndroidEntryPoint
 class DetailActivityStudent : AppCompatActivity() {
 

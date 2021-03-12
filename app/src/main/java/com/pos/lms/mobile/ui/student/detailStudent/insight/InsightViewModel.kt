@@ -6,7 +6,10 @@ import androidx.lifecycle.asLiveData
 import com.pos.lms.core.domain.usecase.student.StudentUsecase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
-
+/**
+ * Created by Muhammad Zaim Milzam on 15/02/21.
+ * linkedin : Muhammad Zaim Milzam
+ */
 class InsightViewModel @ViewModelInject constructor(private val studentUsecase: StudentUsecase) :
     ViewModel() {
 
