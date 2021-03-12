@@ -239,6 +239,8 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
 
     private fun submitData() {
 
+        binding.progressBar.visibility = View.VISIBLE
+
         val title = binding.edtTitle.text.toString()
         val description = binding.edtDescription.text.toString()
         val startDate = binding.tvDropdownStartDate.text.toString().trim()
@@ -268,13 +270,14 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
                         val message = response.getString("message")
                         val status = response.getBoolean("status")
                         val responseSubmit = SubmitResponse(message, status)
-
+                        binding.progressBar.visibility = View.GONE
                         popupInformation()
 
                     } else {
                         val message = response?.getString("message")
                         val status = response?.getBoolean("status")
                         val responseSubmit = SubmitResponse(message.toString(), status!!)
+                        binding.progressBar.visibility = View.GONE
                         Toast.makeText(this@CreateForumActivity, "Failed", Toast.LENGTH_SHORT)
                             .show()
 
@@ -284,12 +287,12 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
                 }
 
                 override fun onError(anError: ANError?) {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(this@CreateForumActivity, "Error", Toast.LENGTH_SHORT).show()
 
                 }
 
             })
-
     }
 
     private fun pickPhoto() {
