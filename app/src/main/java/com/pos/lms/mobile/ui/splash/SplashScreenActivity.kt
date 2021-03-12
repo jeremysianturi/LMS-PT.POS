@@ -31,10 +31,10 @@ class SplashScreenActivity : AppCompatActivity() {
         mPreference = UserPreference(this)
 
         // animation
-        val leftAnimation =
-            android.view.animation.AnimationUtils.loadAnimation(this, R.anim.left_animation)
+        val rightToLeftAnimation =
+            android.view.animation.AnimationUtils.loadAnimation(this, R.anim.right_animation)
 
-        binding.imageView8.animation = leftAnimation
+        binding.imageView8.animation = rightToLeftAnimation
 
         val checkConnection = CheckConnection.internetAvailable(this)
         if (!checkConnection) {

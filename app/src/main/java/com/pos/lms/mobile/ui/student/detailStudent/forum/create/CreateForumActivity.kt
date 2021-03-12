@@ -202,6 +202,7 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
         // positive button
         btnYes.setOnClickListener {
             submitData()
+            bottomSheetDialog?.dismiss()
         }
         // negative button
         btnNo.setOnClickListener {

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/margin_16dp">
 
+
         <TextView
             android:id="@+id/tvTitleCreateForum"
             style="@style/text_tittle_style"
@@ -67,6 +68,19 @@
                 android:textSize="@dimen/text_14" />
 
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:indeterminateDrawable="@drawable/progressbar"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/lnTittle"
+            app:layout_constraintStart_toStartOf="@+id/lnTittle"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubTitleUpdateProposal" />
+
 
         <LinearLayout
             android:id="@+id/lnDescription"

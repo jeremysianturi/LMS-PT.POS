@@ -106,6 +106,7 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
         // positive button
         btnYes.setOnClickListener {
             submitData()
+            bottomSheetDialog?.dismiss()
         }
         // negative button
         btnNo.setOnClickListener {
@@ -449,7 +450,6 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
                         Timber.d("messageUpdate $message")
 
                         val msg = "Create Success"
-                        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
                         binding.progressBar.visibility = View.GONE
 
                         popupInformation()
