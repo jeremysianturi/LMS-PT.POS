@@ -271,5 +271,18 @@ interface ApiService {
         @Field("sesid") sesid: String
     ): AbsensiResponse
 
+    @PUT("lms/api/account")
+    suspend fun postChangePassword(
+        @Query("username") username: String,
+        @Query("password") password: String,
+    ): SubmitResponse
+
+    @POST("lms/api/account")
+    suspend fun postMateriStream(
+        @Query("materi_id") materiId: String,
+        @Query("action") action: String,
+        @Query("current_activity") currentActivity: String,
+        @Query("file_type") fileType: String,
+    ): SubmitResponse
 
 }

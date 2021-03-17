@@ -12,12 +12,14 @@ import com.github.dhaval2404.form_validation.rule.NonEmptyRule
 import com.github.dhaval2404.form_validation.validation.FormValidator
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.LoginPost
+import com.pos.lms.core.utils.ErrorMessageSplit
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityLoginBinding
 import com.pos.lms.mobile.ui.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import kotlin.system.exitProcess
 
@@ -26,6 +28,7 @@ import kotlin.system.exitProcess
  * linkedin : Muhammad Zaim Milzam
  */
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
@@ -53,6 +56,11 @@ class LoginActivity : AppCompatActivity() {
         if (username != "" || password != "") {
             binding.edtUsernameLogin.setText(username)
             binding.edtPasswordLogin.setText(password)
+        }
+
+        if (mPreferenceEntity.isLogin == true) {
+            val mIntent = Intent(this, HomeActivity::class.java)
+            startActivity(mIntent)
         }
 
 
@@ -93,11 +101,14 @@ class LoginActivity : AppCompatActivity() {
 
                         Timber.d("Login Success")
 
-                        mPreferenceEntity.token = login.data?.accessToken
+//                        mPreferenceEntity.token = login.data?.accessToken
+                        mPreferenceEntity.token =
+                            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJ5aXQwR05nbVVHamIyZXRxIiwiaWF0IjoxNjEzMzYzMjIyLCJuYmYiOjE2MTMzNjMyMjIsImV4cCI6MTYxMzQ0OTYyMiwidXNlciI6Ijk5MjQxNTIxNCIsInJvbGUiOlsiRU1QUE9TIiwiUEFSVElDSVBBTlQiXX0.1MF-boejJ28IQB2m5tOZS2ouhJg2OaoBjyxs4VpP_c"
                         mPreferenceEntity.tokenType = login.data?.tokenType.toString()
                         mPreferenceEntity.username = username
                         mPreferenceEntity.password = password
                         mPreferenceEntity.tokenType = login.data?.tokenType ?: "Bearer"
+                        mPreferenceEntity.isLogin = true
 
                         mPreference.setPref(mPreferenceEntity)
 
@@ -110,10 +121,9 @@ class LoginActivity : AppCompatActivity() {
                             .d("ParIdLoginActivity : ${mPreferenceEntity.parId}")
                     }
                     is Resource.Error -> {
-                        Timber.e("MasukErrorLogin")
-                        val loginMessage = login.message ?: getString(R.string.something_wrong)
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                        val message = ErrorMessageSplit.message(login.message.toString())
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

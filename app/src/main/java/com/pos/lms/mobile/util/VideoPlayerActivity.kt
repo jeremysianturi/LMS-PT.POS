@@ -4,9 +4,12 @@ import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.exoplayer2.ExoPlaybackException
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
@@ -23,10 +26,12 @@ import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityVideoPlayerBinding
 import com.pos.lms.mobile.databinding.ContentVideoPlayerBinding
 import timber.log.Timber
+
 /**
  * Created by Muhammad Zaim Milzam on 9/04/21.
  * linkedin : Muhammad Zaim Milzam
  */
+
 class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 
     private val TAG = VideoPlayerActivity::class.java.simpleName
@@ -35,6 +40,7 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         const val EXTRA_DATA = "extra_data"
         const val PARENT_DATA = "parent_data"
         private const val PDF_SELECTION_CODE = 99
+        const val POTRAIT_HEIGHT = 750
 
     }
 
@@ -61,6 +67,11 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         super.onCreate(savedInstanceState)
         ActivityVideoPlayerBinding.inflate(layoutInflater).also { binding = it }
         setContentView(binding!!.root)
+
+        //setup Actionbar and navigasi up
+        val actionbar = supportActionBar
+        actionbar?.title = "Video Materi"
+        actionbar?.setDisplayHomeAsUpEnabled(true)
 
         val parentIdExtra = intent.getStringExtra(PdfViewActivity.PARENT_DATA)
 
@@ -101,33 +112,42 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
         Timber.tag(TAG).d("urlVideo : $mp4Url")
         binding2 = ContentVideoPlayerBinding.inflate(layoutInflater)
 
-        binding2?.apply {
-            exoFullscreen.setOnClickListener {
-                if (flagFullScreen) {
-                    // set icon fullscreen enter
-                    exoFullscreen.setImageDrawable(resources.getDrawable(R.drawable.exo_ic_fullscreen_enter))
-                    // set orientation lanscape
-                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-                    Toast.makeText(this@VideoPlayerActivity, "Potrait", Toast.LENGTH_SHORT).show()
-                    flagFullScreen = false
-                } else {
-                    // set icon fullscreen exit
-                    exoFullscreen.setImageDrawable(resources.getDrawable(R.drawable.exo_ic_fullscreen_exit))
-                    // set orientation lanscape
-                    requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-                    Toast.makeText(this@VideoPlayerActivity, "LANDSCAPE", Toast.LENGTH_SHORT).show()
+        val fullScreen = findViewById<ImageButton>(R.id.exo_fullscreen)
+        val exoPlayer = findViewById<View>(R.id.exoplayerView)
+        var params = exoPlayer.layoutParams
+        params.height = POTRAIT_HEIGHT
 
-                    flagFullScreen = true
-                }
+        fullScreen.setOnClickListener {
+            if (flagFullScreen) {
+                // set icon fullscreen enter
+                fullScreen.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.exo_ic_fullscreen_enter
+                    )
+                )
+                // set orientation lanscape
+                actionbar?.show()
+                params.height = POTRAIT_HEIGHT
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                flagFullScreen = false
+            } else {
+                // set icon fullscreen exit
+                fullScreen.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        this,
+                        R.drawable.exo_ic_fullscreen_exit
+                    )
+                )
+                // set orientation lanscape
+                actionbar?.hide()
+                requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                params.height = ViewGroup.LayoutParams.MATCH_PARENT
+
+                flagFullScreen = true
             }
+
         }
-
-//        binding2.
-
-        //setup Actionbar and navigasi up
-        val actionbar = supportActionBar
-        actionbar?.title = "Video Materi"
-        actionbar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
@@ -176,7 +196,11 @@ class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 
     override fun onPlayerError(error: ExoPlaybackException) {
         // handle error
-        Toast.makeText(this, "Gagal memutar video, cba beberapa saat lagi", Toast.LENGTH_SHORT)
+        Toast.makeText(
+            this,
+            "Gagal memutar video, Periksa koneksi internet anda atau coba beberapa saat lagi",
+            Toast.LENGTH_SHORT
+        )
             .show()
     }
 

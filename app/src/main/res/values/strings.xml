@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Learning Management System POS</string>
+    <string name="app_name">Infinite S</string>
 
     <string name="ERROR_FIELD_REQUIRED">Field Tidak Boleh Kosong</string>
     <string name="something_wrong">Oops.. something went wrong</string>
@@ -112,4 +112,10 @@
     <string name="text_oke">Oke</string>
     <string name="text_berhasil">Berhasil</string>
     <string name="txt_confirm_curiculum">Curiculum Baru Berhasil Di Buat</string>
+    <string name="txt_change_password">Change Password</string>
+    <string name="invalid_password"><![CDATA[Password mus be > 5 character]]></string>
+    <string name="invalid_password_match">Confirmation field password doesn\'t match</string>
+    <string name="txt_re_password">Ulangi Password</string>
+    <string name="txt_ganti_passwordmu_di_sini">Ganti Passwordmu di sini :)</string>
+    <string name="txt_confirm_password">"password berhasil di ganti "</string>
 </resources>

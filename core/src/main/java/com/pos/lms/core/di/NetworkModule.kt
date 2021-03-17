@@ -31,7 +31,7 @@ class NetworkModule {
 
     @Provides
     fun provideOkHttpClient(
-        interceptor: Interceptor
+        interceptor: Interceptor,
     ): OkHttpClient {
         return if (BuildConfig.DEBUG) {
             OkHttpClient.Builder()

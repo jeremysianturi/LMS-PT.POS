@@ -27,6 +27,7 @@ import com.pos.lms.core.data.source.remote.response.student.session.mentoring.Me
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringDetailResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
+import com.pos.lms.core.utils.ApiException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -63,7 +64,8 @@ class RemoteDataSource @Inject constructor(
                 } else {
                     emit(ApiResponse.Success(response))
                 }
-            } catch (e: Exception) {
+            } catch (e: ApiException) {
+//                val errorCode = e.toString().replace(regex = Regex("[^0-9]"), replacement = "")
                 emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
@@ -81,10 +83,30 @@ class RemoteDataSource @Inject constructor(
                 } else {
                     emit(ApiResponse.Empty)
                 }
-            } catch (e: Exception) {
+            } catch (e: ApiException) {
                 emit(ApiResponse.Error(e.toString()))
 //                Timber.e("RemoteDataSource", e.toString())
                 Timber.tag("RemoteDataSource").e(e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    // --------------------------------------- change Password ----------------------------------------------
+    suspend fun postChangePassword(
+        username: String,
+        password: String
+    ): Flow<ApiResponse<SubmitResponse>> {
+        return flow {
+            try {
+                val response = apiService.postChangePassword(username, password)
+                val dataArray = response.status
+                if (dataArray) {
+                    emit(ApiResponse.Success(response))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
     }
@@ -98,9 +120,7 @@ class RemoteDataSource @Inject constructor(
             try {
                 val response = apiService.getCuriculum(begda, enda)
                 val dataArray = response.data
-                Timber.tag(tag).d("dataArray : $dataArray")
                 if (dataArray.isNotEmpty()) {
-                    Timber.tag(tag).d("Curiculumn success")
                     emit(ApiResponse.Success(response.data))
                 } else {
                     emit(ApiResponse.Empty)
@@ -322,7 +342,7 @@ class RemoteDataSource @Inject constructor(
                 } else {
                     emit(ApiResponse.Empty)
                 }
-            } catch (e: Exception) {
+            } catch (e: ApiException) {
                 emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)
@@ -864,4 +884,6 @@ class RemoteDataSource @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
+
 }

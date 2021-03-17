@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
+import com.pos.lms.core.utils.ErrorMessageSplit
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
-import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityStudentBinding
 import com.pos.lms.mobile.ui.student.detailStudent.DetailActivityStudent
 import dagger.hilt.android.AndroidEntryPoint
@@ -89,9 +89,9 @@ class StudentActivity : AppCompatActivity() {
                         Timber.tag(tag).d("observer_student_adapter ${data.data}")
                     }
                     is Resource.Error -> {
-                        val loginMessage = getString(R.string.something_wrong)
                         binding.progressBar2.visibility = View.GONE
-                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                        val message = ErrorMessageSplit.message(data.message.toString())
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     }
                 }
 

@@ -74,7 +74,6 @@
                 android:autofillHints=""
                 android:hint="@string/txt_username"
                 android:imeOptions="actionGo"
-                android:importantForAutofill="auto"
                 android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,14 +91,12 @@
             app:layout_constraintTop_toBottomOf="@+id/TilUsername"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtPasswordLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints=""
                 android:hint="@string/txt_password"
                 android:imeOptions="actionDone"
-                android:importantForAutofill="auto"
                 android:inputType="textPassword"
                 android:textSize="16sp" />
 

@@ -1,14 +1,15 @@
 package com.pos.lms.mobile.util
 
 import android.os.Bundle
+import android.view.View
 import android.webkit.WebSettings.PluginState
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.pos.lms.core.domain.model.Materi
 import com.pos.lms.core.domain.model.MateriSchedule
 import com.pos.lms.mobile.databinding.ActivityPdfViewBinding
 import timber.log.Timber
+
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
@@ -78,11 +79,25 @@ class PdfViewActivity : AppCompatActivity() {
     private fun showPdf(openUurl: String) {
 
         binding.webview.loadUrl(openUurl)
-        binding.webview.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                view.loadUrl(url)
-                return true
-            }
+//        binding.webview.webViewClient = object : WebViewClient() {
+//            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+//                view.loadUrl(url)
+//                return true
+//            }
+//        }
+
+        binding.webview.webViewClient = WebViewClient()
+    }
+
+    inner class WebViewClient : android.webkit.WebViewClient() {
+        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+            view.loadUrl(url)
+            return false
+        }
+
+        override fun onPageFinished(view: WebView, url: String) {
+            super.onPageFinished(view, url)
+            binding.progressBar3.visibility = View.GONE
         }
     }
 

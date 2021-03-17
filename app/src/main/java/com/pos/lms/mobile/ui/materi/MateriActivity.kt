@@ -10,6 +10,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
+import com.pos.lms.core.utils.ErrorMessageSplit
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityMateriBinding
 import com.pos.lms.mobile.helper.CurrentDate
@@ -93,9 +94,9 @@ class MateriActivity : AppCompatActivity() {
                         Timber.tag(tag).d("observer_Materi_adapter ${data.data}")
                     }
                     is Resource.Error -> {
-                        val loginMessage = getString(R.string.something_wrong)
                         binding.progressBarMateri.visibility = View.GONE
-                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                        val message = ErrorMessageSplit.message(data.message.toString())
+                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     }
                 }
 

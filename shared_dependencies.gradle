@@ -39,5 +39,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     // custom dialog
     implementation 'com.github.chnouman:AwesomeDialog:1.0.5'
-
+    // event Buss
+    implementation 'org.greenrobot:eventbus:3.2.0'
 }

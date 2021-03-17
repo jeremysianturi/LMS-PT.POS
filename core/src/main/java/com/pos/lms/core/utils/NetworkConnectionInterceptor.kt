@@ -12,7 +12,8 @@ import javax.inject.Inject
 
 
 /**
- * Created by Reza Satria on 3/5/2020
+ * Created by Muhammad Zaim Milzam on 17/03/21.
+ * linkedin : Muhammad Zaim Milzam
  */
 
 class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext context: Context) :
@@ -34,7 +35,7 @@ class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext conte
         val token = mPreferenceEntity.token
 
         if (!isInternetAvailable())
-            throw NoInternetException("Make sure you have an active data connection")
+            throw ApiException("Make sure you have an active data connection")
 
         val request = chain.request().newBuilder()
             .addHeader("Authorization", "Bearer $token")
@@ -45,22 +46,38 @@ class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext conte
         when (response.code) {
             400 -> {
                 //Show Bad Request Error Message
+//                val thowableMassage = "${response.message}/${response.code}"
+                throw ApiException(response.message)
             }
             401 -> {
                 //Show UnauthorizedError Message
+//                val thowableMassage = "${response.message}/${response.code}"
+                throw ApiException(response.message)
+
             }
 
             403 -> {
                 //Show Forbidden Message
+//                val thowableMassage = "${response.message}/${response.code}"
+                throw ApiException(response.message)
             }
-
             404 -> {
                 //Show NotFound Message
+                throw ApiException(response.message)
+
             }
-
+            422 -> {
+//                val thowableMassage = "${response.message}/${response.code}"
+                throw ApiException(response.message)
+            }
+            500 -> {
+                //Show Internal Server Error
+//                val thowableMassage = "${response.message}/${response.code}"
+                throw ApiException(response.message)
+            }
             // ... and so on
-
         }
+
         println("request ${request.body}")
         println("response ${response.code}")
 
