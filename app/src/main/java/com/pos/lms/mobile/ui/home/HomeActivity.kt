@@ -113,7 +113,6 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                         mPreferenceEntity.parId = parid.data?.get(0)?.id ?: 0
                         mPreference.setPref(mPreferenceEntity)
                         binding.content.progressBar.visibility = View.GONE
-
                     }
                     is Resource.Error -> {
                         binding.content.progressBar.visibility = View.GONE
