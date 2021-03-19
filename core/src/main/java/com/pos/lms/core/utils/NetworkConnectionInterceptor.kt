@@ -46,34 +46,45 @@ class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext conte
         when (response.code) {
             400 -> {
                 //Show Bad Request Error Message
-//                val thowableMassage = "${response.message}/${response.code}"
-                throw ApiException(response.message)
+                val thowableMassage = "${response.message}:${response.code}"
+                throw ApiException(thowableMassage)
+//                throw ApiException(response.message)
             }
             401 -> {
                 //Show UnauthorizedError Message
 //                val thowableMassage = "${response.message}/${response.code}"
-                throw ApiException(response.message)
+//                throw ApiException(response.message)
+                val thowableMassage = "Your token is Expired:${response.code}"
+                throw ApiException(thowableMassage)
 
             }
 
             403 -> {
                 //Show Forbidden Message
 //                val thowableMassage = "${response.message}/${response.code}"
-                throw ApiException(response.message)
+//                throw ApiException(response.message)
+                val thowableMassage = "${response.message}:${response.code}"
+                throw ApiException(thowableMassage)
             }
             404 -> {
                 //Show NotFound Message
-                throw ApiException(response.message)
+//                throw ApiException(response.message)
+                val thowableMassage = "${response.message}:${response.code}"
+                throw ApiException(thowableMassage)
 
             }
             422 -> {
 //                val thowableMassage = "${response.message}/${response.code}"
-                throw ApiException(response.message)
+//                throw ApiException(response.message)
+                val thowableMassage = "${response.message}:${response.code}"
+                throw ApiException(thowableMassage)
             }
             500 -> {
                 //Show Internal Server Error
 //                val thowableMassage = "${response.message}/${response.code}"
-                throw ApiException(response.message)
+//                throw ApiException(response.message)
+                val thowableMassage = "${response.message}:${response.code}"
+                throw ApiException(thowableMassage)
             }
             // ... and so on
         }

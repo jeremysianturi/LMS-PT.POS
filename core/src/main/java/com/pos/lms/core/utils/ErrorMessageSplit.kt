@@ -14,6 +14,7 @@ object ErrorMessageSplit {
         val tokens = StringTokenizer(msg, ":")
         val first: String = tokens.nextToken() // this will contain "Fruit"
         val second: String = tokens.nextToken()
+        val third: String = tokens.nextToken()
         result = second
 
         return result
@@ -25,7 +26,8 @@ object ErrorMessageSplit {
         val tokens = StringTokenizer(msg, ":")
         val first: String = tokens.nextToken() // this will contain "Fruit"
         val second: String = tokens.nextToken()
-        result = second
+        val third: String = tokens.nextToken()
+        result = third
 
         return result
     }

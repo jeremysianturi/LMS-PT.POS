@@ -24,10 +24,12 @@ import com.pos.lms.mobile.ui.profile.ProfileActivity
 import com.pos.lms.mobile.ui.proposal.CuriculumActivity
 import com.pos.lms.mobile.ui.roadmap.RoadmapActivity
 import com.pos.lms.mobile.ui.student.StudentActivity
+import com.pos.lms.mobile.util.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 import kotlin.system.exitProcess
+
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
@@ -118,7 +120,12 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                         binding.content.progressBar.visibility = View.GONE
                         Timber.tag("ERROR_PARID").e(parid.message)
                         val message = ErrorMessageSplit.message(parid.message.toString())
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                        val code = ErrorMessageSplit.code(parid.message.toString())
+                        SimpleDialog.newInstance(code, message)
+                            .show(supportFragmentManager, SimpleDialog.TAG)
+
+//                        DialogCaller.showDialog(this, "title", "message",
+//                            DialogInterface.OnClickListener { dialog, which -> })
                     }
 
                 }

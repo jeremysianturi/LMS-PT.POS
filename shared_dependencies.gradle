@@ -37,6 +37,7 @@ dependencies {
 
     // circle image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
     // custom dialog
     implementation 'com.github.chnouman:AwesomeDialog:1.0.5'
 }

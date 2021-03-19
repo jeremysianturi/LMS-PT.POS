@@ -118,4 +118,8 @@
     <string name="txt_re_password">Ulangi Password</string>
     <string name="txt_ganti_passwordmu_di_sini">Ganti Passwordmu di sini :)</string>
     <string name="txt_confirm_password">"password berhasil di ganti "</string>
+    <string name="label_logout">Log out</string>
+    <string name="msg_logout">Apakah anda yakin untuk logout?</string>
+    <string name="label_ok">OK</string>
+    <string name="label_cancel">cancel</string>
 </resources>

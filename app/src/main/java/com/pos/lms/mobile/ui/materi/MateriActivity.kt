@@ -15,6 +15,7 @@ import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityMateriBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.materi.detail.DetailMateriActivity
+import com.pos.lms.mobile.util.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -96,7 +97,9 @@ class MateriActivity : AppCompatActivity() {
                     is Resource.Error -> {
                         binding.progressBarMateri.visibility = View.GONE
                         val message = ErrorMessageSplit.message(data.message.toString())
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                        val code = ErrorMessageSplit.code(data.message.toString())
+                        SimpleDialog.newInstance(code, message)
+                            .show(supportFragmentManager, SimpleDialog.TAG)
                     }
                 }
 

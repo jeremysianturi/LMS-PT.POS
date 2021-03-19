@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
@@ -17,6 +16,7 @@ import com.pos.lms.mobile.databinding.ActivityProposalBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.proposal.create.CreateCuriculumActivity
 import com.pos.lms.mobile.ui.proposal.detail.DetailCuriculumActivity
+import com.pos.lms.mobile.util.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -84,7 +84,9 @@ class CuriculumActivity : AppCompatActivity() {
                     is Resource.Error -> {
                         binding.progressBarProposal.visibility = View.GONE
                         val message = ErrorMessageSplit.message(data.message.toString())
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                        val code = ErrorMessageSplit.code(data.message.toString())
+                        SimpleDialog.newInstance(code, message)
+                            .show(supportFragmentManager, SimpleDialog.TAG)
                     }
                 }
 

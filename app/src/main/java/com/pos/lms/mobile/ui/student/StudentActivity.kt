@@ -3,7 +3,6 @@ package com.pos.lms.mobile.ui.student
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,13 +13,16 @@ import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.databinding.ActivityStudentBinding
 import com.pos.lms.mobile.ui.student.detailStudent.DetailActivityStudent
+import com.pos.lms.mobile.util.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
  */
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class StudentActivity : AppCompatActivity() {
 
@@ -91,7 +93,9 @@ class StudentActivity : AppCompatActivity() {
                     is Resource.Error -> {
                         binding.progressBar2.visibility = View.GONE
                         val message = ErrorMessageSplit.message(data.message.toString())
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                        val code = ErrorMessageSplit.code(data.message.toString())
+                        SimpleDialog.newInstance(code, message)
+                            .show(supportFragmentManager, SimpleDialog.TAG)
                     }
                 }
 

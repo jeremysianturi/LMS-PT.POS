@@ -2,18 +2,19 @@ package com.pos.lms.mobile.ui.roadmap
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.EventRoadmap
 import com.pos.lms.core.ui.SectionsPagerAdapter
+import com.pos.lms.core.utils.ErrorMessageSplit
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityRoadmapBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.roadmap.ecp.ECPFragment
 import com.pos.lms.mobile.ui.roadmap.mcp.MCPFragment
 import com.pos.lms.mobile.ui.roadmap.scp.SCPFragment
+import com.pos.lms.mobile.util.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -62,7 +63,10 @@ class RoadmapActivity : AppCompatActivity() {
                     is Resource.Error -> {
                         val loginMessage = getString(R.string.something_wrong)
                         binding.progressBarProposal.visibility = View.GONE
-                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                        val message = ErrorMessageSplit.message(data.message.toString())
+                        val code = ErrorMessageSplit.code(data.message.toString())
+                        SimpleDialog.newInstance(code, message)
+                            .show(supportFragmentManager, SimpleDialog.TAG)
                     }
                 }
 
