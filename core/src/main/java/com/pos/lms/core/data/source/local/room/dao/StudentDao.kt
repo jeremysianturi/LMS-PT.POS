@@ -163,7 +163,7 @@ interface StudentDao {
         insertTestSchedule(student)
     }
 
-    //    --------------- schedule Quisioner -------------------
+    //    --------------------------- schedule Quisioner ---------------------------
     @Query("SELECT * FROM quisionerSchedule")
     fun getQuisionerchedule(): Flow<List<QuisionerScheduleEntity>>
 
@@ -179,7 +179,8 @@ interface StudentDao {
         insertQuisionerSchedule(student)
     }
 
-    /// quesioner answer
+    // --------------------------- quesioner answer ---------------------------
+
     @Query("SELECT * FROM quisionerAnswer")
     fun getQuisionerAnswer(): Flow<List<QuisionerAnswerEntity>>
 
@@ -206,7 +207,7 @@ interface StudentDao {
     @Query("SELECT text_choice FROM quisionerAnswer WHERE isChecked = 1")
     fun getOnlyCheckedAnswer(): Flow<List<String>>
 
-    // quesioner Pertanyaan
+    // --------------------------- quesioner Pertanyaan ---------------------------
     @Query("SELECT * FROM quisionerPertanyaan")
     fun getQuisionerPertanyaan(): Flow<List<QuisionerPertanyaanEntity>>
 
@@ -225,6 +226,54 @@ interface StudentDao {
     @Transaction
     @Query("SELECT * FROM quisionerPertanyaan WHERE _id LIKE '%'|| :id || '%'")
     fun getQuisionerPertanyaanWithId(id: Long): Flow<List<QuisionerPertanyaanEntity>>
+
+    // --------------------------- Test Pertanyaan ---------------------------
+    @Query("SELECT * FROM TestPertanyaan")
+    fun getTestPertanyaan(): Flow<List<TestPertanyaanEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTestPertanyaan(student: List<TestPertanyaanEntity>)
+
+    @Query("DELETE FROM TestPertanyaan")
+    suspend fun deleteTestPertanyaan()
+
+    @Transaction
+    suspend fun insertAndDeleteTestPertanyaan(student: List<TestPertanyaanEntity>) {
+        deleteTestPertanyaan()
+        insertTestPertanyaan(student)
+    }
+
+    @Transaction
+//    @Query("SELECT * FROM TestPertanyaan WHERE _id LIKE '%'|| :id || '%'")
+    @Query("SELECT * FROM TestPertanyaan LIMIT 1 OFFSET :id")
+    fun getTestPertanyaanWithId(id: Long): Flow<List<TestPertanyaanEntity>>
+
+    // ------------------- Test jawaban ----------------------------
+    @Query("SELECT * FROM TestJawaban")
+    fun getTestAnswer(): Flow<List<TestJawabanEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTestAnswer(student: List<TestJawabanEntity>)
+
+    @Query("DELETE FROM TestJawaban")
+    suspend fun deleteTestAnswer()
+
+    @Transaction
+    suspend fun insertAndDeleteTestAnswer(student: List<TestJawabanEntity>) {
+        deleteTestAnswer()
+        insertTestAnswer(student)
+    }
+
+    @Update
+    fun updatetestAnswer(answer: TestJawabanEntity)
+
+    @Transaction
+    @Query("SELECT * FROM testjawaban")
+    fun getCheckedTestAnswer(): Flow<List<TestJawabanEntity>>
+
+    @Transaction
+    @Query("SELECT text_choice FROM testjawaban WHERE isChecked = 1")
+    fun getOnlyTestCheckedAnswer(): Flow<List<String>>
 
     //    --------------- schedule Room -------------------
     @Query("SELECT * FROM RoomSchedule")

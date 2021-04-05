@@ -24,7 +24,7 @@ import com.pos.lms.mobile.ui.profile.ProfileActivity
 import com.pos.lms.mobile.ui.proposal.CuriculumActivity
 import com.pos.lms.mobile.ui.roadmap.RoadmapActivity
 import com.pos.lms.mobile.ui.student.StudentActivity
-import com.pos.lms.mobile.util.SimpleDialog
+import com.pos.lms.mobile.util.diaolg.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber

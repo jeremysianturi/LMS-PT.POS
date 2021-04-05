@@ -16,7 +16,7 @@ import com.pos.lms.mobile.databinding.ActivityProposalBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.proposal.create.CreateCuriculumActivity
 import com.pos.lms.mobile.ui.proposal.detail.DetailCuriculumActivity
-import com.pos.lms.mobile.util.SimpleDialog
+import com.pos.lms.mobile.util.diaolg.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -115,7 +115,6 @@ class CuriculumActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL
             )
         )
-
 
         adapter.onItemClick = { selectData ->
             val mIntent = Intent(this, DetailCuriculumActivity::class.java)

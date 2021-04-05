@@ -16,10 +16,12 @@ import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityDetailScheduleBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.detailQuisioner.QuisionerActivity
+import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.detailTest.DetailTestActivity
 import com.pos.lms.mobile.util.PdfViewActivity
 import com.pos.lms.mobile.util.VideoPlayerActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
@@ -221,13 +223,13 @@ class DetailScheduleActivity : AppCompatActivity() {
             )
         )
 
-//        adapter.onItemClick = { selectData ->
-//            val mIntent = Intent(requireContext(), DetailScheduleActivity::class.java)
-//            mIntent.putExtra(DetailScheduleActivity.EXTRA_DATA, selectData)
-//            startActivity(mIntent)
-//
-//
-//        }
+        adapterTest.onItemClick = { selectData ->
+            val mIntent = Intent(this, DetailTestActivity::class.java)
+            mIntent.putExtra(DetailTestActivity.EXTRA_DATA, selectData)
+            startActivity(mIntent)
+
+
+        }
 
         // Quisioner
         adapterQuisioner = QuisionerAdapter()

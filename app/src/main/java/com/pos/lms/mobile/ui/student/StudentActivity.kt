@@ -13,7 +13,7 @@ import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.databinding.ActivityStudentBinding
 import com.pos.lms.mobile.ui.student.detailStudent.DetailActivityStudent
-import com.pos.lms.mobile.util.SimpleDialog
+import com.pos.lms.mobile.util.diaolg.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber

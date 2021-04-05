@@ -19,6 +19,7 @@ import com.pos.lms.mobile.helper.CurrentDate
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
+
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
@@ -47,8 +48,8 @@ class QuisionerActivity : AppCompatActivity(), View.OnClickListener {
     private var choicesAnswer = ""
     private var objects = ""
     private var relationQuisionerId = ""
-    private var beginDate = CurrentDate.getToday()
-    private var endDate = CurrentDate.getToday()
+    private var beginDate = ""
+    private var endDate = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -161,7 +162,7 @@ class QuisionerActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupCheckedAnswerOserver(selectedData: QuisionerAnswer, state: Boolean) {
-        viewModel.setChecketQuisionerUpdate(selectedData, state)
+        viewModel.setCheckedQuisionerUpdate(selectedData, state)
     }
 
     private fun setupdataPertanyaan(data: List<QuisionerPertanyaan>) {
@@ -234,8 +235,6 @@ class QuisionerActivity : AppCompatActivity(), View.OnClickListener {
             participant = parId,
             relationQuesioner = relationQuisionerId.toInt(),
             quesioner = 36,
-
-
             )
         viewModel.postQuisionerAnswer(quisionerChoicePost).observe(this, { data ->
             if (data != null) {

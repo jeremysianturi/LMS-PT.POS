@@ -1,4 +1,4 @@
-package com.pos.lms.mobile.util
+package com.pos.lms.mobile.util.diaolg
 
 import android.content.Intent
 import android.os.Bundle
@@ -16,7 +16,6 @@ import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 class SimpleDialog : DialogFragment() {
-
 
     companion object {
 
@@ -64,12 +63,17 @@ class SimpleDialog : DialogFragment() {
 
         Timber.tag(TAG).e("Key_code : $codeError")
 
+
         if (codeError == "401") {
+            // set text button
+            binding.btnPositive.text = "Go to Login"
+            // set param islogin = false
             mPreferenceEntity.isLogin = false
             mPreference.setPref(mPreferenceEntity)
         }
         setupView(view)
         setupClickListeners(view)
+
     }
 
     override fun onStart() {

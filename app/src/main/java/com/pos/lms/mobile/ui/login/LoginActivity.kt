@@ -63,7 +63,6 @@ class LoginActivity : AppCompatActivity() {
             startActivity(mIntent)
         }
 
-
 //        appDatabase.clearAllTables()
         // onclclick listener
         binding.btnLogin.setOnClickListener {

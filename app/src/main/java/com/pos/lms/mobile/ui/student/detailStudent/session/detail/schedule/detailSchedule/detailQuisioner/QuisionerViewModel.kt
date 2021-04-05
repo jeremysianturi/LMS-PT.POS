@@ -17,7 +17,7 @@ class QuisionerViewModel @ViewModelInject constructor(private val studentUsecase
     fun getQuisionerAnswer(quisionerId: String, begda: String, endda: String) =
         studentUsecase.getQuisionerAnswer(quisionerId, begda, endda).asLiveData()
 
-    fun setChecketQuisionerUpdate(answer: QuisionerAnswer, newState: Boolean) =
+    fun setCheckedQuisionerUpdate(answer: QuisionerAnswer, newState: Boolean) =
         studentUsecase.setCheckedQuisionerAnswer(answer, newState)
 
     fun getCheckedAnswer() = studentUsecase.getCheckedQuisionerAnswer().asLiveData()

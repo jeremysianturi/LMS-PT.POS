@@ -590,6 +590,61 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
+    suspend fun getTestPertanyaan(
+        begda: String, endda: String
+    ): Flow<ApiResponse<List<TestPertanyaanResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getTestPertanyaan(begda, endda)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getTestJawaban(
+        quesionId: String, begda: String, endda: String
+    ): Flow<ApiResponse<List<TestJawabanResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getTestJawaban(begda, endda, quesionId)
+                val dataArray = response.data
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun postTestAnswer(
+        testJawabanPost: TestJawabanPost
+    ): Flow<ApiResponse<SubmitResponse>> {
+        return flow {
+            try {
+                val response = apiService.postTestJawaban(testJawabanPost)
+                val dataArray = response.message
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+
     suspend fun getQuisionerSchedule(
         scheduleId: String, begda: String, endda: String
     ): Flow<ApiResponse<List<QuisionerScheduleResponse>>> {

@@ -183,7 +183,6 @@ class LocalDataSource @Inject constructor(
 
     suspend fun deleteQuisionerAnswer() = mStudentDao.deleteQuisionerAnswer()
 
-
     //    Quisioner Pertanyaan
     fun getQuisionerPertanyaan(): Flow<List<QuisionerPertanyaanEntity>> =
         mStudentDao.getQuisionerPertanyaan()
@@ -196,6 +195,40 @@ class LocalDataSource @Inject constructor(
 
     fun deleteQuisionerPertanyaan() =
         mStudentDao.deleteQuisionerPertanyaan()
+
+
+    //   test  Pertanyaan
+    fun getTestPertanyaan(): Flow<List<TestPertanyaanEntity>> =
+        mStudentDao.getTestPertanyaan()
+
+    suspend fun insertTestPertanyaan(student: List<TestPertanyaanEntity>) =
+        mStudentDao.insertAndDeleteTestPertanyaan(student)
+
+    fun getTestPertanyaanWithId(id: Long): Flow<List<TestPertanyaanEntity>> =
+        mStudentDao.getTestPertanyaanWithId(id)
+
+    suspend fun deleteTestPertanyaan() =
+        mStudentDao.deleteTestPertanyaan()
+
+    //    Test Answer
+    fun getTestAnswer(): Flow<List<TestJawabanEntity>> =
+        mStudentDao.getTestAnswer()
+
+    fun getOnlyTestCheckedAnswer(): Flow<List<String>> =
+        mStudentDao.getOnlyTestCheckedAnswer()
+
+    fun setCheckedTestAnswer(data: TestJawabanEntity, newState: Boolean) {
+        data.isChecked = newState
+        mStudentDao.updatetestAnswer(data)
+    }
+
+    fun getCheckedTestAnswer(): Flow<List<TestJawabanEntity>> =
+        mStudentDao.getCheckedTestAnswer()
+
+    suspend fun insertTestAnswer(student: List<TestJawabanEntity>) =
+        mStudentDao.insertAndDeleteTestAnswer(student)
+
+    suspend fun deleteTestnswer() = mStudentDao.deleteTestAnswer()
 
 
     // -> Session -> Mentoring

@@ -5,6 +5,7 @@ import com.pos.lms.core.data.repository.StudentRepository
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
 import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
+import com.pos.lms.core.data.source.remote.post.TestJawabanPost
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -116,6 +117,34 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
         endda: String
     ): Flow<Resource<List<TestSchedule>>> =
         studentRepository.getTestSchedule(scheduleId, begda, endda)
+
+    override fun getTestPertanyaan(
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestPertanyaan>>> =
+        studentRepository.getTestPertanyaan(begda, endda)
+
+    override fun getTestPertanyaanWithId(id: Long): Flow<List<TestPertanyaan>> =
+        studentRepository.getTestPertanyaanWithId(id)
+
+    override fun getTestJawaban(
+        questionId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestJawaban>>> =
+        studentRepository.getTestJawaban(questionId, begda, endda)
+
+    override fun setCheckedTestJawaban(answer: TestJawaban, state: Boolean) =
+        studentRepository.setCheckedTestJawaban(answer, state)
+
+    override fun getCheckedTestJawaban(): Flow<List<TestJawaban>> =
+        studentRepository.getCheckedTestJawaban()
+
+    override fun getOnlyCheckedTestJawaban(): Flow<List<String>> =
+        studentRepository.getOnlyCheckedTestJawaban()
+
+    override fun postTestAnswer(testJawabanPost: TestJawabanPost): Flow<Resource<Submit>> =
+        studentRepository.postTestAnswer(testJawabanPost)
 
     override fun getQuisionerSchedule(
         scheduleId: String,

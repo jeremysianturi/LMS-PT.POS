@@ -2,10 +2,13 @@ package com.pos.lms.core.data.source.remote.post
 
 import com.google.gson.annotations.SerializedName
 
-data class 	QuisionerAnswerPost(
+data class TestJawabanPost(
 
 	@field:SerializedName("end_date")
 	val endDate: String,
+
+	@field:SerializedName("question")
+	val question: Int,
 
 	@field:SerializedName("text_choice")
 	val textChoice: String,
@@ -19,9 +22,9 @@ data class 	QuisionerAnswerPost(
 	@field:SerializedName("participant")
 	val participant: Int,
 
-	@field:SerializedName("relation_quesioner")
-	val relationQuesioner: Int,
+	@field:SerializedName("sequence_no")
+	val sequenceNo: Int,
 
-	@field:SerializedName("quesioner")
-	val quesioner: Int
+	@field:SerializedName("relation_question")
+	val relationQuestion: Int
 )

@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningManagementSystemPOS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.changePassword.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.student.detailStudent.session.detail.schedule.detailSchedule.detailTest.DetailTestActivity"></activity>
+        <activity android:name=".ui.changePassword.ChangePasswordActivity" />
         <activity android:name=".ui.profile.ProfileActivity" />
         <activity android:name=".ui.student.detailStudent.insight.update.UpdateInsightActivity" />
         <activity android:name=".ui.student.detailStudent.insight.create.CreateInsightActivity" />

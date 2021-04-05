@@ -186,6 +186,29 @@ interface ApiService {
         @Query("schedule_id") scheduleId: String,
     ): ListTestScheduleResponse
 
+    // -> session -> schedule -> detailschedule -> Test -> Pertanyaan
+    @GET("lms/api/android/lmsrelation-object/to-question?table_code[]=TSQST&relation[]=T001&otype[]=TSTCD&object[]=POSTEST&per_page=99999999&random=true")
+    suspend fun getTestPertanyaan(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+//        @Query("schedule_id") scheduleId: String,
+    ): ListTestPertanyaanResponse
+
+    // -> session -> schedule -> detailschedule -> Test -> jawaban
+    @GET("lms/api/testquestionchoice?order[SEQNO]=asc&per_page=9999")
+    suspend fun getTestJawaban(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("question[]") questionId: String,
+    ): ListTestJawabanResponse
+
+    // -> session -> schedule -> detailschedule -> Test -> jawaban -> post
+    @POST("lms/api/testquestionparticipantchoice")
+    suspend fun postTestJawaban(
+        @Body testJawabanPost: TestJawabanPost
+    ): SubmitResponse
+
+
     // -> session -> schedule -> detailschedule -> Quisioner
     @GET("lms/api/android/relation-questioner?order[object_identifier]=DESC&per_page=9000000")
     suspend fun getQuisionerSchedule(

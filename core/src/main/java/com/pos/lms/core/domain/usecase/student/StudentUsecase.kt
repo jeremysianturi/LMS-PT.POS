@@ -4,6 +4,7 @@ import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
 import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
+import com.pos.lms.core.data.source.remote.post.TestJawabanPost
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -83,6 +84,27 @@ interface StudentUsecase {
         begda: String,
         endda: String
     ): Flow<Resource<List<TestSchedule>>>
+
+    fun getTestPertanyaan(
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestPertanyaan>>>
+
+    fun getTestPertanyaanWithId(id: Long): Flow<List<TestPertanyaan>>
+
+    fun getTestJawaban(
+        questionId: String,
+        begda: String,
+        endda: String
+    ): Flow<Resource<List<TestJawaban>>>
+
+    fun setCheckedTestJawaban(answer: TestJawaban, state: Boolean)
+
+    fun getCheckedTestJawaban(): Flow<List<TestJawaban>>
+
+    fun getOnlyCheckedTestJawaban(): Flow<List<String>>
+
+    fun postTestAnswer(testJawabanPost: TestJawabanPost): Flow<Resource<Submit>>
 
     fun getQuisionerSchedule(
         scheduleId: String,

@@ -1,4 +1,4 @@
-package com.pos.lms.mobile.util
+package com.pos.lms.mobile.util.diaolg
 
 import android.content.Context
 import android.content.DialogInterface

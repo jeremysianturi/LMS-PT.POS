@@ -3,7 +3,6 @@ package com.pos.lms.mobile.ui.materi
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
@@ -15,7 +14,7 @@ import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityMateriBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.materi.detail.DetailMateriActivity
-import com.pos.lms.mobile.util.SimpleDialog
+import com.pos.lms.mobile.util.diaolg.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
