@@ -18,6 +18,7 @@ import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityLoginBinding
 import com.pos.lms.mobile.ui.home.HomeActivity
+import com.pos.lms.mobile.util.diaolg.ErrorBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -122,7 +123,10 @@ class LoginActivity : AppCompatActivity() {
                     is Resource.Error -> {
                         binding.progressBar.visibility = View.GONE
                         val message = ErrorMessageSplit.message(login.message.toString())
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                        val code = ErrorMessageSplit.code(login.message.toString())
+                        ErrorBottomSheet.instance(code, message).show(supportFragmentManager,ErrorBottomSheet.TAG)
+//                        val message = ErrorMessageSplit.message(login.message.toString())
+//                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -3,6 +3,7 @@ package com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.deta
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.viewbinding.library.activity.viewBinding
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,10 +35,10 @@ class DetailScheduleActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_DATA = "extra_data"
         const val PARENT_DATA = "materi_schedule"
-
     }
 
     private val viewModel: DetailScheduleViewModel by viewModels()
+    private val binding: ActivityDetailScheduleBinding by viewBinding()
 
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
@@ -48,12 +49,8 @@ class DetailScheduleActivity : AppCompatActivity() {
     private lateinit var adapterTrainer: TrainerAdapter
     private lateinit var adapterRoom: RoomAdapter
 
-    private lateinit var binding: ActivityDetailScheduleBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailScheduleBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()

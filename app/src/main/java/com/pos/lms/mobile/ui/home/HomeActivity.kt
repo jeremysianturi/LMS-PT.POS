@@ -24,7 +24,7 @@ import com.pos.lms.mobile.ui.profile.ProfileActivity
 import com.pos.lms.mobile.ui.proposal.CuriculumActivity
 import com.pos.lms.mobile.ui.roadmap.RoadmapActivity
 import com.pos.lms.mobile.ui.student.StudentActivity
-import com.pos.lms.mobile.util.diaolg.SimpleDialog
+import com.pos.lms.mobile.util.diaolg.ErrorBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
@@ -121,8 +121,10 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                         Timber.tag("ERROR_PARID").e(parid.message)
                         val message = ErrorMessageSplit.message(parid.message.toString())
                         val code = ErrorMessageSplit.code(parid.message.toString())
-                        SimpleDialog.newInstance(code, message)
-                            .show(supportFragmentManager, SimpleDialog.TAG)
+                        ErrorBottomSheet.instance(code, message)
+                            .show(supportFragmentManager, ErrorBottomSheet.TAG)
+//                        SimpleDialog.newInstance(code, message)
+//                            .show(supportFragmentManager, SimpleDialog.TAG)
 
 //                        DialogCaller.showDialog(this, "title", "message",
 //                            DialogInterface.OnClickListener { dialog, which -> })
