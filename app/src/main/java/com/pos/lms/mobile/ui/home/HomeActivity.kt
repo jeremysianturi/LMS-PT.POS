@@ -123,11 +123,6 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                         val code = ErrorMessageSplit.code(parid.message.toString())
                         ErrorBottomSheet.instance(code, message)
                             .show(supportFragmentManager, ErrorBottomSheet.TAG)
-//                        SimpleDialog.newInstance(code, message)
-//                            .show(supportFragmentManager, SimpleDialog.TAG)
-
-//                        DialogCaller.showDialog(this, "title", "message",
-//                            DialogInterface.OnClickListener { dialog, which -> })
                     }
 
                 }
