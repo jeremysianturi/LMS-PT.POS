@@ -17,6 +17,7 @@ import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityLoginBinding
+import com.pos.lms.mobile.helper.Debounce.onThrottledClick
 import com.pos.lms.mobile.ui.home.HomeActivity
 import com.pos.lms.mobile.util.diaolg.ErrorBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
@@ -64,16 +65,25 @@ class LoginActivity : AppCompatActivity() {
             startActivity(mIntent)
         }
 
-//        appDatabase.clearAllTables()
         // onclclick listener
-        binding.btnLogin.setOnClickListener {
+        binding.btnLogin.onThrottledClick {
             if (validationField()) {
                 isValidField()
             } else {
                 Toast.makeText(this, "Lengkapi data terlebih dahulu !", Toast.LENGTH_SHORT)
                     .show()
+
             }
         }
+
+//        binding.btnLogin.setOnClickListener {
+//            if (validationField()) {
+//                isValidField()
+//            } else {
+//                Toast.makeText(this, "Lengkapi data terlebih dahulu !", Toast.LENGTH_SHORT)
+//                    .show()
+//            }
+//        }
 
     }
 
@@ -124,7 +134,8 @@ class LoginActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         val message = ErrorMessageSplit.message(login.message.toString())
                         val code = ErrorMessageSplit.code(login.message.toString())
-                        ErrorBottomSheet.instance(code, message).show(supportFragmentManager,ErrorBottomSheet.TAG)
+                        ErrorBottomSheet.instance(code, message)
+                            .show(supportFragmentManager, ErrorBottomSheet.TAG)
 //                        val message = ErrorMessageSplit.message(login.message.toString())
 //                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
                     }

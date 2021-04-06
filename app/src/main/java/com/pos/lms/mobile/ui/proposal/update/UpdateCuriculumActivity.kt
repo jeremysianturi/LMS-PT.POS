@@ -13,6 +13,7 @@ import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityUpdateCuriculumBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.helper.DatePickerFragment
+import com.pos.lms.mobile.helper.Debounce.onThrottledClick
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -83,7 +84,9 @@ class UpdateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
         binding.tvDropdownType.setOnClickListener(this)
         binding.tvDropdownStartDate.setOnClickListener(this)
         binding.tvDropdownEndDate.setOnClickListener(this)
-        binding.btnSave.setOnClickListener(this)
+        binding.btnSave.onThrottledClick {
+            collectData()
+        }
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
@@ -93,13 +96,17 @@ class UpdateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
 
     private fun setupExistingData(dataCuriculum: Curiculum?) {
         with(binding) {
-            tvDropdownCompany.text = dataCuriculum?.companyName ?: getString(R.string.txt_pilih_perusahaan)
+            tvDropdownCompany.text =
+                dataCuriculum?.companyName ?: getString(R.string.txt_pilih_perusahaan)
             edtCuriculumnRequestName.setText(dataCuriculum?.requestName)
             edtCuriculumnDeskripsi.setText(dataCuriculum?.requestDescription)
             tvDropdownType.text = dataCuriculum?.requestTypeName ?: getString(R.string.txt_type)
-            tvDropdownCompetency.text = dataCuriculum?.competenceName ?: getString(R.string.txt_pilih_competency)
-            tvDropdownLevel.text = dataCuriculum?.plName ?: getString(R.string.txt_proficiency_level)
-            tvDropdownStartDate.text = dataCuriculum?.beginDate ?: getString(R.string.txt_pilih_tanggal)
+            tvDropdownCompetency.text =
+                dataCuriculum?.competenceName ?: getString(R.string.txt_pilih_competency)
+            tvDropdownLevel.text =
+                dataCuriculum?.plName ?: getString(R.string.txt_proficiency_level)
+            tvDropdownStartDate.text =
+                dataCuriculum?.beginDate ?: getString(R.string.txt_pilih_tanggal)
             tvDropdownEndDate.text = dataCuriculum?.endDate ?: getString(R.string.txt_pilih_tanggal)
         }
     }
@@ -306,14 +313,10 @@ class UpdateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
                 )
             }
 
-            R.id.btnSave -> {
-                collectData()
-            }
-
         }
     }
 
-    private fun collectData(){
+    private fun collectData() {
         val startDate = binding.tvDropdownStartDate.text.toString()
         val endDate = binding.tvDropdownEndDate.text.toString()
         val requestName = binding.edtCuriculumnRequestName.text.toString()
@@ -338,7 +341,7 @@ class UpdateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
     private fun submitUpdate(updateCuriculum: CuriculumUpdate) {
 
         Timber.d("UpdateCuriculum : $updateCuriculum")
-        viewmodel.updateCuriculum(updateCuriculum).observe(this, {data ->
+        viewmodel.updateCuriculum(updateCuriculum).observe(this, { data ->
             if (data != null) {
                 when (data) {
                     is Resource.Loading -> {

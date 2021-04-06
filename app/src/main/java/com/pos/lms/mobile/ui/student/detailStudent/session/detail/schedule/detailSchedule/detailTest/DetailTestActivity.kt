@@ -213,6 +213,8 @@ class DetailTestActivity : AppCompatActivity(), View.OnClickListener {
 
             adapter.onItemClick = { selectedData ->
                 idJawaban = selectedData.sequenceNo
+                choicesAnswer = selectedData.textChoice
+                Timber.tag("Test_Choice").d(choicesAnswer)
                 adapter.setChecked(selectedData.objectIdentifier)
             }
         }

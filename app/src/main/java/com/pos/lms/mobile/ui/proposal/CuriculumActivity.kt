@@ -71,6 +71,7 @@ class CuriculumActivity : AppCompatActivity() {
     }
 
     private fun setupObserver(begda: String, enda: String) {
+
         curiculumViewModel.getCuriculum(begda, enda).observe(this, { data ->
             Timber.tag(tag).d("observer_curiculum $data")
             if (data != null) {

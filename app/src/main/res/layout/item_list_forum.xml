@@ -15,22 +15,22 @@
         android:background="?attr/selectableItemBackground">
 
         <ImageView
-            android:scaleType="fitXY"
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            tools:src="@drawable/dummy_images"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/dummy_images" />
 
         <TextView
-            android:paddingStart="4dp"
-            android:paddingEnd="0dp"
             android:id="@+id/tvTittle"
             style="@style/text_tittle_list"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="0dp"
             app:layout_constraintEnd_toStartOf="@+id/tvDate"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
@@ -38,23 +38,24 @@
 
 
         <TextView
-            android:paddingStart="0dp"
-            android:paddingEnd="4dp"
             android:id="@+id/tvDate"
             style="@style/text_content_style_grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="4dp"
+            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvTittle"
             tools:text="3 days ago" />
 
         <TextView
-            android:paddingStart="4dp"
-            android:paddingEnd="0dp"
             android:id="@+id/tvId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvTittle"
             app:layout_constraintTop_toBottomOf="@+id/tvTittle"
@@ -81,8 +82,8 @@
             style="@style/text_content_style_grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:background="?attr/selectableItemBackground"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvBatch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tvBatch"
@@ -93,8 +94,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:padding="5dp"
             android:background="?attr/selectableItemBackground"
+            android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/ivDelete"
             app:layout_constraintEnd_toStartOf="@+id/ivDelete"
             app:layout_constraintTop_toTopOf="@+id/ivDelete"

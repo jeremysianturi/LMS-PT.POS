@@ -23,6 +23,7 @@ import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityCreateCompetencyBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.helper.DatePickerFragment
+import com.pos.lms.mobile.helper.Debounce.onThrottledClick
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -78,7 +79,16 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
         binding.tvDropdownStartDate.setOnClickListener(this)
         binding.tvDropdownEndDate.setOnClickListener(this)
 
-        binding.btnSave.setOnClickListener(this)
+//        binding.btnSave.setOnClickListener(this)
+        binding.btnSave.onThrottledClick {
+            if (validationField()) {
+                isValidField()
+            } else {
+                Toast.makeText(this, "Lengkapi data terlebih dahulu !", Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        }
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
@@ -345,15 +355,6 @@ class CreateCuriculumActivity : AppCompatActivity(), View.OnClickListener,
             R.id.tvDropdownEndDate -> {
                 val datePickerFragment = DatePickerFragment()
                 datePickerFragment.show(supportFragmentManager, DATE_PICKER_TAG_END)
-            }
-
-            R.id.btnSave -> {
-                if (validationField()) {
-                    isValidField()
-                } else {
-                    Toast.makeText(this, "Lengkapi data terlebih dahulu !", Toast.LENGTH_SHORT)
-                        .show()
-                }
             }
 
 

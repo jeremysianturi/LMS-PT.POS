@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.pos.lms.core.domain.model.ForumList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListForumBinding
+import com.pos.lms.mobile.helper.TimeAgo
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
@@ -53,9 +54,12 @@ class ForumAdapter : RecyclerView.Adapter<ForumAdapter.UserViewHolder>() {
 
 //            binding.tvTitleItem.text = data.sessionName
 //            binding.tvContent.text = data.activityName
+            // convertTimeAgo
+            val convTime = TimeAgo.covertTimeToText(data.changeDate)
+
             binding.tvTittle.text = data.forumTitle
             binding.tvBatch.text = data.batchName
-            binding.tvDate.text = data.forumTime
+            binding.tvDate.text = convTime
             binding.tvId.text = data.owner
 
             if (data.owner != mOwner) {

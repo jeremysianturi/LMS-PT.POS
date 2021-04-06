@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.pos.lms.core.domain.model.InsightList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListInsightBinding
+import com.pos.lms.mobile.helper.TimeAgo
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
@@ -54,9 +55,12 @@ class InsightAdapter : RecyclerView.Adapter<InsightAdapter.UserViewHolder>() {
             // concat string
 //            binding.tvTitleItem.text = data.sessionName
 //            binding.tvContent.text = data.activityName
+
+            val convTime = TimeAgo.covertTimeToText(data.changeDate)
+
             binding.tvTittle.text = data.forumTitle
             binding.tvDescription.text = data.forumText
-            binding.tvDate.text = data.forumTime
+            binding.tvDate.text = convTime
 
             if (data.owner != mOwner) {
                 binding.ivDelete.visibility = View.GONE
