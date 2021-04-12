@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "absensi")
 data class AbsensiEntity(
 
-	@PrimaryKey
-	@NotNull
-	@ColumnInfo(name ="data")
-	val data: String
+    @PrimaryKey
+    @NotNull
+    @ColumnInfo(name = "data")
+    val data: String
 )

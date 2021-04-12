@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.pos.lms.core.domain.model.ForumList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListForumBinding
 import com.pos.lms.mobile.helper.TimeAgo
+import com.pos.lms.mobile.helper.loadImage
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
@@ -67,10 +67,11 @@ class ForumAdapter : RecyclerView.Adapter<ForumAdapter.UserViewHolder>() {
                 binding.ivUpdate.visibility = View.GONE
             }
 
-            Glide.with(itemView.context)
-                .load(data.forumImage)
-                .error(R.drawable.banner_home)
-                .into(binding.imageView2)
+//            Glide.with(itemView.context)
+//                .load(data.forumImage)
+//                .error(R.drawable.banner_home)
+//                .into(binding.imageView2)
+            binding.imageView2.loadImage(itemView.context,data.forumImage)
         }
 
         init {

@@ -35,13 +35,21 @@ object TimeAgo {
                     convTime = "$hour Hours $suffix"
                 }
                 day >= 7 -> {
-                    convTime = if (day > 360) {
-                        (day / 360).toString() + " Years " + suffix
-                    } else if (day > 30) {
-                        (day / 30).toString() + " Months " + suffix
-                    } else {
-                        (day / 7).toString() + " Week " + suffix
-                    }
+                    convTime =
+                        when {
+                            day > 360 -> {
+                                (day / 360).toString() + " Years " + suffix
+                            }
+                            day > 30 -> {
+                                (day / 30).toString() + " Months " + suffix
+                            }
+                            else -> {
+                                (day / 7).toString() + " Week " + suffix
+                            }
+                        }
+                }
+                hour > 24 || day < 2 -> {
+                    convTime = "yesterday"
                 }
                 day < 7 -> {
                     convTime = "$day Days $suffix"
@@ -50,7 +58,6 @@ object TimeAgo {
         } catch (e: ParseException) {
             e.printStackTrace()
             Timber.tag("ConvTimeE").e(e)
-//                Log.e("ConvTimeE", e.getMessage())
         }
         return convTime
     }

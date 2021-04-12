@@ -19,9 +19,11 @@ import com.pos.lms.core.data.source.remote.response.roadmap.EventRoadmapResponse
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumCommentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ListForumLikeResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.absensi.AbsensiResponse
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringChatResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringDetailResponse
@@ -498,6 +500,43 @@ class RemoteDataSource @Inject constructor(
 
     }
 
+    suspend fun getForumLike(
+        forumId: String,
+    ): Flow<ApiResponse<ListForumLikeResponse>> {
+        return flow {
+            try {
+                val response = apiService.getForumLike(forumId)
+                if (response.data.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+
+    suspend fun postForumLike(forumLikePost: ForumLikePost): Flow<ApiResponse<SubmitResponse>> {
+        //get data from remote APi
+        return flow {
+            try {
+                val response = apiService.postForumLike(forumLikePost)
+                val data = response.message
+                if (data.isEmpty()) {
+                    emit(ApiResponse.Empty)
+                } else {
+                    emit(ApiResponse.Success(response))
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+
+    }
+
+
     suspend fun getInsightList(
         batchId: String,
         begda: String,
@@ -841,14 +880,17 @@ class RemoteDataSource @Inject constructor(
 
     // --------------------------------------- Absensi ----------------------------------------------
     suspend fun getAbsensi(
-        parid: String, sessionId: String
-    ): Flow<ApiResponse<String>> {
+        parid: String,
+        sessionId: String
+    ): Flow<ApiResponse<AbsensiResponse>> {
         return flow {
             try {
                 val response = apiService.postAbsensi(parid, sessionId)
                 val dataArray = response.data
-                if (dataArray.isNotEmpty()) {
-                    emit(ApiResponse.Success(response.data))
+                Timber.d("dataAbsensi : $response")
+                Timber.d("dataAbsensi : ${response.data}")
+                if (dataArray!!.isNotEmpty()) {
+                    emit(ApiResponse.Success(response))
                 } else {
                     emit(ApiResponse.Empty)
                 }

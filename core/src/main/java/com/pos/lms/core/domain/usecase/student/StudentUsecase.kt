@@ -1,10 +1,7 @@
 package com.pos.lms.core.domain.usecase.student
 
 import com.pos.lms.core.data.Resource
-import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
-import com.pos.lms.core.data.source.remote.post.MentoringChatPost
-import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
-import com.pos.lms.core.data.source.remote.post.TestJawabanPost
+import com.pos.lms.core.data.source.remote.post.*
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -15,6 +12,8 @@ import okhttp3.RequestBody
  * linkedin : Muhammad Zaim Milzam
  */
 interface StudentUsecase {
+
+    fun getPagination(): Flow<Pagination>
 
     fun getStudent(parid: String): Flow<Resource<List<Student>>>
 
@@ -56,6 +55,12 @@ interface StudentUsecase {
     ): Flow<Resource<List<ForumComment>>>
 
     fun postForumComment(forumCommnetPost: ForumCommnetPost): Flow<Resource<Submit>>
+
+    fun getForumLike(
+        forumId: String,
+    ): Flow<Resource<List<ForumLike>>>
+
+    fun postForumLike(forumLikePost: ForumLikePost): Flow<Resource<Submit>>
 
     fun getInsightList(
         batchId: String,
@@ -175,4 +180,5 @@ interface StudentUsecase {
         endda: String
     ): Flow<Resource<List<MentoringDetail>>>
 
+    fun getAbsensi(parentId: String, sessionId: String): Flow<Resource<Absensi>>
 }

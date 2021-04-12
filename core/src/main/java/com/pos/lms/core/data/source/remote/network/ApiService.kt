@@ -12,6 +12,7 @@ import com.pos.lms.core.data.source.remote.response.materi.ListMateriResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
 import com.pos.lms.core.data.source.remote.response.student.ListStudentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ListForumCommentResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ListForumLikeResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ListForumResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.ListInsightResponse
 import com.pos.lms.core.data.source.remote.response.student.session.ListDetailSessionResponse
@@ -149,6 +150,18 @@ interface ApiService {
     suspend fun postForumComment(
         @Body forumCommnetPost: ForumCommnetPost
     ): SubmitResponse
+
+    // -> forum -> forum Like
+    @GET("/api/forumlike")
+    suspend fun getForumLike(
+        @Query("forum[]") idForum: String,
+    ): ListForumLikeResponse
+
+    // -> forum -> forum Like Post
+    @POST("/api/forumlike")
+    suspend fun postForumLike(
+        @Body forumLikePost: ForumLikePost
+    ) : SubmitResponse
 
     // -> session
     @GET("lms/api/android/session?per_page=10")

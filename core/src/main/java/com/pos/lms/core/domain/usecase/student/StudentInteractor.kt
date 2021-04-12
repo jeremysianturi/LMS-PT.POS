@@ -2,10 +2,7 @@ package com.pos.lms.core.domain.usecase.student
 
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.repository.StudentRepository
-import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
-import com.pos.lms.core.data.source.remote.post.MentoringChatPost
-import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
-import com.pos.lms.core.data.source.remote.post.TestJawabanPost
+import com.pos.lms.core.data.source.remote.post.*
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -19,6 +16,7 @@ import javax.inject.Inject
 
 class StudentInteractor @Inject constructor(private val studentRepository: StudentRepository) :
     StudentUsecase {
+    override fun getPagination(): Flow<Pagination> = studentRepository.getPagination()
 
     override fun getStudent(parid: String): Flow<Resource<List<Student>>> =
         studentRepository.getStudent(parid)
@@ -84,6 +82,12 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
 
     override fun postForumComment(forumCommnetPost: ForumCommnetPost): Flow<Resource<Submit>> =
         studentRepository.postForumComment(forumCommnetPost)
+
+    override fun postForumLike(forumLikePost: ForumLikePost): Flow<Resource<Submit>> =
+        studentRepository.postForumLike(forumLikePost)
+
+    override fun getForumLike(forumId: String): Flow<Resource<List<ForumLike>>> =
+        studentRepository.getForumLike(forumId)
 
     override fun getInsightList(
         batchId: String,
@@ -222,5 +226,6 @@ class StudentInteractor @Inject constructor(private val studentRepository: Stude
     ): Flow<Resource<List<MentoringDetail>>> =
         studentRepository.getMentoringDetail(mentoringId, begda, endda)
 
-
+    override fun getAbsensi(parentId: String, sessionId: String): Flow<Resource<Absensi>> =
+        studentRepository.getAbsensi(parentId, sessionId)
 }

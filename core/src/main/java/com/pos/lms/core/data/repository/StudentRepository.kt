@@ -6,17 +6,16 @@ import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.local.room.LocalDataSource
 import com.pos.lms.core.data.source.remote.RemoteDataSource
 import com.pos.lms.core.data.source.remote.network.ApiResponse
-import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
-import com.pos.lms.core.data.source.remote.post.MentoringChatPost
-import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
-import com.pos.lms.core.data.source.remote.post.TestJawabanPost
+import com.pos.lms.core.data.source.remote.post.*
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumCommentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
+import com.pos.lms.core.data.source.remote.response.student.forum.ListForumLikeResponse
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.data.source.remote.response.student.session.SessionListResponse
+import com.pos.lms.core.data.source.remote.response.student.session.absensi.AbsensiResponse
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.*
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringChatResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringDetailResponse
@@ -43,6 +42,12 @@ class StudentRepository @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : IStudentRepository {
+
+    override fun getPagination(): Flow<Pagination> {
+        return localDataSource.getPagintaion().map {
+            DataMapperPagination.mapEntitiestoDomain(it)
+        }
+    }
 
     override fun getStudent(parId: String): Flow<Resource<List<Student>>> =
         object : NetworkBoundResourceWithDeleteLocalData<List<Student>, List<StudentResponse>>() {
@@ -272,6 +277,58 @@ class StudentRepository @Inject constructor(
             override suspend fun saveCallResult(data: SubmitResponse) {
                 val list = DataMapperSubmit.mapResponsetoEntities(data)
                 localDataSource.insertSubmitResponse(list)
+            }
+
+        }.asFlow()
+
+    override fun postForumLike(forumLikePost: ForumLikePost): Flow<Resource<Submit>> =
+        object : NetworkBoundResource<Submit, SubmitResponse>() {
+            override fun loadFromDB(): Flow<Submit> {
+                return localDataSource.getSubmitResponse().map {
+                    DataMapperSubmit.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Submit?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<SubmitResponse>> =
+                remoteDataSource.postForumLike(forumLikePost)
+
+            override suspend fun saveCallResult(data: SubmitResponse) {
+                val list = DataMapperSubmit.mapResponsetoEntities(data)
+                localDataSource.insertSubmitResponse(list)
+            }
+
+        }.asFlow()
+
+
+    override fun getForumLike(forumId: String): Flow<Resource<List<ForumLike>>> =
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<ForumLike>, ListForumLikeResponse>() {
+            override fun loadFromDB(): Flow<List<ForumLike>> {
+                return localDataSource.getForumLike().map {
+                    DataMapperForumLike.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<ForumLike>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<ListForumLikeResponse>> =
+                remoteDataSource.getForumLike(forumId)
+
+            override suspend fun saveCallResult(data: ListForumLikeResponse) {
+                val list = DataMapperForumLike.mapResponsetoEntities(data.data)
+                val listPagination =
+                    DataMapperPagination.mapResponsetoEntities(data.metaResponse.paginationResponse)
+                localDataSource.insertForumLike(list)
+                localDataSource.insertPagination(listPagination)
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteForumLike()
+                localDataSource
             }
 
         }.asFlow()
@@ -799,9 +856,31 @@ class StudentRepository @Inject constructor(
 
         }.asFlow()
 
-    override fun getAbsensi(mentoringChatPost: MentoringChatPost): Flow<Resource<Submit>> {
-        TODO("Not yet implemented")
-    }
+    override fun getAbsensi(parId: String, sessionId: String): Flow<Resource<Absensi>> =
+        object : NetworkBoundResourceWithDeleteLocalData<Absensi, AbsensiResponse>() {
+            override fun loadFromDB(): Flow<Absensi> {
+                return localDataSource.getAbsensi().map {
+                    DataMapperAbsensi.mapEntitiesToDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: Absensi?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<AbsensiResponse>> =
+                remoteDataSource.getAbsensi(parId, sessionId)
+
+            override suspend fun saveCallResult(data: AbsensiResponse) {
+                val list = DataMapperAbsensi.mapResponsesToEntities(data)
+                localDataSource.insertAbsensi(list)
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteAbsensi()
+            }
+
+        }.asFlow()
+
 
     override fun getMentoringDetail(
         mentoringId: String,

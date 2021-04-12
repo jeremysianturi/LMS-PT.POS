@@ -1,10 +1,7 @@
 package com.pos.lms.core.domain.repository
 
 import com.pos.lms.core.data.Resource
-import com.pos.lms.core.data.source.remote.post.ForumCommnetPost
-import com.pos.lms.core.data.source.remote.post.MentoringChatPost
-import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
-import com.pos.lms.core.data.source.remote.post.TestJawabanPost
+import com.pos.lms.core.data.source.remote.post.*
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
@@ -15,6 +12,8 @@ import okhttp3.RequestBody
  * linkedin : Muhammad Zaim Milzam
  */
 interface IStudentRepository {
+
+    fun getPagination() : Flow<Pagination>
     fun getStudent(parId: String): Flow<Resource<List<Student>>>
     fun getDetailSession(eventId: String): Flow<Resource<List<DetailSession>>>
     fun getSessionList(
@@ -53,6 +52,12 @@ interface IStudentRepository {
     ): Flow<Resource<List<ForumComment>>>
 
     fun postForumComment(forumCommnetPost: ForumCommnetPost): Flow<Resource<Submit>>
+
+    fun getForumLike(
+        forumId: String,
+    ): Flow<Resource<List<ForumLike>>>
+
+    fun postForumLike(forumLikePost: ForumLikePost): Flow<Resource<Submit>>
 
     fun getInsightList(
         batchId: String,
@@ -173,8 +178,9 @@ interface IStudentRepository {
     ): Flow<Resource<Submit>>
 
     fun getAbsensi(
-        mentoringChatPost: MentoringChatPost,
-    ): Flow<Resource<Submit>>
+       parId: String,
+       sessionId: String
+    ): Flow<Resource<Absensi>>
 
     fun getMentoringDetail(
         mentoringId: String,

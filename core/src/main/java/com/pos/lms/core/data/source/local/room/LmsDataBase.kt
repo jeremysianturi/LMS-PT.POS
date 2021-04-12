@@ -31,6 +31,8 @@ import com.pos.lms.core.data.source.local.room.dao.*
         SessionListEntity::class,
         ForumListEntity::class,
         ForumCommentEntity::class,
+        ForumLikeEntity::class,
+        PaginationEntity::class,
         InsightListEntity::class,
         ScheduleEntity::class,
         MateriScheduleEntity::class,

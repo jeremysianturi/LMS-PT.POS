@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class AbsensiResponse(
 
-	@field:SerializedName("data")
-	val data: String
+    @field:SerializedName("data")
+    val data: String? = ""
 )

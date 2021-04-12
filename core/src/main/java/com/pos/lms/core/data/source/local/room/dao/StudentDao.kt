@@ -12,6 +12,22 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface StudentDao {
 
+    // ---------------- pagination ---------------
+    @Query("SELECT * FROM pagination")
+    fun getPagination(): Flow<PaginationEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPaginatiom(student: PaginationEntity)
+
+    @Query("DELETE FROM pagination")
+    suspend fun deletePagination()
+
+    @Transaction
+    suspend fun insertAndDeletePagination(student: PaginationEntity) {
+        deletePagination()
+        insertPaginatiom(student)
+    }
+
     //    --------------- student -------------------
     @Query("SELECT * FROM student")
     fun getStudent(): Flow<List<StudentEntity>>
@@ -88,6 +104,21 @@ interface StudentDao {
     suspend fun insertAndDeleteForumComment(student: List<ForumCommentEntity>) {
         deleteForumComment()
         insertForumComment(student)
+    }
+
+    @Query("SELECT * FROM ForumLike")
+    fun getForumLike(): Flow<List<ForumLikeEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertForumLike(student: List<ForumLikeEntity>)
+
+    @Query("DELETE FROM ForumLike")
+    suspend fun deleteForumLike()
+
+    @Transaction
+    suspend fun insertAndDeleteForumLike(student: List<ForumLikeEntity>) {
+        deleteForumLike()
+        insertForumLike(student)
     }
 
     //    --------------- insight -------------------
@@ -357,10 +388,19 @@ interface StudentDao {
 
     //    --------------- absensi -------------------
     @Query("SELECT * FROM absensi")
-    fun getAbsensi(): Flow<List<AbsensiEntity>>
+    fun getAbsensi(): Flow<AbsensiEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAbsesnsi(student: List<AbsensiEntity>)
+    suspend fun insertAbsesnsi(student: AbsensiEntity)
+
+    @Query("DELETE FROM absensi")
+    suspend fun deleteAbsensi()
+
+    @Transaction
+    suspend fun insertAndDeletAbsensi(student: AbsensiEntity) {
+        deleteAbsensi()
+        insertAbsesnsi(student)
+    }
 
 
 }

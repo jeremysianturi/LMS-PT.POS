@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.pos.lms.core.domain.model.InsightList
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListInsightBinding
+import com.pos.lms.mobile.helper.Debounce.onThrottledClick
 import com.pos.lms.mobile.helper.TimeAgo
+import com.pos.lms.mobile.helper.loadImage
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
@@ -67,21 +68,22 @@ class InsightAdapter : RecyclerView.Adapter<InsightAdapter.UserViewHolder>() {
                 binding.ivUpdate.visibility = View.GONE
             }
 
-            Glide.with(itemView.context)
-                .load(data.forumImage)
-                .error(R.drawable.banner_home)
-                .into(binding.ivInsight)
+//            Glide.with(itemView.context)
+//                .load(data.forumImage)
+//                .error(R.drawable.banner_home)
+//                .into(binding.ivInsight)
+            binding.ivInsight.loadImage(itemView.context, data.forumImage)
 //            binding.tvId.text = data.owner
         }
 
         init {
-            binding.imageView6.setOnClickListener {
+            binding.imageView6.onThrottledClick {
                 onLikeClick?.invoke(mData[adapterPosition])
             }
-            binding.ivDelete.setOnClickListener {
+            binding.ivDelete.onThrottledClick {
                 onDeleteClick?.invoke(mData[adapterPosition])
             }
-            binding.ivUpdate.setOnClickListener {
+            binding.ivUpdate.onThrottledClick {
                 onUpdateClick?.invoke(mData[adapterPosition])
             }
         }

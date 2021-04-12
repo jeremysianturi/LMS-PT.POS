@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
+import com.pos.lms.core.data.source.remote.post.ForumLikePost
 import com.pos.lms.core.domain.model.InsightList
 import com.pos.lms.core.domain.model.Student
 import com.pos.lms.core.utils.PreferenceEntity
@@ -18,11 +19,13 @@ import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.InsightFragmentBinding
 import com.pos.lms.mobile.helper.CurrentDate
+import com.pos.lms.mobile.helper.CurrentTime
 import com.pos.lms.mobile.ui.student.detailStudent.insight.create.CreateInsightActivity
 import com.pos.lms.mobile.ui.student.detailStudent.insight.update.UpdateInsightActivity
 import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
@@ -141,7 +144,7 @@ class InsightFragment : Fragment() {
             rvInsight.adapter = adapter
 
             adapter.onLikeClick = { selectedData ->
-                Toast.makeText(requireContext(), "fitur not Ready", Toast.LENGTH_SHORT).show()
+               setupLikeObserver(selectedData)
             }
 
             adapter.onDeleteClick = { selectedData ->
@@ -157,6 +160,26 @@ class InsightFragment : Fragment() {
         }
 
     }
+
+    private fun setupLikeObserver(data: InsightList) {
+        val forumId = data.forumId.toInt()
+        val begindate = CurrentDate.getToday()
+        val time = CurrentTime().getCurrentTime()
+
+        val dataLike = ForumLikePost(
+            otypeParent = "SCHDL",
+            forum = forumId,
+            like = true,
+            owner = mPreferenceEntity.username.toString(),
+            beginDate = begindate,
+            beginTime = time,
+            businessCode = "POS"
+        )
+
+        Toast.makeText(requireContext(),"Fitur not ready",Toast.LENGTH_SHORT).show()
+
+    }
+
 
     private fun setupObserverDeleteForum(selectedData: InsightList) {
         viewModel.getDelete(selectedData.objectIdentifier)

@@ -40,6 +40,13 @@ class LocalDataSource @Inject constructor(
 
     fun deleteSubmit() = mSubmitDao.deleteSubmit()
 
+    // pagination
+    fun getPagintaion(): Flow<PaginationEntity> = mStudentDao.getPagination()
+    suspend fun insertPagination(data: PaginationEntity) =
+        mStudentDao.insertAndDeletePagination(data)
+
+    suspend fun deletePagination() = mStudentDao.deletePagination()
+
     // dropdown
     fun getCompetency(): Flow<List<CompetencyEntity>> = mDropDownDao.getCompetency()
     suspend fun insertCompetency(competency: List<CompetencyEntity>) =
@@ -118,6 +125,13 @@ class LocalDataSource @Inject constructor(
     fun getForumComment(): Flow<List<ForumCommentEntity>> = mStudentDao.getForumComment()
     suspend fun insertForumComment(student: List<ForumCommentEntity>) =
         mStudentDao.insertAndDeleteForumComment(student)
+
+    // -> forum like
+    fun getForumLike(): Flow<List<ForumLikeEntity>> = mStudentDao.getForumLike()
+    suspend fun insertForumLike(data: List<ForumLikeEntity>) =
+        mStudentDao.insertAndDeleteForumLike(data)
+
+    suspend fun deleteForumLike() = mStudentDao.deleteForumLike()
 
     //    -> InsightList
     fun getInsightList(): Flow<List<InsightListEntity>> = mStudentDao.getInsightList()
@@ -260,12 +274,13 @@ class LocalDataSource @Inject constructor(
         mSubmitDao.insertAndDeleteMentoringChat(student)
 
     // -> Absensi
-    fun getAbsensi(): Flow<List<AbsensiEntity>> =
+    fun getAbsensi(): Flow<AbsensiEntity> =
         mStudentDao.getAbsensi()
 
-    suspend fun insertAbsensi(student: List<AbsensiEntity>) =
-        mStudentDao.insertAbsesnsi(student)
+    suspend fun insertAbsensi(student: AbsensiEntity) =
+        mStudentDao.insertAndDeletAbsensi(student)
 
+    suspend fun deleteAbsensi() = mStudentDao.deleteAbsensi()
 
     //    --------- ROADMAP ------------
 

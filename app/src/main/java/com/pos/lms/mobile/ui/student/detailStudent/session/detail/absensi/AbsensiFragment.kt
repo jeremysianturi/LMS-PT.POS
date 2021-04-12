@@ -6,19 +6,18 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.viewbinding.library.fragment.viewBinding
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.common.Priority
-import com.androidnetworking.error.ANError
-import com.androidnetworking.interfaces.JSONObjectRequestListener
+import androidx.fragment.app.viewModels
+import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.SessionList
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
+import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.AbsensiFragmentBinding
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.ScheduleFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONObject
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -28,19 +27,16 @@ class AbsensiFragment : Fragment() {
         const val EXTRA_DATA = "extra_data"
     }
 
-    private lateinit var viewModel: AbsensiViewModel
+    private val viewModel: AbsensiViewModel by viewModels()
+    private val binding: AbsensiFragmentBinding by viewBinding()
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
-
-    private var _binding: AbsensiFragmentBinding? = null
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = AbsensiFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+    ): View? {
+        return inflater.inflate(R.layout.absensi_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,36 +51,38 @@ class AbsensiFragment : Fragment() {
         if (bundle != null) {
             dataBundle = bundle.getParcelable(ScheduleFragment.EXTRA_DATA) as SessionList?
         }
+        val sessionId = dataBundle?.sessionId
+        val parId = mPreferenceEntity.parId
 
-        postAbsensiTemp(dataBundle)
+//        observerAbsensi(sessionId, parId)
 
-    }
-
-    private fun postAbsensiTemp(dataBundle: SessionList?) {
-
-        AndroidNetworking.post("${com.pos.lms.core.BuildConfig.API_URL}lms/api/forum")
-            .addHeaders("Accept", "application/json")
-            .addHeaders("Content-type", "multipart/form-data")
-            .addHeaders("Authorization", "Bearer ${mPreferenceEntity.token}")
-            .addBodyParameter("parid", mPreferenceEntity.parId.toString())
-            .addBodyParameter("sesid", dataBundle?.sessionId)
-            .setPriority(Priority.HIGH)
-            .build()
-            .getAsJSONObject(object : JSONObjectRequestListener {
-                override fun onResponse(response: JSONObject?) {
-                    val data = response?.getString("data")
-                    showImage(data)
-                }
-
-                override fun onError(anError: ANError?) {
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
-                    Timber.tag("ABSENSI").e("error absensi")
-
-                }
-
-            })
 
     }
+
+    private fun observerAbsensi(sessionId: String?, parId: Int?) {
+        viewModel.getAbsensi(
+            parId.toString(),
+            sessionId.toString()
+        ).observe(viewLifecycleOwner, { data ->
+            if (data != null) {
+                when (data) {
+                    is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar2.visibility = View.GONE
+                        Timber.tag(tag).d("Bsae64Response ${data.data}")
+                    }
+                    is Resource.Error -> {
+                        val loginMessage = getString(R.string.something_wrong)
+                        binding.progressBar2.visibility = View.GONE
+                        Toast.makeText(requireContext(), loginMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+
+        })
+    }
+
 
     private fun showImage(data: String?) {
         val imageBytes = Base64.decode(data, Base64.DEFAULT)

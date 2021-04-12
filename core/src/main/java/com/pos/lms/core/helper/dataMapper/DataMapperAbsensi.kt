@@ -11,23 +11,16 @@ import com.pos.lms.core.domain.model.ParId
  * linkedin : Muhammad Zaim Milzam
  */
 object DataMapperAbsensi {
-    fun mapResponsesToEntities(input: List<AbsensiResponse>): List<AbsensiEntity> {
-        val parIdList = ArrayList<AbsensiEntity>()
-        input.map {
-            val parId = AbsensiEntity(
-              data = it.data
-            )
-            parIdList.add(parId)
-        }
-        return parIdList
+    fun mapResponsesToEntities(input: AbsensiResponse): AbsensiEntity {
+        return AbsensiEntity(
+            data = input.data.toString()
+        )
     }
 
-    fun mapEntitiesToDomain(input: List<AbsensiEntity>): List<Absensi> =
-        input.map {
-            Absensi(
-                data = it.data
-            )
-        }
+    fun mapEntitiesToDomain(input: AbsensiEntity) =
+        Absensi(
+            data = input.data
+        )
 
     fun mapDomainToEntity(input: ParId) = ItemParIdEntity(
         accessToken = input.accessToken,
