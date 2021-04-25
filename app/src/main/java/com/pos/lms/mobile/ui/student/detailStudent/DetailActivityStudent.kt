@@ -1,6 +1,7 @@
 package com.pos.lms.mobile.ui.student.detailStudent
 
 import android.os.Bundle
+import android.viewbinding.library.activity.viewBinding
 import androidx.appcompat.app.AppCompatActivity
 import com.pos.lms.core.domain.model.Student
 import com.pos.lms.core.ui.SectionsPagerAdapter
@@ -21,23 +22,20 @@ class DetailActivityStudent : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
     }
 
-    private lateinit var binding : ActivityDetailStudentBinding
+    private val binding : ActivityDetailStudentBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailStudentBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
+        // recieve data
         val dataIntent = intent.getParcelableExtra<Student>(EXTRA_DATA)
-
-
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
         actionbar?.title = getString(R.string.txt_detail_student)
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
-
+        // function
         setupViewPager(dataIntent)
 
     }

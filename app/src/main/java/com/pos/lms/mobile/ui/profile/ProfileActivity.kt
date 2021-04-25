@@ -2,18 +2,39 @@ package com.pos.lms.mobile.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.viewbinding.library.activity.viewBinding
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.pos.lms.core.data.Resource
+import com.pos.lms.core.utils.ErrorMessageSplit
+import com.pos.lms.core.utils.PreferenceEntity
+import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.databinding.ActivityProfileBinding
+import com.pos.lms.mobile.helper.Debounce.onThrottledClick
+import com.pos.lms.mobile.helper.loadImage
 import com.pos.lms.mobile.ui.login.LoginActivity
+import com.pos.lms.mobile.util.diaolg.SimpleDialog
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
+@AndroidEntryPoint
 class ProfileActivity : AppCompatActivity() {
 
-    private var binding: ActivityProfileBinding? = null
+    private val binding: ActivityProfileBinding by viewBinding()
+    private val viewModel: ProfileViewModel by viewModels()
+
+    private lateinit var mPreference: UserPreference
+    private lateinit var mPreferenceEntity: PreferenceEntity
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityProfileBinding.inflate(layoutInflater)
-        setContentView(binding!!.root)
+
+        mPreference = UserPreference(this)
+        mPreferenceEntity = mPreference.getPref()
+
+        binding.tvUsername.text = mPreferenceEntity.username
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
@@ -21,11 +42,41 @@ class ProfileActivity : AppCompatActivity() {
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
         onclick()
+        observerAvatar()
+    }
+
+    private fun observerAvatar() {
+        val username = mPreferenceEntity.username
+        viewModel.getAvatar(username.toString()).observe(this, { data ->
+            if (data != null) {
+                when (data) {
+                    is Resource.Loading -> {
+                    }
+                    is Resource.Success -> {
+                        val datas = data.data?.get(0)?.avatar ?: ""
+
+                        if (datas != "") {
+                            binding.ivProfile.loadImage(this, datas)
+                        }
+
+                    }
+                    is Resource.Error -> {
+                        val message = ErrorMessageSplit.message(data.message.toString())
+                        val code = ErrorMessageSplit.code(data.message.toString())
+                        SimpleDialog.newInstance(code, message)
+                            .show(supportFragmentManager, SimpleDialog.TAG)
+                    }
+                }
+
+            }
+
+        })
+
     }
 
     private fun onclick() {
-        binding?.apply {
-            btnLogout.setOnClickListener {
+        binding.apply {
+            btnLogout.onThrottledClick {
                 val mIntent = Intent(this@ProfileActivity, LoginActivity::class.java)
                 startActivity(mIntent)
                 finish()

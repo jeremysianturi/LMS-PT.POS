@@ -29,17 +29,23 @@ class DatabaseModule {
     fun provideDropdownDao(database: LmsDataBase): DropDownDao = database.dropdown()
 
     @Provides
-    fun provideCuriculumDao(database: LmsDataBase) : CuriculumnDao = database.curiculumDao()
+    fun provideCuriculumDao(database: LmsDataBase): CuriculumnDao = database.curiculumDao()
 
     @Provides
-    fun provideSubmitDao(database : LmsDataBase) : SubmitDao = database.submit()
+    fun provideSubmitDao(database: LmsDataBase): SubmitDao = database.submit()
 
     @Provides
-    fun provideMateriDao(database: LmsDataBase) : MateriDao = database.materi()
+    fun provideMateriDao(database: LmsDataBase): MateriDao = database.materi()
 
     @Provides
-    fun provideStudentDao(database: LmsDataBase) : StudentDao = database.student()
+    fun provideStudentDao(database: LmsDataBase): StudentDao = database.student()
 
     @Provides
-    fun provideRoadmapDao(database: LmsDataBase) : RoadmapDao = database.roadmapDao()
+    fun provideRoadmapDao(database: LmsDataBase): RoadmapDao = database.roadmapDao()
+
+    @Provides
+    fun provideTrainerDao(database: LmsDataBase): TrainerDao = database.trainerDao()
+
+    @Provides
+    fun provideProfileDao(database: LmsDataBase): ProfileDao = database.profileDao()
 }

@@ -59,10 +59,8 @@ class DetailTestActivity : AppCompatActivity(), View.OnClickListener {
         beginDate = CurrentDate.getToday()
         endDate = CurrentDate.getToday()
 
-
         // onclick
         binding.btnNext.setOnClickListener(this)
-
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
@@ -98,7 +96,6 @@ class DetailTestActivity : AppCompatActivity(), View.OnClickListener {
 
         })
     }
-
 
     private fun getSinglePertanyaan() {
         viewModel.getSinglePertanyaan(idCount.toLong()).observe(this, { data ->
@@ -163,7 +160,6 @@ class DetailTestActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnNext -> {
@@ -219,7 +215,6 @@ class DetailTestActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

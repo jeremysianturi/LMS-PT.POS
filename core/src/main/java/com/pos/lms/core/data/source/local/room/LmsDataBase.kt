@@ -2,18 +2,23 @@ package com.pos.lms.core.data.source.local.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.pos.lms.core.data.source.local.entity.ItemParIdEntity
 import com.pos.lms.core.data.source.local.entity.LoginEntity
 import com.pos.lms.core.data.source.local.entity.SubmitEntity
+import com.pos.lms.core.data.source.local.entity.account.AccountEntity
 import com.pos.lms.core.data.source.local.entity.curiculum.CuriculumEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.CompanyEnitity
 import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
+import com.pos.lms.core.data.source.local.entity.profile.AvatarEntity
 import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
+import com.pos.lms.core.data.source.local.entity.trainer.TrainerUserEntity
 import com.pos.lms.core.data.source.local.room.dao.*
+import com.pos.lms.core.utils.Converter
 
 @Database(
     entities = [
@@ -54,11 +59,15 @@ import com.pos.lms.core.data.source.local.room.dao.*
         MCPPromosiEntity::class,
         MCPRotasiEntity::class,
         SCPPromosiEntity::class,
-        SCPRotasiEntity::class
+        SCPRotasiEntity::class,
+        TrainerUserEntity::class,
+        AccountEntity::class,
+        AvatarEntity::class
     ],
     version = 2,
     exportSchema = false
 )
+@TypeConverters(Converter::class)
 abstract class LmsDataBase : RoomDatabase() {
 
     abstract fun loginDao(): LoginDao
@@ -74,6 +83,10 @@ abstract class LmsDataBase : RoomDatabase() {
     abstract fun roadmapDao(): RoadmapDao
 
     abstract fun student(): StudentDao
+
+    abstract fun trainerDao(): TrainerDao
+
+    abstract fun profileDao(): ProfileDao
 
 
 }

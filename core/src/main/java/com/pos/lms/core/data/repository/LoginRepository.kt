@@ -10,6 +10,7 @@ import com.pos.lms.core.data.source.remote.post.LoginPost
 import com.pos.lms.core.data.source.remote.response.LoginResponse
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
+import com.pos.lms.core.domain.model.Account
 import com.pos.lms.core.domain.model.Login
 import com.pos.lms.core.domain.model.ParId
 import com.pos.lms.core.domain.model.Submit
@@ -55,7 +56,7 @@ class LoginRepository @Inject constructor(
         }.asFlow()
 
 
-    override fun getParId(token: String): Flow<Resource<List<ParId>>> =
+    override fun getParId(typeId: String): Flow<Resource<List<ParId>>> =
         object : NetworkBoundResource<List<ParId>, List<ItemParId>>() {
             override fun loadFromDB(): Flow<List<ParId>> {
                 return localDataSource.getParId().map {
@@ -67,7 +68,7 @@ class LoginRepository @Inject constructor(
                 true
 
             override suspend fun createCall(): Flow<ApiResponse<List<ItemParId>>> =
-                remoteDataSource.getParId(token)
+                remoteDataSource.getParId(typeId)
 
 
             override suspend fun saveCallResult(data: List<ItemParId>) {
@@ -102,6 +103,13 @@ class LoginRepository @Inject constructor(
             }
 
         }.asFlow()
+
+    override fun account(): Flow<Resource<Account>> {
+        TODO("Not yet implemented")
+    }
+
+//    override fun account(): Flow<Resource<Account>> =
+
 
 
 }

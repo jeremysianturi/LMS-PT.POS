@@ -14,6 +14,7 @@ import com.pos.lms.core.data.source.remote.response.dropdown.PLResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.TypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.MateriResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
+import com.pos.lms.core.data.source.remote.response.profile.AvatarResponse
 import com.pos.lms.core.data.source.remote.response.roadmap.ECPResponse
 import com.pos.lms.core.data.source.remote.response.roadmap.EventRoadmapResponse
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
@@ -29,6 +30,7 @@ import com.pos.lms.core.data.source.remote.response.student.session.mentoring.Me
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringDetailResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ScheduleResponse
+import com.pos.lms.core.data.source.remote.response.trainer.TrainerResponse
 import com.pos.lms.core.utils.ApiException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -74,11 +76,11 @@ class RemoteDataSource @Inject constructor(
 
     }
 
-    suspend fun getParId(token: String): Flow<ApiResponse<List<ItemParId>>> {
+    suspend fun getParId(typeId: String): Flow<ApiResponse<List<ItemParId>>> {
         //get data from remote api
         return flow {
             try {
-                val response = apiService.getParId()
+                val response = apiService.getParId(typeId)
                 val dataArray = response[0].accessToken
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response))
@@ -977,6 +979,80 @@ class RemoteDataSource @Inject constructor(
                     emit(ApiResponse.Empty)
                 }
             } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+//    suspend fun getMentor(
+//        begda: String,
+//        endda: String,
+//        otype: String,
+//        id: String,
+//    ): Flow<ApiResponse<List<DataItem>>> {
+//        return flow {
+//            try {
+//                val response = apiService.getMentor(begda, endda, otype, id)
+//                val dataArray = response.data
+//                Timber.tag(tag).d(dataArray.toString())
+//                if (dataArray != null) {
+//                    if (dataArray.isNotEmpty()) {
+//                        emit(ApiResponse.Success(response.data))
+//                    } else {
+//                        emit(ApiResponse.Empty)
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                emit(ApiResponse.Error(e.toString()))
+//            }
+//        }.flowOn(Dispatchers.IO) as Flow<ApiResponse<List<DataItem>>>
+//    }
+
+    /**
+     *  --------------------- Role Trainer ---------------------
+     */
+
+    suspend fun getTrainerList(
+        eventStatus: Int,
+    ): Flow<ApiResponse<List<TrainerResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getTrainerList(eventStatus)
+                val dataArray = response.data
+
+                if (dataArray.isNotEmpty()) {
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+
+    /**
+     *  --------------------- Profile ---------------------
+     */
+
+    suspend fun getAvatar(
+        username: String,
+    ): Flow<ApiResponse<List<AvatarResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getAvatar(username)
+                val dataArray = response.data
+                Timber.d("dataAvatar : $dataArray")
+                if (dataArray.isNotEmpty()) {
+                    Timber.d("masuk sukses")
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    Timber.d("masuk kosong")
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                Timber.d("masuk error")
                 emit(ApiResponse.Error(e.toString()))
             }
         }.flowOn(Dispatchers.IO)

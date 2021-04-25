@@ -219,6 +219,81 @@
 
             </LinearLayout>
 
+            <!-- Mentor  -->
+            <LinearLayout
+                android:id="@+id/mentor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:background="@color/colorBackGroundGrid"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/iconHomeStyle"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_search_materi" />
+
+                <LinearLayout
+                    android:id="@+id/ln_text_mentor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#65000000"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/txt_mentor"
+                        style="@style/text_content_style_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mentor">
+
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- trainer  -->
+            <LinearLayout
+                android:id="@+id/Trainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                android:background="@color/colorBackGroundGrid"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    style="@style/iconHomeStyle"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_search_materi" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="#65000000"
+                    android:gravity="center"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:id="@+id/txt_data"
+                        style="@style/text_content_style_black"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="MyData">
+
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
             <!--      open Course -->
             <!--                <LinearLayout-->
             <!--                    android:id="@+id/openCourse"-->

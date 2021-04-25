@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.mentor.MentorActivity">
+
+    <ImageView
+        android:id="@+id/ivIconProposal"
+        style="@style/iconDetailStyle"
+        android:contentDescription="@string/image_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_detail_student" />
+
+    <TextView
+        android:id="@+id/tvTitleProposal"
+        style="@style/text_content_tittle_orange_20"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/txt_learning_proposal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivIconProposal"
+        app:layout_constraintTop_toTopOf="@+id/ivIconProposal" />
+
+    <TextView
+        android:id="@+id/tvSubTittleStudent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/txt_rencanakan_strategimu_di_sini"
+        app:layout_constraintBottom_toBottomOf="@+id/ivIconProposal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivIconProposal"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleProposal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_mentor"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubTittleStudent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

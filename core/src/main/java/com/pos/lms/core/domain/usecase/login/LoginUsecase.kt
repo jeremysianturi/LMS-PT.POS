@@ -13,6 +13,6 @@ import kotlinx.coroutines.flow.Flow
  */
 interface LoginUsecase {
     fun login(loginPost: LoginPost): Flow<Resource<Login>>
-    fun getParid(token: String): Flow<Resource<List<ParId>>>
+    fun getParid(typeId: String): Flow<Resource<List<ParId>>>
     fun changePassword(username: String, password: String): Flow<Resource<Submit>>
 }

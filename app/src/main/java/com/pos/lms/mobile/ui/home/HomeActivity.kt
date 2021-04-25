@@ -5,25 +5,34 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.viewbinding.library.activity.viewBinding
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.ParsedRequestListener
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pos.lms.core.data.Resource
+import com.pos.lms.core.data.source.remote.response.account.ListAccountResponse
 import com.pos.lms.core.utils.ErrorMessageSplit
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ActivityHomeBinding
+import com.pos.lms.mobile.helper.Debounce.onThrottledClick
 import com.pos.lms.mobile.ui.changePassword.ChangePasswordActivity
 import com.pos.lms.mobile.ui.login.LoginActivity
 import com.pos.lms.mobile.ui.materi.MateriActivity
+import com.pos.lms.mobile.ui.mentor.MentorActivity
 import com.pos.lms.mobile.ui.profile.ProfileActivity
 import com.pos.lms.mobile.ui.proposal.CuriculumActivity
 import com.pos.lms.mobile.ui.roadmap.RoadmapActivity
 import com.pos.lms.mobile.ui.student.StudentActivity
+import com.pos.lms.mobile.ui.trainer.TrainerUserActivity
+import com.pos.lms.mobile.util.ErrorLog
 import com.pos.lms.mobile.util.diaolg.ErrorBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -40,22 +49,26 @@ import kotlin.system.exitProcess
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var binding: ActivityHomeBinding
+//    private lateinit var binding: ActivityHomeBinding
 
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
 
     private val viewModel: HomeViewModel by viewModels()
+    private val binding: ActivityHomeBinding by viewBinding()
 
     //bottomSheet
     private var bottomSheetDialog: BottomSheetDialog? = null
 
     private var doubleBackToExitPressedOnce = false
 
+    private var role: String? = ""
+    private var reequestType: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+//        binding = ActivityHomeBinding.inflate(layoutInflater)
+//        setContentView(binding.root)
 
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()
@@ -68,8 +81,9 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         binding.content.searchMateri.setOnClickListener(this)
 
         // method
-        setupObserver()
+//        setupObserver()
         appBarOnClick()
+        setupRole()
 
         val time = System.currentTimeMillis()
 
@@ -78,6 +92,94 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
 //        val actionbar = supportActionBar
 //        actionbar?.title = "Home"
 
+    }
+
+    private fun setupRole() {
+        AndroidNetworking.get("https://pos-lms.digitalevent.id/ldap/api/auth/account")
+            .addHeaders("Authorization", "Bearer ${mPreferenceEntity.token}")
+            .build()
+            .getAsObject(ListAccountResponse::class.java,
+                object : ParsedRequestListener<ListAccountResponse> {
+                    override fun onResponse(response: ListAccountResponse?) {
+                        Timber.d("role : ${response?.accountResponse?.role}")
+                        val roleList = response?.accountResponse?.role.toString().trim()
+
+                        val items1 = roleList.split(",").toTypedArray()
+                        val lastIndex = items1.size - 1
+                        when (items1[lastIndex].trim()) {
+                            "MENTOR]" -> {
+                                Timber.d("masuk mentor")
+                                reequestType = "MENID"
+                                setupObserver(reequestType)
+                                setupUI(reequestType)
+                                setupOnClick(reequestType)
+                            }
+                            "TRAINER]" -> {
+                                Timber.d("masuk trainer")
+                                reequestType = "TRAID"
+                                setupObserver(reequestType)
+                                setupUI(reequestType)
+                                setupOnClick(reequestType)
+                            }
+                            else -> {
+                                Timber.d("masuk participant")
+                                reequestType = "PARID"
+                                setupObserver(reequestType)
+                                setupUI(reequestType)
+                                setupOnClick(reequestType)
+
+                            }
+                        }
+
+                    }
+
+                    override fun onError(anError: ANError?) {
+                        ErrorLog.errorLog(
+                            HomeActivity::class.java.simpleName,
+                            anError,
+                            "Account_role"
+                        )
+                    }
+                })
+
+    }
+
+    private fun setupOnClick(reequestType: String) {
+        when (reequestType) {
+            "MENID" -> {
+                binding.content.mentor.onThrottledClick {
+                    val mIntent = Intent(this, MentorActivity::class.java)
+                    startActivity(mIntent)
+                }
+
+            }
+            "TRAID" -> {
+                binding.content.mentor.onThrottledClick {
+                    val mIntent = Intent(this, TrainerUserActivity::class.java)
+                    startActivity(mIntent)
+                }
+            }
+            else -> {
+                binding.content.mentor.visibility = View.GONE
+            }
+        }
+
+    }
+
+    private fun setupUI(reequestType: String) {
+        when (reequestType) {
+            "MENID" -> {
+
+            }
+            "TRAID" -> {
+                binding.content.txtMentor.text = "Expert"
+                binding.content.txtData.text = "My Trainer Data"
+
+            }
+            else -> {
+                binding.content.mentor.visibility = View.GONE
+            }
+        }
     }
 
     private fun appBarOnClick() {
@@ -103,10 +205,14 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun setupObserver() {
+    private fun setupObserver(reequestType: String) {
         val token = "${mPreferenceEntity.tokenType} ${mPreferenceEntity.token}"
 
-        viewModel.getParId(token).observe(this, { parid ->
+        // SEMENTARA HARCODE DLU BLM ADA APINYA
+        // jika 963388988 adalah mentor lainya participant
+//        val typeId = if (mPreferenceEntity.username.equals("963388988")) "MENID" else "PARID"
+
+        viewModel.getParId(reequestType).observe(this, { parid ->
             if (parid != null) {
                 when (parid) {
                     is Resource.Loading -> binding.content.progressBar.visibility = View.VISIBLE

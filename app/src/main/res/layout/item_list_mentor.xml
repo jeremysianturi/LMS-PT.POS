@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvTittleMentor"
+        style="@style/text_tittle_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tittle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_content_tittle"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTittleMentor" />
+
+    <TextView
+        android:id="@+id/tv_topic"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Topic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_content_tittle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content_tittle" />
+
+    <TextView
+        android:id="@+id/tv_content_topic"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="test topic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_topic" />
+
+    <TextView
+        android:id="@+id/tv_description"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_content_topic"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content_topic" />
+
+    <TextView
+        android:id="@+id/tv_content_description"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="content Description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_description"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+
+    <TextView
+        android:id="@+id/tv_begin_date"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_begin_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content_description" />
+
+    <TextView
+        android:id="@+id/tv_content_begin_date"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="12-12-2021"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_begin_date" />
+
+    <TextView
+        android:id="@+id/tv_end_date"
+        style="@style/text_tittle_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txt_end_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content_begin_date" />
+
+    <TextView
+        android:id="@+id/tv_content_end_date"
+        style="@style/text_content_style_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="12-12-2021"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_end_date" />
+</androidx.constraintlayout.widget.ConstraintLayout>

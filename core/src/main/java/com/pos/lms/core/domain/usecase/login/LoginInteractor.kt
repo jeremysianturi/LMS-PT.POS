@@ -18,8 +18,8 @@ class LoginInteractor @Inject constructor(private val loginRepository: ILoginRep
     override fun login(loginPost: LoginPost): Flow<Resource<Login>> =
         loginRepository.login(loginPost)
 
-    override fun getParid(token : String): Flow<Resource<List<ParId>>> =
-        loginRepository.getParId(token)
+    override fun getParid(typeId : String): Flow<Resource<List<ParId>>> =
+        loginRepository.getParId(typeId)
 
     override fun changePassword(username: String, password: String): Flow<Resource<Submit>>  =
         loginRepository.changePassword(username, password)

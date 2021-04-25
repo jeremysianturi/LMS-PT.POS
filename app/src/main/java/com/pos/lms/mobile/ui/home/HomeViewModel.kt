@@ -12,5 +12,5 @@ import com.pos.lms.core.domain.usecase.login.LoginUsecase
 class HomeViewModel @ViewModelInject constructor(private val loginUsecase: LoginUsecase) :
     ViewModel() {
 
-    fun getParId(token: String) = loginUsecase.getParid(token).asLiveData()
+    fun getParId(typeId: String) = loginUsecase.getParid(typeId).asLiveData()
 }

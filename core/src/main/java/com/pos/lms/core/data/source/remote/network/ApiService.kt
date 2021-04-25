@@ -3,6 +3,7 @@ package com.pos.lms.core.data.source.remote.network
 import com.pos.lms.core.data.source.remote.post.*
 import com.pos.lms.core.data.source.remote.response.LoginResponse
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
+import com.pos.lms.core.data.source.remote.response.account.ListAccountResponse
 import com.pos.lms.core.data.source.remote.response.curiculum.ListCuriculumResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.ListCompanyResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.ListCompetencyResponse
@@ -10,6 +11,7 @@ import com.pos.lms.core.data.source.remote.response.dropdown.ListPLResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.ListTypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.ListMateriResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
+import com.pos.lms.core.data.source.remote.response.profile.ListAvatarResponse
 import com.pos.lms.core.data.source.remote.response.student.ListStudentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ListForumCommentResponse
 import com.pos.lms.core.data.source.remote.response.student.forum.ListForumLikeResponse
@@ -23,6 +25,7 @@ import com.pos.lms.core.data.source.remote.response.student.session.mentoring.Li
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.ListMentoringDetailResponse
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.ListMentoringResponse
 import com.pos.lms.core.data.source.remote.response.student.session.schedule.ListScheduleResponse
+import com.pos.lms.core.data.source.remote.response.trainer.ListTrainerUserResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -35,8 +38,21 @@ interface ApiService {
         @Body loginPost: LoginPost
     ): LoginResponse
 
-    @GET("lms/api/account?type[]=PARID")
-    suspend fun getParId(): List<ItemParId>
+    @GET
+    suspend fun getAccountRole(
+        @Query("type[]") typeId: String
+    ): ListAccountResponse
+
+    @GET("lms/api/account")
+    suspend fun getParId(
+        @Query("type[]") typeId: String
+    ): List<ItemParId>
+
+    @GET("ldap/api/avatar")
+    suspend fun getAvatar(
+        @Query("username[]") username: String
+    ): ListAvatarResponse
+
 
     //dropdown
     @GET("ldap/api/objects?object_type[]=CMPTY&per_page=999&business_code[]=*&business_code[]=POS")
@@ -161,7 +177,7 @@ interface ApiService {
     @POST("/api/forumlike")
     suspend fun postForumLike(
         @Body forumLikePost: ForumLikePost
-    ) : SubmitResponse
+    ): SubmitResponse
 
     // -> session
     @GET("lms/api/android/session?per_page=10")
@@ -321,4 +337,21 @@ interface ApiService {
         @Query("file_type") fileType: String,
     ): SubmitResponse
 
+//    // mentoring
+//    @GET("lms/api/mentoringparticipant?order[BEGDA]=desc&include[]=id&include[]=mentoring&include[]=external_mentoring")
+//    suspend fun getMentor(
+//        @Query("begin_date_lte") begindate: String,
+//        @Query("end_date_gte") endDate: String,
+//        @Query("otype[]") otype: String,
+//        @Query("id[]") id: String,
+//    ) : ListMentorResponse
+
+    /**
+     * Role Trainer
+     */
+    // Trainer -> list
+    @GET("lms/api/myevent/trainer")
+    suspend fun getTrainerList(
+        @Query("event_status") eventStatus: Int,
+    ): ListTrainerUserResponse
 }

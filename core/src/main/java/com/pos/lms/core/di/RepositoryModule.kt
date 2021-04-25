@@ -15,18 +15,24 @@ abstract class RepositoryModule {
     abstract fun provideRepository(loginRepository: LoginRepository): ILoginRepository
 
     @Binds
-    abstract fun provideCuriculumRepository(curiculumrepository: Curiculumrepository) : ICuriculumRepository
+    abstract fun provideCuriculumRepository(curiculumrepository: Curiculumrepository): ICuriculumRepository
 
     @Binds
-    abstract fun provideDropdownRepository(dropDownRepository: DropDownRepository) : IDropDownRepository
+    abstract fun provideDropdownRepository(dropDownRepository: DropDownRepository): IDropDownRepository
 
     @Binds
-    abstract fun provideMateriRepository(materirepository: Materirepository) : IMateriRepository
+    abstract fun provideMateriRepository(materirepository: Materirepository): IMateriRepository
 
     @Binds
-    abstract fun provideStudentRepository(studentRepository: StudentRepository) : IStudentRepository
+    abstract fun provideStudentRepository(studentRepository: StudentRepository): IStudentRepository
 
     @Binds
-    abstract fun provideRoadmapRepository(roadmapRepository: RoadmapRepository) : IRoadmapRepository
+    abstract fun provideRoadmapRepository(roadmapRepository: RoadmapRepository): IRoadmapRepository
+
+    @Binds
+    abstract fun provideTrainerRepository(trainerRepository: TrainerRepository): ITrainerRepository
+
+    @Binds
+    abstract fun provideProfileRepository(profileRepository: ProfileRepository): IProfileRepository
 
 }

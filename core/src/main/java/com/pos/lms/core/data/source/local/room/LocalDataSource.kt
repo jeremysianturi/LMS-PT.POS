@@ -9,6 +9,7 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
+import com.pos.lms.core.data.source.local.entity.profile.AvatarEntity
 import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
 import com.pos.lms.core.data.source.local.room.dao.*
@@ -28,8 +29,8 @@ class LocalDataSource @Inject constructor(
     private val mDropDownDao: DropDownDao,
     private val mMateriDao: MateriDao,
     private val mStudentDao: StudentDao,
-    private val mRoadmapDao: RoadmapDao
-
+    private val mRoadmapDao: RoadmapDao,
+    private val mProfileDao: ProfileDao
 ) {
 
     fun getLogin(): Flow<LoginEntity> = mLoginDao.getLogin()
@@ -100,9 +101,7 @@ class LocalDataSource @Inject constructor(
     //    -> Detail session
     fun getDetailSession(): Flow<List<DetailSessionEntity>> = mStudentDao.getDetailSessiont()
     suspend fun insertDetailSession(student: List<DetailSessionEntity>) =
-        mStudentDao.insertDetailSession(
-            student
-        )
+        mStudentDao.insertDetailSession(student)
 
     //    -> sessionList
     fun getSessionList(): Flow<List<SessionListEntity>> = mStudentDao.getSessionList()
@@ -210,7 +209,6 @@ class LocalDataSource @Inject constructor(
     fun deleteQuisionerPertanyaan() =
         mStudentDao.deleteQuisionerPertanyaan()
 
-
     //   test  Pertanyaan
     fun getTestPertanyaan(): Flow<List<TestPertanyaanEntity>> =
         mStudentDao.getTestPertanyaan()
@@ -243,7 +241,6 @@ class LocalDataSource @Inject constructor(
         mStudentDao.insertAndDeleteTestAnswer(student)
 
     suspend fun deleteTestnswer() = mStudentDao.deleteTestAnswer()
-
 
     // -> Session -> Mentoring
     fun getMentoringList(): Flow<List<MentoringEntity>> =
@@ -283,7 +280,6 @@ class LocalDataSource @Inject constructor(
     suspend fun deleteAbsensi() = mStudentDao.deleteAbsensi()
 
     //    --------- ROADMAP ------------
-
     // eventRoadmap
     fun getEventRoadmap(): Flow<List<EventRoadmapEntity>> = mRoadmapDao.getEventRoadmap()
     suspend fun insertAndDeleteEventRoadmap(data: List<EventRoadmapEntity>) =
@@ -324,13 +320,19 @@ class LocalDataSource @Inject constructor(
 
     suspend fun deleteSCPRotasi() = mRoadmapDao.deleteSCPRotasi()
 
-
     // SCP Promosi
     fun getSCPPromosi(): Flow<List<SCPPromosiEntity>> = mRoadmapDao.getSCPPromosi()
     suspend fun insertAndDeleteSCPPromosi(data: List<SCPPromosiEntity>) =
         mRoadmapDao.insertAndDeleteSCPPromosi(data)
 
     suspend fun deleteSCPPromosi() = mRoadmapDao.deleteSCPPromosi()
+
+    // avatar
+    fun getAvatar(): Flow<List<AvatarEntity>> = mProfileDao.getAvatar()
+    suspend fun insertAndDeleteAvatar(data: List<AvatarEntity>) =
+        mProfileDao.insertAndDeleteAvatar(data)
+
+    suspend fun deleteAvatar() = mProfileDao.deleteAvatar()
 
 
 }
