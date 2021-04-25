@@ -13,6 +13,7 @@ import com.pos.lms.core.data.source.remote.response.dropdown.CompetencyResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.PLResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.TypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.MateriResponse
+import com.pos.lms.core.data.source.remote.response.mentor.MentorUserResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
 import com.pos.lms.core.data.source.remote.response.profile.AvatarResponse
 import com.pos.lms.core.data.source.remote.response.roadmap.ECPResponse
@@ -984,36 +985,41 @@ class RemoteDataSource @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-//    suspend fun getMentor(
-//        begda: String,
-//        endda: String,
-//        otype: String,
-//        id: String,
-//    ): Flow<ApiResponse<List<DataItem>>> {
-//        return flow {
-//            try {
-//                val response = apiService.getMentor(begda, endda, otype, id)
-//                val dataArray = response.data
-//                Timber.tag(tag).d(dataArray.toString())
-//                if (dataArray != null) {
-//                    if (dataArray.isNotEmpty()) {
-//                        emit(ApiResponse.Success(response.data))
-//                    } else {
-//                        emit(ApiResponse.Empty)
-//                    }
-//                }
-//            } catch (e: Exception) {
-//                emit(ApiResponse.Error(e.toString()))
-//            }
-//        }.flowOn(Dispatchers.IO) as Flow<ApiResponse<List<DataItem>>>
-//    }
+    /**
+     *  --------------------- Role Mentor ---------------------
+     */
+
+    suspend fun getMentor(
+        id: String,
+        begda: String,
+        endda: String
+    ): Flow<ApiResponse<List<MentorUserResponse>>> {
+        return flow {
+            try {
+                val response = apiService.getMentorList(begda, endda, id)
+                val dataArray = response.data
+                Timber.d("dataAvatar : $dataArray")
+                if (dataArray.isNotEmpty()) {
+                    Timber.d("masuk sukses")
+                    emit(ApiResponse.Success(response.data))
+                } else {
+                    Timber.d("masuk kosong")
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                Timber.d("masuk error")
+                emit(ApiResponse.Error(e.toString()))
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
 
     /**
      *  --------------------- Role Trainer ---------------------
      */
 
     suspend fun getTrainerList(
-        eventStatus: Int,
+        eventStatus: String,
     ): Flow<ApiResponse<List<TrainerResponse>>> {
         return flow {
             try {

@@ -8,6 +8,8 @@ import com.pos.lms.core.domain.usecase.login.LoginInteractor
 import com.pos.lms.core.domain.usecase.login.LoginUsecase
 import com.pos.lms.core.domain.usecase.materi.MateriInteractor
 import com.pos.lms.core.domain.usecase.materi.MateriUsecase
+import com.pos.lms.core.domain.usecase.mentor.MentorInteractor
+import com.pos.lms.core.domain.usecase.mentor.MentorUseCase
 import com.pos.lms.core.domain.usecase.profile.ProfileInteractor
 import com.pos.lms.core.domain.usecase.profile.ProfileUseCase
 import com.pos.lms.core.domain.usecase.roadmap.RoadmapInteractor
@@ -52,5 +54,8 @@ abstract class AppModule {
 
     @Binds
     abstract fun provideProfileUseCase(profileInteractor: ProfileInteractor): ProfileUseCase
+
+    @Binds
+    abstract fun provideMentoreUseCase(mentorInteractor: MentorInteractor): MentorUseCase
 
 }

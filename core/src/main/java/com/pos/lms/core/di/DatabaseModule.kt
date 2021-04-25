@@ -48,4 +48,7 @@ class DatabaseModule {
 
     @Provides
     fun provideProfileDao(database: LmsDataBase): ProfileDao = database.profileDao()
+
+    @Provides
+    fun provideMentorDao(database: LmsDataBase): MentorDao = database.mentorDao()
 }

@@ -34,7 +34,7 @@ class ProfileActivity : AppCompatActivity() {
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()
 
-        binding.tvUsername.text = mPreferenceEntity.username
+        binding.tvContentUsername.text = mPreferenceEntity.username
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
@@ -53,11 +53,13 @@ class ProfileActivity : AppCompatActivity() {
                     is Resource.Loading -> {
                     }
                     is Resource.Success -> {
-                        val datas = data.data?.get(0)?.avatar ?: ""
-
-                        if (datas != "") {
-                            binding.ivProfile.loadImage(this, datas)
+                        var avatar = ""
+                        if (data.data?.isNotEmpty() == true) {
+                            avatar = data.data?.get(0)?.avatar ?: ""
+                            binding.ivProfile.loadImage(this, avatar)
                         }
+                        binding.ivProfile.loadImage(this, avatar)
+
 
                     }
                     is Resource.Error -> {

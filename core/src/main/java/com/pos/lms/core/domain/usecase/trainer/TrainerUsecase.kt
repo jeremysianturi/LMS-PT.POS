@@ -10,5 +10,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface TrainerUsecase {
 
-    fun getTrainerList(eventStatus : Int) : Flow<Resource<List<TrainerUser>>>
+    fun getTrainerList(eventStatus : String) : Flow<Resource<List<TrainerUser>>>
 }

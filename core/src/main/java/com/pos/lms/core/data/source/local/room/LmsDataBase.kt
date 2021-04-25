@@ -13,6 +13,7 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
+import com.pos.lms.core.data.source.local.entity.mentor.MentorUserEntity
 import com.pos.lms.core.data.source.local.entity.profile.AvatarEntity
 import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
@@ -62,7 +63,8 @@ import com.pos.lms.core.utils.Converter
         SCPRotasiEntity::class,
         TrainerUserEntity::class,
         AccountEntity::class,
-        AvatarEntity::class
+        AvatarEntity::class,
+        MentorUserEntity::class
     ],
     version = 2,
     exportSchema = false
@@ -87,6 +89,8 @@ abstract class LmsDataBase : RoomDatabase() {
     abstract fun trainerDao(): TrainerDao
 
     abstract fun profileDao(): ProfileDao
+
+    abstract fun mentorDao(): MentorDao
 
 
 }

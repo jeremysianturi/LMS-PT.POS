@@ -128,4 +128,5 @@
     <string name="txt_title">Title</string>
     <string name="txt_time">Time</string>
     <string name="txt_topic">Topic</string>
+    <string name="txt_mentor">Mentor</string>
 </resources>

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ListMentorHashResponse(
 
 	@field:SerializedName("data")
-	val data: List<DataItem?>? = null,
+	val data: List<MentorUserResponse?>? = null,
 
 	@field:SerializedName("meta")
 	val meta: Meta? = null

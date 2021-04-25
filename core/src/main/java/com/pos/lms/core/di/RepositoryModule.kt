@@ -35,4 +35,7 @@ abstract class RepositoryModule {
     @Binds
     abstract fun provideProfileRepository(profileRepository: ProfileRepository): IProfileRepository
 
+    @Binds
+    abstract fun provideMentorRepository(mentorRepository: MentorRepository): IMentorRepository
+
 }

@@ -14,7 +14,7 @@ import javax.inject.Inject
 class TrainerInteractor @Inject constructor(private val trainerRepository: TrainerRepository) :
     TrainerUsecase {
 
-    override fun getTrainerList(eventStatus: Int): Flow<Resource<List<TrainerUser>>> =
+    override fun getTrainerList(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
         trainerRepository.getTrainerList(eventStatus)
 
 }

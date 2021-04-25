@@ -27,7 +27,7 @@ class TrainerRepository @Inject constructor(
     private val appExecutors: AppExecutors
 ) : ITrainerRepository {
 
-    override fun getTrainerList(eventStatus: Int): Flow<Resource<List<TrainerUser>>> =
+    override fun getTrainerList(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
         object : NetworkBoundResourceWithDeleteLocalData<List<TrainerUser>, List<TrainerResponse>>() {
 
             override fun loadFromDB(): Flow<List<TrainerUser>> {

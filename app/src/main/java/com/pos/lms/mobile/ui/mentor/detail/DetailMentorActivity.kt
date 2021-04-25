@@ -1,4 +1,4 @@
-package com.pos.lms.mobile.ui.student.detailStudent.session.detail.mentoring.detail
+package com.pos.lms.mobile.ui.mentor.detail
 
 import android.os.Bundle
 import android.view.View
@@ -12,54 +12,46 @@ import com.github.dhaval2404.form_validation.rule.NonEmptyRule
 import com.github.dhaval2404.form_validation.validation.FormValidator
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.MentoringChatPost
-import com.pos.lms.core.domain.model.Mentoring
-import com.pos.lms.core.domain.model.MentoringDetail
+import com.pos.lms.core.domain.model.MentorUser
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
-import com.pos.lms.mobile.databinding.ActivityDetailMentoringBinding
-import com.pos.lms.mobile.helper.CurrentDate
+import com.pos.lms.mobile.databinding.ActivityDetailMentorBinding
+import com.pos.lms.mobile.ui.student.detailStudent.session.detail.mentoring.detail.DetailMentoringViewModel
+import com.pos.lms.mobile.ui.student.detailStudent.session.detail.mentoring.detail.MentoringChatAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @AndroidEntryPoint
-class DetailMentoringActivity : AppCompatActivity() {
+class DetailMentorActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
 
+    private val binding: ActivityDetailMentorBinding by viewBinding()
     private val viewModel: DetailMentoringViewModel by viewModels()
-    private val binding: ActivityDetailMentoringBinding by viewBinding()
-
     private lateinit var adapter: MentoringChatAdapter
-
-    private var mentoringId: String = ""
-    private var dataIntent: Mentoring? = null
 
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
 
+    private var mentoringId: Int? = 0
+    private var dataIntent: MentorUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         mPreference = UserPreference(this)
         mPreferenceEntity = mPreference.getPref()
 
         dataIntent = intent.getParcelableExtra(EXTRA_DATA)
 
-        mentoringId = dataIntent?.mentoringId ?: ""
+        mentoringId = dataIntent?.mentoring ?: 0
 
-        // metnhod
         buildRecycleView()
         setupObserver()
-        setupObserverDetail()
+        dataIntent?.let { collectData(it) }
 
         // onclick
         binding.ivComment.setOnClickListener {
@@ -71,50 +63,52 @@ class DetailMentoringActivity : AppCompatActivity() {
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
-        actionbar?.title = "Detail Mentoring"
+        actionbar?.title = "Detail Mentor"
         actionbar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupObserverDetail() {
-        val mentoringId = dataIntent?.mentoringId
-        val dateStart = CurrentDate.getToday()
-        val dateEnd = CurrentDate.getToday()
+    private fun buildRecycleView() {
 
-        viewModel.getDetail(mentoringId.toString(), dateStart, dateEnd).observe(this, { data ->
-            if (data != null) {
-                when (data) {
-                    is Resource.Loading -> binding.progressBar2.visibility = View.VISIBLE
-                    is Resource.Success -> {
-                        binding.progressBar2.visibility = View.GONE
-//                        adapter.setData(data.data)
-                        collectData(data.data)
+        adapter = MentoringChatAdapter()
+        binding.rvChat.setHasFixedSize(true)
+        binding.rvChat.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvChat.adapter = adapter
 
-                    }
-                    is Resource.Error -> {
-                        val loginMessage = getString(R.string.something_wrong)
-                        binding.progressBar2.visibility = View.GONE
-                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
-                    }
-                }
+        // item Decoration
+        binding.rvChat.addItemDecoration(
+            DividerItemDecoration(
+                this,
+                LinearLayoutManager.VERTICAL
+            )
+        )
 
-            }
 
-        })
+        //setup Actionbar and navigasi up
+        val actionbar = supportActionBar
+        actionbar?.title = "Detail Mentor"
+        actionbar?.setDisplayHomeAsUpEnabled(true)
+
+
     }
 
-    private fun collectData(data: List<MentoringDetail>?) {
-        val datas = data?.get(0)
+    private fun validationField(): Boolean {
+        return FormValidator.getInstance()
+            .addField(
+                binding.edtComment,
+                NonEmptyRule(getString(R.string.ERROR_FIELD_REQUIRED))
+            )
+            .validate()
+    }
 
-        binding.contentDetail.tvContentTitle.text = datas?.mentoringTitle ?: ""
-        binding.contentDetail.tvContentTopic.text = datas?.mentoringTopic ?: ""
-        binding.contentDetail.tvContentDescription.text = datas?.mentoringDescription ?: ""
-        binding.contentDetail.tvContentLink.text = "- (harcode) "
-
+    private fun isValid() {
+        val comment = binding.edtComment.text.toString()
+        submitComment(comment)
     }
 
     private fun setupObserver() {
 
-        val mentoringId = dataIntent?.mentoringId
+        val mentoringId = dataIntent?.mentoring
 
         viewModel.getChat(mentoringId.toString()).observe(this, { data ->
             if (data != null) {
@@ -138,24 +132,6 @@ class DetailMentoringActivity : AppCompatActivity() {
 
     }
 
-    private fun buildRecycleView() {
-
-        adapter = MentoringChatAdapter()
-        binding.rvChat.setHasFixedSize(true)
-        binding.rvChat.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvChat.adapter = adapter
-
-        // item Decoration
-        binding.rvChat.addItemDecoration(
-            DividerItemDecoration(
-                this,
-                LinearLayoutManager.VERTICAL
-            )
-        )
-
-    }
-
     private fun submitComment(comment: String) {
 
         // create json object data
@@ -173,7 +149,7 @@ class DetailMentoringActivity : AppCompatActivity() {
             sender = mPreferenceEntity.parId!!,
             senderType = "PARTI",
             businessCode = "POS",
-            mentoring = mentoringId.toInt(),
+            mentoring = mentoringId!!,
             otype = "TEXT",
             text = comment
 
@@ -203,18 +179,13 @@ class DetailMentoringActivity : AppCompatActivity() {
 
     }
 
-    private fun validationField(): Boolean {
-        return FormValidator.getInstance()
-            .addField(
-                binding.edtComment,
-                NonEmptyRule(getString(R.string.ERROR_FIELD_REQUIRED))
-            )
-            .validate()
-    }
+    private fun collectData(data: MentorUser) {
 
-    private fun isValid() {
-        val comment = binding.edtComment.text.toString()
-        submitComment(comment)
+        binding.contentDetail.tvContentTitle.text = data.mentoringTitle ?: ""
+        binding.contentDetail.tvContentTopic.text = data.mentoringTopic ?: ""
+        binding.contentDetail.tvContentDescription.text = data.mentoringDescription ?: ""
+        binding.contentDetail.tvContentLink.text = "-"
+
     }
 
 

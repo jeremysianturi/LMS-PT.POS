@@ -9,6 +9,7 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.local.entity.materi.MateriEntity
+import com.pos.lms.core.data.source.local.entity.mentor.MentorUserEntity
 import com.pos.lms.core.data.source.local.entity.profile.AvatarEntity
 import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
@@ -30,7 +31,8 @@ class LocalDataSource @Inject constructor(
     private val mMateriDao: MateriDao,
     private val mStudentDao: StudentDao,
     private val mRoadmapDao: RoadmapDao,
-    private val mProfileDao: ProfileDao
+    private val mProfileDao: ProfileDao,
+    private val mMentorDao: MentorDao
 ) {
 
     fun getLogin(): Flow<LoginEntity> = mLoginDao.getLogin()
@@ -333,6 +335,14 @@ class LocalDataSource @Inject constructor(
         mProfileDao.insertAndDeleteAvatar(data)
 
     suspend fun deleteAvatar() = mProfileDao.deleteAvatar()
+
+    // mentor user
+
+    fun getMentor(): Flow<List<MentorUserEntity>> = mMentorDao.getMentor()
+    suspend fun insertAndDeleteMentor(data: List<MentorUserEntity>) =
+        mMentorDao.insertAndDeleteMentorUser(data)
+
+    suspend fun deleteMentor() = mMentorDao.deleteMentorUser()
 
 
 }

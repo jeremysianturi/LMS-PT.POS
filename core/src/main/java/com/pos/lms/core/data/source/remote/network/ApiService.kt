@@ -10,6 +10,7 @@ import com.pos.lms.core.data.source.remote.response.dropdown.ListCompetencyRespo
 import com.pos.lms.core.data.source.remote.response.dropdown.ListPLResponse
 import com.pos.lms.core.data.source.remote.response.dropdown.ListTypeResponse
 import com.pos.lms.core.data.source.remote.response.materi.ListMateriResponse
+import com.pos.lms.core.data.source.remote.response.mentor.ListMentorUserResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
 import com.pos.lms.core.data.source.remote.response.profile.ListAvatarResponse
 import com.pos.lms.core.data.source.remote.response.student.ListStudentResponse
@@ -352,6 +353,17 @@ interface ApiService {
     // Trainer -> list
     @GET("lms/api/myevent/trainer")
     suspend fun getTrainerList(
-        @Query("event_status") eventStatus: Int,
+        @Query("event_status") eventStatus: String,
     ): ListTrainerUserResponse
+
+    /**
+     * Role Mentor
+     */
+
+    @GET("lms/api/android/mentoring-participant?order[BEGDA]=desc&otype[]=MNTOR&include[]=id&include[]=mentoring&include[]=external_mentoring")
+    suspend fun getMentorList(
+        @Query("begin_date_lte") begda: String,
+        @Query("end_date_gte") endda: String,
+        @Query("id[]") id: String,
+    ): ListMentorUserResponse
 }

@@ -12,5 +12,5 @@ import com.pos.lms.core.domain.usecase.trainer.TrainerUsecase
 class UpcomingViewModel @ViewModelInject constructor(private val trainerUsecase: TrainerUsecase) :
     ViewModel() {
 
-    val getList = trainerUsecase.getTrainerList(2).asLiveData()
+    val getList = trainerUsecase.getTrainerList("02").asLiveData()
 }

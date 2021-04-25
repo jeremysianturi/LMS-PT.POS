@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.pos.lms.core.domain.model.Curiculum
+import com.pos.lms.core.domain.model.MentorUser
 import com.pos.lms.mobile.R
-import com.pos.lms.mobile.databinding.ItemListProposalBinding
+import com.pos.lms.mobile.databinding.ItemListMentorBinding
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
@@ -14,11 +14,11 @@ import com.pos.lms.mobile.databinding.ItemListProposalBinding
  */
 class MentorAdapter : RecyclerView.Adapter<MentorAdapter.UserViewHolder>() {
 
-    var onItemClick: ((Curiculum) -> Unit)? = null
+    var onItemClick: ((MentorUser) -> Unit)? = null
 
-    private val mData = ArrayList<Curiculum>()
+    private val mData = ArrayList<MentorUser>()
 
-    fun setData(newListData: List<Curiculum>?) {
+    fun setData(newListData: List<MentorUser>?) {
         if (newListData == null) return
         mData.clear()
         mData.addAll(newListData)
@@ -30,7 +30,7 @@ class MentorAdapter : RecyclerView.Adapter<MentorAdapter.UserViewHolder>() {
         viewType: Int
     ): MentorAdapter.UserViewHolder {
         val mView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_list_proposal, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_list_mentor, parent, false)
         return UserViewHolder(mView)
     }
 
@@ -41,17 +41,15 @@ class MentorAdapter : RecyclerView.Adapter<MentorAdapter.UserViewHolder>() {
     }
 
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemListProposalBinding.bind(itemView)
-        fun bind(data: Curiculum) {
+        private val binding = ItemListMentorBinding.bind(itemView)
+        fun bind(data: MentorUser) {
             with(binding) {
 
-                // concat string
-                val contentProposal = "${data.companyName} - ${data.requestTypeName}"
-
-                tvTitleListProposal.text = data.requestName
-                tvContentProposal.text = contentProposal
-                tvDetailContentProposal.text = data.competenceName
-                tvLevelProposal.text = data.plName
+                tvContentTopic.text = data.mentoringTopic
+                tvContentTitle.text = data.mentoringTitle
+                tvContentDuration.text = data.mentoringDuration.toString()
+                tvContentDescription.text = data.mentoringDescription
+                tvContentDate.text = "${data.beginDate} - ${data.endDate}"
             }
         }
 

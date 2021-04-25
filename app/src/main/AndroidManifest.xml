@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningManagementSystemPOS"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.mydata.MyDataActivity"></activity>
+        <activity android:name=".ui.mentor.detail.DetailMentorActivity"></activity>
+        <activity android:name=".ui.trainer.detail.DetailTrainerActivity" />
+        <activity android:name=".ui.mydata.MyDataActivity" />
         <activity android:name=".ui.trainer.TrainerUserActivity" />
         <activity android:name=".ui.mentor.MentorActivity" />
         <activity android:name=".ui.student.detailStudent.session.detail.schedule.detailSchedule.detailTest.DetailTestActivity" />
