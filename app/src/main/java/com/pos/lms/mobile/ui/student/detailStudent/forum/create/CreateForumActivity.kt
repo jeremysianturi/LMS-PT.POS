@@ -21,6 +21,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.domain.model.Student
+import com.pos.lms.core.domain.model.TrainerUser
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
@@ -50,6 +51,7 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val USER_ROLE = "user_role"
         private const val PROFILE_IMAGE_REQ_CODE = 101
         private const val DATE_PICKER_TAG_START = "DatePickerStart"
         private const val DATE_PICKER_TAG_END = "DatePickerEnd"
@@ -70,7 +72,6 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
     var time: String? = ""
     var currentDate: String? = ""
 
-    private var dataIntent: Student? = null
     private var mFile: File? = null
     private var mFileName: String = ""
 
@@ -85,10 +86,14 @@ class CreateForumActivity : AppCompatActivity(), DatePickerFragment.DialogDateLi
 
         bottomSheetDialog = BottomSheetDialog(this, R.style.BottomSheetDialog)
 
-        dataIntent = intent.getParcelableExtra(EXTRA_DATA)
+        val userrole = intent.getStringExtra(USER_ROLE)
 
-        if (dataIntent != null) {
-            batchId = dataIntent!!.batch.toString()
+        batchId = if (userrole == "STUDENT") {
+            val dataIntent = intent.getParcelableExtra<Student>(EXTRA_DATA)
+            dataIntent?.batch.toString()
+        } else {
+            val dataIntent = intent.getParcelableExtra<TrainerUser>(EXTRA_DATA)
+            dataIntent?.batch.toString()
         }
 
         token = mPreferenceEntity.token

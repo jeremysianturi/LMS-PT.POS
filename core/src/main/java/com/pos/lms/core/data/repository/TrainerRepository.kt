@@ -9,6 +9,8 @@ import com.pos.lms.core.data.source.remote.response.trainer.TrainerResponse
 import com.pos.lms.core.domain.model.TrainerUser
 import com.pos.lms.core.domain.repository.ITrainerRepository
 import com.pos.lms.core.helper.dataMapper.DataMapperTrainerUser
+import com.pos.lms.core.helper.dataMapper.DataMapperTrainerUser2
+import com.pos.lms.core.helper.dataMapper.DataMapperTrainerUser3
 import com.pos.lms.core.utils.AppExecutors
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -28,7 +30,8 @@ class TrainerRepository @Inject constructor(
 ) : ITrainerRepository {
 
     override fun getTrainerList(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
-        object : NetworkBoundResourceWithDeleteLocalData<List<TrainerUser>, List<TrainerResponse>>() {
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<TrainerUser>, List<TrainerResponse>>() {
 
             override fun loadFromDB(): Flow<List<TrainerUser>> {
                 return localDataSource.getTrainer().map {
@@ -53,5 +56,63 @@ class TrainerRepository @Inject constructor(
             }
 
         }.asFlow()
+
+    override fun getUpcoming(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<TrainerUser>, List<TrainerResponse>>() {
+
+            override fun loadFromDB(): Flow<List<TrainerUser>> {
+                return localDataSource.getUpcoming().map {
+                    DataMapperTrainerUser2.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<TrainerUser>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<TrainerResponse>>> =
+                remoteDataSource.getTrainerList(eventStatus)
+
+            override suspend fun saveCallResult(data: List<TrainerResponse>) {
+                val list = DataMapperTrainerUser2.mapResponsetoEntities(data)
+                localDataSource.insertUpcoming(list)
+
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deletUpcoming()
+            }
+
+        }.asFlow()
+
+
+    override fun getComplete(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
+        object :
+            NetworkBoundResourceWithDeleteLocalData<List<TrainerUser>, List<TrainerResponse>>() {
+
+            override fun loadFromDB(): Flow<List<TrainerUser>> {
+                return localDataSource.getCompleted().map {
+                    DataMapperTrainerUser3.mapEntitiestoDomain(it)
+                }
+            }
+
+            override fun shouldFetch(data: List<TrainerUser>?): Boolean =
+                true
+
+            override suspend fun createCall(): Flow<ApiResponse<List<TrainerResponse>>> =
+                remoteDataSource.getTrainerList(eventStatus)
+
+            override suspend fun saveCallResult(data: List<TrainerResponse>) {
+                val list = DataMapperTrainerUser3.mapResponsetoEntities(data)
+                localDataSource.insertCompleted(list)
+
+            }
+
+            override suspend fun emptyDataBase() {
+                localDataSource.deleteCompleted()
+            }
+
+        }.asFlow()
+
 
 }

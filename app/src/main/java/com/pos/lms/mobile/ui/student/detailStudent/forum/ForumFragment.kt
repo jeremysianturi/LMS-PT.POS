@@ -14,6 +14,7 @@ import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.DetailSession
 import com.pos.lms.core.domain.model.ForumList
 import com.pos.lms.core.domain.model.Student
+import com.pos.lms.core.domain.model.TrainerUser
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
@@ -22,10 +23,10 @@ import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.student.detailStudent.forum.create.CreateForumActivity
 import com.pos.lms.mobile.ui.student.detailStudent.forum.detail.DetailForumActivity
 import com.pos.lms.mobile.ui.student.detailStudent.forum.update.UpdateForumActivity
-import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
+
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
@@ -36,6 +37,7 @@ class ForumFragment : Fragment() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val USER_ROLE = "user_role"
     }
 
     private val viewModel: ForumViewModel by viewModels()
@@ -46,7 +48,11 @@ class ForumFragment : Fragment() {
 
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
-    private var dataBundle: Student? = null
+
+    private var batchId = ""
+    private var eventId = ""
+    private var dataBundle: Any? = null
+    private var dataBundleTrainer: TrainerUser? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,17 +69,37 @@ class ForumFragment : Fragment() {
         mPreferenceEntity = mPreference.getPref()
 
         val bundle = arguments
-//        dataBundle: Student? = null
 
         if (bundle != null) {
-            dataBundle = bundle.getParcelable(SessionFragment.EXTRA_DATA) as Student?
+            val userRole = bundle.getString(USER_ROLE)
+            //cheking role
+            if (userRole == "STUDENT") {
+                val dataBundle = bundle.getParcelable(EXTRA_DATA) as Student?
+                batchId = dataBundle?.batch.toString()
+                eventId = dataBundle?.eventId.toString()
+
+                binding.ivCreateDiscussion.setOnClickListener {
+                    val mIntent = Intent(requireContext(), CreateForumActivity::class.java)
+                    mIntent.putExtra(CreateForumActivity.EXTRA_DATA, dataBundle)
+                    startActivity(mIntent)
+                }
+
+            } else {
+                val dataBundle = bundle.getParcelable(EXTRA_DATA) as TrainerUser?
+                batchId = dataBundle?.batch.toString()
+                eventId = dataBundle?.eventId.toString()
+
+                binding.ivCreateDiscussion.setOnClickListener {
+                    val mIntent = Intent(requireContext(), CreateForumActivity::class.java)
+                    mIntent.putExtra(CreateForumActivity.EXTRA_DATA, dataBundle)
+                    startActivity(mIntent)
+
+                }
+
+            }
+
         }
 
-        binding.ivCreateDiscussion.setOnClickListener {
-            val mIntent = Intent(requireContext(), CreateForumActivity::class.java)
-            mIntent.putExtra(CreateForumActivity.EXTRA_DATA, dataBundle)
-            startActivity(mIntent)
-        }
 
         binding.cbMyForum.setOnClickListener {
             val checked = binding.cbMyForum.isChecked
@@ -91,13 +117,12 @@ class ForumFragment : Fragment() {
 
         // method
         buildRecycleView()
-        setupObserver(dataBundle)
+        setupObserver()
         setupObserverListForum()
 
     }
 
     private fun setupObserverDeleteForum(selectedData: ForumList) {
-
         viewModel.deleteForum(selectedData.objectIdentifier)
             .observe(viewLifecycleOwner, { data ->
                 if (data != null) {
@@ -121,9 +146,9 @@ class ForumFragment : Fragment() {
 
     }
 
-    private fun setupObserver(bundle: Student?) {
+    private fun setupObserver() {
 
-        val eventId = bundle?.eventId.toString()
+//        val eventId = bundle?.eventId.toString()
 
         viewModel.getDetailSession(eventId).observe(viewLifecycleOwner, { data ->
             if (data != null) {
@@ -186,7 +211,7 @@ class ForumFragment : Fragment() {
     }
 
     private fun setupObserverListForum() {
-        val batchId = dataBundle?.batch.toString()
+//        val batchId = dataBundle?.batch.toString()
 
         val begindate = CurrentDate.getToday()
         val enddate = CurrentDate.getToday()

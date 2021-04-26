@@ -18,6 +18,8 @@ import com.pos.lms.core.data.source.local.entity.profile.AvatarEntity
 import com.pos.lms.core.data.source.local.entity.roadmap.*
 import com.pos.lms.core.data.source.local.entity.student.*
 import com.pos.lms.core.data.source.local.entity.trainer.TrainerUserEntity
+import com.pos.lms.core.data.source.local.entity.trainer.TrainerUserEntity2
+import com.pos.lms.core.data.source.local.entity.trainer.TrainerUserEntity3
 import com.pos.lms.core.data.source.local.room.dao.*
 import com.pos.lms.core.utils.Converter
 
@@ -62,6 +64,8 @@ import com.pos.lms.core.utils.Converter
         SCPPromosiEntity::class,
         SCPRotasiEntity::class,
         TrainerUserEntity::class,
+        TrainerUserEntity2::class,
+        TrainerUserEntity3::class,
         AccountEntity::class,
         AvatarEntity::class,
         MentorUserEntity::class

@@ -17,4 +17,10 @@ class TrainerInteractor @Inject constructor(private val trainerRepository: Train
     override fun getTrainerList(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
         trainerRepository.getTrainerList(eventStatus)
 
+    override fun getUpcoming(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
+        trainerRepository.getUpcoming(eventStatus)
+
+    override fun getComplete(eventStatus: String): Flow<Resource<List<TrainerUser>>> =
+        trainerRepository.getComplete(eventStatus)
+
 }

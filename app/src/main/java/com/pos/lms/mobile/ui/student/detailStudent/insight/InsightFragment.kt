@@ -14,27 +14,31 @@ import com.pos.lms.core.data.Resource
 import com.pos.lms.core.data.source.remote.post.ForumLikePost
 import com.pos.lms.core.domain.model.InsightList
 import com.pos.lms.core.domain.model.Student
+import com.pos.lms.core.domain.model.TrainerUser
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.InsightFragmentBinding
 import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.helper.CurrentTime
+import com.pos.lms.mobile.ui.student.detailStudent.forum.ForumFragment
 import com.pos.lms.mobile.ui.student.detailStudent.insight.create.CreateInsightActivity
 import com.pos.lms.mobile.ui.student.detailStudent.insight.update.UpdateInsightActivity
-import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
  */
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class InsightFragment : Fragment() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val USER_ROLE = "user_role"
     }
 
     private val viewModel: InsightViewModel by viewModels()
@@ -46,7 +50,9 @@ class InsightFragment : Fragment() {
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
 
-    private var dataBundle: Student? = null
+    private var batchId = ""
+    private var eventId = ""
+//    private var dataBundle: Student? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,14 +72,31 @@ class InsightFragment : Fragment() {
         mPreferenceEntity = mPreference.getPref()
 
         if (bundle != null) {
-            dataBundle = bundle.getParcelable(SessionFragment.EXTRA_DATA) as Student?
-        }
+            val userRole = bundle.getString(ForumFragment.USER_ROLE)
+            if (userRole == "STUDENT") {
+                val dataBundle = bundle.getParcelable(EXTRA_DATA) as Student?
+                batchId = dataBundle?.batch.toString()
+                eventId = dataBundle?.eventId.toString()
 
-        // onclick
-        binding.ivCreateInsight.setOnClickListener {
-            val mIntent = Intent(requireContext(), CreateInsightActivity::class.java)
-            mIntent.putExtra(CreateInsightActivity.EXTRA_DATA, dataBundle)
-            startActivity(mIntent)
+                binding.ivCreateInsight.setOnClickListener {
+                    val mIntent = Intent(requireContext(), CreateInsightActivity::class.java)
+                    mIntent.putExtra(CreateInsightActivity.EXTRA_DATA, dataBundle)
+                    startActivity(mIntent)
+                }
+
+            } else {
+
+                val dataBundle = bundle.getParcelable(EXTRA_DATA) as TrainerUser?
+                batchId = dataBundle?.batch.toString()
+                eventId = dataBundle?.eventId.toString()
+
+                binding.ivCreateInsight.setOnClickListener {
+                    val mIntent = Intent(requireContext(), CreateInsightActivity::class.java)
+                    mIntent.putExtra(CreateInsightActivity.EXTRA_DATA, dataBundle)
+                    startActivity(mIntent)
+                }
+
+            }
         }
 
         // search
@@ -96,9 +119,9 @@ class InsightFragment : Fragment() {
 
     private fun setupObserver() {
 
-        val bundle = dataBundle
-        val eventId = bundle?.eventId.toString()
-        val batchId = bundle?.batch.toString()
+//        val bundle = dataBundle
+//        val eventId = bundle?.eventId.toString()
+//        val batchId = bundle?.batch.toString()
 
         val begindate = CurrentDate.getToday()
         val enddate = CurrentDate.getToday()
@@ -144,7 +167,7 @@ class InsightFragment : Fragment() {
             rvInsight.adapter = adapter
 
             adapter.onLikeClick = { selectedData ->
-               setupLikeObserver(selectedData)
+                setupLikeObserver(selectedData)
             }
 
             adapter.onDeleteClick = { selectedData ->
@@ -176,7 +199,7 @@ class InsightFragment : Fragment() {
             businessCode = "POS"
         )
 
-        Toast.makeText(requireContext(),"Fitur not ready",Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Fitur not ready", Toast.LENGTH_SHORT).show()
 
     }
 

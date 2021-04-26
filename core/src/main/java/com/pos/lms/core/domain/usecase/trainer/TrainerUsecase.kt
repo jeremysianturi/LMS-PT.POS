@@ -11,4 +11,8 @@ import kotlinx.coroutines.flow.Flow
 interface TrainerUsecase {
 
     fun getTrainerList(eventStatus : String) : Flow<Resource<List<TrainerUser>>>
+
+    fun getUpcoming(eventStatus: String): Flow<Resource<List<TrainerUser>>>
+
+    fun getComplete(eventStatus: String): Flow<Resource<List<TrainerUser>>>
 }

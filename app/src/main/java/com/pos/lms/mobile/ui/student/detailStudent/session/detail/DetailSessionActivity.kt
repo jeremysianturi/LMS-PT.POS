@@ -9,17 +9,21 @@ import com.pos.lms.mobile.ui.student.detailStudent.session.detail.absensi.Absens
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.mentoring.MentoringFragment
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.ScheduleFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
  */
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class DetailSessionActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         const val EXTRA_DATA = "extra_data"
     }
-    private lateinit var binding : ActivityDetailSessionBinding
+
+    private lateinit var binding: ActivityDetailSessionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +56,7 @@ class DetailSessionActivity : AppCompatActivity() {
         val absensi = AbsensiFragment()
         val bundleInsight = Bundle()
         bundleInsight.putParcelable(AbsensiFragment.EXTRA_DATA, dataIntent)
+        bundleInsight.putString(AbsensiFragment.USER_ROLE, "STUDENT")
         absensi.arguments = bundleInsight
 
         // bind Fragment and adapter

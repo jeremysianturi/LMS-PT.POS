@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.Schedule
+import com.pos.lms.core.domain.model.TrainerUser
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
@@ -35,6 +36,7 @@ class DetailScheduleActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_DATA = "extra_data"
         const val PARENT_DATA = "materi_schedule"
+        const val LAYOUT_CODE = "layout_code"
     }
 
     private val viewModel: DetailScheduleViewModel by viewModels()
@@ -56,16 +58,138 @@ class DetailScheduleActivity : AppCompatActivity() {
         mPreferenceEntity = mPreference.getPref()
 
         val dataIntent = intent.getParcelableExtra<Schedule>(EXTRA_DATA)
+        setupObserver(dataIntent)
+        setupDataIntent(dataIntent)
 
+//        val layoutCode = intent.getStringExtra(LAYOUT_CODE)
+//        if (layoutCode == "STUDENT") {
+//            val dataIntent = intent.getParcelableExtra<Schedule>(EXTRA_DATA)
+//            setupObserver(dataIntent)
+//            setupDataIntent(dataIntent)
+//        } else {
+//            val dataIntent = intent.getParcelableExtra<TrainerUser>(EXTRA_DATA)
+//            setupObserverTrainer(dataIntent)
+//            setupDataIntentTrainer(dataIntent)
+//        }
 
         //setup Actionbar and navigasi up
         val actionbar = supportActionBar
         actionbar?.title = "Detail Schedule"
         actionbar?.setDisplayHomeAsUpEnabled(true)
 
-        setupObserver(dataIntent)
         buildRecycleView()
-        setupDataIntent(dataIntent)
+    }
+
+    private fun setupDataIntentTrainer(dataIntent: TrainerUser?) {
+        if (dataIntent != null) {
+            binding.apply {
+                tvTitleActivity.text = dataIntent.scheduleName
+                with(contentDetailSchedule) {
+
+                    val tittle = "Learning Activity : ${dataIntent.scheduleName}"
+                    val topic = "Topic : ${dataIntent.topic}"
+                    val begindate = "Begin Date : ${dataIntent.bEGDA}"
+                    val enddate = "End Date : ${dataIntent.eNDDA}"
+                    val time = "Time : ${dataIntent.beginTime} - ${dataIntent.endTime}"
+
+                    tvLearningActivity.text = tittle
+                    tvTopic.text = topic
+                    tvBeginDate.text = begindate
+                    tvEndDate.text = enddate
+                    tvTime.text = time
+
+                }
+            }
+        }
+
+    }
+
+    private fun setupDataIntent(dataIntent: Schedule?) {
+        if (dataIntent != null) {
+            binding.apply {
+                tvTitleActivity.text = dataIntent.scheduleName
+                with(contentDetailSchedule) {
+
+                    val tittle = "Learning Activity : ${dataIntent.scheduleName}"
+                    val topic = "Topic : ${dataIntent.topic}"
+                    val begindate = "Begin Date : ${dataIntent.beginDate}"
+                    val enddate = "End Date : ${dataIntent.endDate}"
+                    val time = "Time : ${dataIntent.beginTime} - ${dataIntent.endTime}"
+
+                    tvLearningActivity.text = tittle
+                    tvTopic.text = topic
+                    tvBeginDate.text = begindate
+                    tvEndDate.text = enddate
+                    tvTime.text = time
+
+                }
+            }
+        }
+    }
+
+    private fun setupObserverTrainer(dataIntent: TrainerUser?) {
+        val beginDate = CurrentDate.getToday()
+        val endDate = CurrentDate.getToday()
+        val parent = dataIntent?.scheduleId.toString()
+
+        viewModel.getMateri(parent, beginDate, endDate).observe(this, { data ->
+            if (data != null) {
+                when (data) {
+                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        adapterMateri.setData(data.data)
+                    }
+                    is Resource.Error -> {
+                        val loginMessage = getString(R.string.something_wrong)
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+
+        })
+
+        viewModel.getTrainer(parent, beginDate, endDate).observe(this, { data ->
+            if (data != null) {
+                when (data) {
+                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        adapterTrainer.setData(data.data)
+                    }
+                    is Resource.Error -> {
+                        val loginMessage = getString(R.string.something_wrong)
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+
+        })
+
+        viewModel.getRoom(parent, beginDate, endDate).observe(this, { data ->
+            if (data != null) {
+                when (data) {
+                    is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                    is Resource.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        adapterRoom.setData(data.data)
+                    }
+                    is Resource.Error -> {
+                        val loginMessage = getString(R.string.something_wrong)
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, loginMessage, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
+
+        })
+
+
     }
 
     private fun setupObserver(dataIntent: Schedule?) {
@@ -283,30 +407,6 @@ class DetailScheduleActivity : AppCompatActivity() {
 
 
     }
-
-    private fun setupDataIntent(dataIntent: Schedule?) {
-        if (dataIntent != null) {
-            binding.apply {
-                tvTitleActivity.text = dataIntent.scheduleName
-                with(contentDetailSchedule) {
-
-                    val tittle = "Learning Activity : ${dataIntent.scheduleName}"
-                    val topic = "Topic : ${dataIntent.topic}"
-                    val begindate = "Begin Date : ${dataIntent.beginDate}"
-                    val enddate = "End Date : ${dataIntent.endDate}"
-                    val time = "Time : ${dataIntent.beginTime} - ${dataIntent.endTime}"
-
-                    tvLearningActivity.text = tittle
-                    tvTopic.text = topic
-                    tvBeginDate.text = begindate
-                    tvEndDate.text = enddate
-                    tvTime.text = time
-
-                }
-            }
-        }
-    }
-
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

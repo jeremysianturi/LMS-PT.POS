@@ -62,6 +62,7 @@
     <string name="txt_date">Date :</string>
     <string name="txt_lihat_materi">Lihat Materi</string>
     <string name="txt_detail_student">Detail Student</string>
+    <string name="txt_detail">Detail</string>
     <string name="txt_session">Session</string>
     <string name="txt_forum">Forum</string>
     <string name="txt_insight">Insight</string>
@@ -129,4 +130,5 @@
     <string name="txt_time">Time</string>
     <string name="txt_topic">Topic</string>
     <string name="txt_mentor">Mentor</string>
+    <string name="txt_absensi">Absensi</string>
 </resources>

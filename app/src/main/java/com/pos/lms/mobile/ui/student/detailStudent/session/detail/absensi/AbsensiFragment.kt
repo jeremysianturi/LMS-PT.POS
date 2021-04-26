@@ -10,27 +10,39 @@ import android.viewbinding.library.fragment.viewBinding
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.SessionList
+import com.pos.lms.core.domain.model.TrainerUser
 import com.pos.lms.core.utils.PreferenceEntity
 import com.pos.lms.core.utils.UserPreference
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.AbsensiFragmentBinding
-import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.ScheduleFragment
+import com.pos.lms.mobile.ui.student.detailStudent.forum.ForumFragment
+import com.pos.lms.mobile.util.ErrorLog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.json.JSONObject
 import timber.log.Timber
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class AbsensiFragment : Fragment() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val USER_ROLE = "user_role"
     }
 
     private val viewModel: AbsensiViewModel by viewModels()
     private val binding: AbsensiFragmentBinding by viewBinding()
+
     private lateinit var mPreference: UserPreference
     private lateinit var mPreferenceEntity: PreferenceEntity
+
+    private var sessionId: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,16 +58,30 @@ class AbsensiFragment : Fragment() {
         mPreferenceEntity = mPreference.getPref()
 
         val bundle = arguments
-        var dataBundle: SessionList? = null
-
         if (bundle != null) {
-            dataBundle = bundle.getParcelable(ScheduleFragment.EXTRA_DATA) as SessionList?
+            val userRole = bundle.getString(ForumFragment.USER_ROLE)
+            if (userRole == "STUDENT") {
+                val dataBundle = bundle.getParcelable(EXTRA_DATA) as SessionList?
+                sessionId = dataBundle?.sessionId
+
+            } else {
+                val dataBundle = bundle.getParcelable(EXTRA_DATA) as TrainerUser?
+                observasiTrainer(dataBundle)
+
+            }
+
+
         }
-        val sessionId = dataBundle?.sessionId
+
         val parId = mPreferenceEntity.parId
 
 //        observerAbsensi(sessionId, parId)
 
+        obserTemporarySTudent()
+
+    }
+
+    private fun observasiTrainer(dataBundle: TrainerUser?) {
 
     }
 
@@ -83,11 +109,40 @@ class AbsensiFragment : Fragment() {
         })
     }
 
+    private fun obserTemporarySTudent() {
+        val token = mPreferenceEntity.token
+        val parId = mPreferenceEntity.parId.toString()
+        val sesid = sessionId
+
+        Timber.d("Sess_id : $sesid")
+
+        AndroidNetworking.post("https://pos-lms.digitalevent.id/lms/api/attendance/qr")
+            .addHeaders("Accept", "application/json")
+            .addHeaders("Content-type", "multipart/form-data")
+            .addHeaders("Authorization", "Bearer $token")
+            .addBodyParameter("parid", parId)
+            .addBodyParameter("sesid", sesid)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject?) {
+                    if (response?.length() ?: 0 > 0) {
+                        val data = response?.getString("data")
+                        Timber.d("image : $data")
+                        showImage(data)
+                    }
+                }
+
+                override fun onError(anError: ANError?) {
+                    ErrorLog.errorLog("ABSENFRAGMENT", anError, "qr_absensi")
+                }
+
+            })
+    }
+
 
     private fun showImage(data: String?) {
         val imageBytes = Base64.decode(data, Base64.DEFAULT)
         val decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-//        binding..setImageBitmap(decodedImage)
         binding.ivQrCode.setImageBitmap(decodedImage)
     }
 

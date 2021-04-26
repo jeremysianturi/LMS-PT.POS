@@ -11,10 +11,13 @@ import com.pos.lms.mobile.ui.student.detailStudent.forum.ForumFragment
 import com.pos.lms.mobile.ui.student.detailStudent.insight.InsightFragment
 import com.pos.lms.mobile.ui.student.detailStudent.session.SessionFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+
 /**
  * Created by Muhammad Zaim Milzam on 15/02/21.
  * linkedin : Muhammad Zaim Milzam
  */
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class DetailActivityStudent : AppCompatActivity() {
 
@@ -22,7 +25,7 @@ class DetailActivityStudent : AppCompatActivity() {
         const val EXTRA_DATA = "extra_data"
     }
 
-    private val binding : ActivityDetailStudentBinding by viewBinding()
+    private val binding: ActivityDetailStudentBinding by viewBinding()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +53,13 @@ class DetailActivityStudent : AppCompatActivity() {
         val forum = ForumFragment()
         val bundleForum = Bundle()
         bundleForum.putParcelable(ForumFragment.EXTRA_DATA, student)
+        bundleForum.putString(ForumFragment.USER_ROLE, "STUDENT")
         forum.arguments = bundleForum
 
         val insight = InsightFragment()
         val bundleInsight = Bundle()
         bundleInsight.putParcelable(InsightFragment.EXTRA_DATA, student)
+        bundleInsight.putString(InsightFragment.USER_ROLE, "STUDENT")
         insight.arguments = bundleInsight
 
         // bind Fragment and adapter

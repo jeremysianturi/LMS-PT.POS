@@ -11,4 +11,5 @@ class AbsensiViewModel @ViewModelInject constructor(private val studentUsecase: 
     fun getAbsensi(parId: String, sessionId: String) =
         studentUsecase.getAbsensi(parId, sessionId).asLiveData()
 
+
 }

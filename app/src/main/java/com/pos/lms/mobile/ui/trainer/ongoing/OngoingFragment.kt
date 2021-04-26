@@ -1,5 +1,6 @@
 package com.pos.lms.mobile.ui.trainer.ongoing
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,14 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.pos.lms.core.data.Resource
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.FragmentOngoingBinding
+import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.DetailScheduleActivity
 import com.pos.lms.mobile.ui.trainer.TrainerUserAdapter
+import com.pos.lms.mobile.ui.trainer.detail.DetailTrainerActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
 /**
  * Created by Muhammad Zaim Milzam on 23/04/21.
  * linkedin : Muhammad Zaim Milzam
  */
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class OngoingFragment : Fragment() {
 
@@ -44,6 +49,11 @@ class OngoingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         buildRc()
+        setupObserver()
+    }
+
+    override fun onResume() {
+        super.onResume()
         setupObserver()
     }
 
@@ -84,11 +94,12 @@ class OngoingFragment : Fragment() {
             )
         )
 
-//        adapter.onItemClick = { selectData ->
-//            val mIntent = Intent(this, DetailActivityStudent::class.java)
-//            mIntent.putExtra(DetailActivityStudent.EXTRA_DATA, selectData)
-//            startActivity(mIntent)
-//        }
+        adapter.onItemClick = { selectData ->
+            val mIntent = Intent(requireContext(), DetailTrainerActivity::class.java)
+            mIntent.putExtra(DetailScheduleActivity.EXTRA_DATA, selectData)
+            mIntent.putExtra(DetailScheduleActivity.LAYOUT_CODE, "TRAINER")
+            startActivity(mIntent)
+        }
     }
 
 

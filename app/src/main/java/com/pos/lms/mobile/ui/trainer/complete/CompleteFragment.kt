@@ -49,6 +49,12 @@ class CompleteFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupObserver()
+    }
+
+
     private fun setupObserver() {
         viewModel.getList.observe(viewLifecycleOwner, { data ->
             if (data != null) {

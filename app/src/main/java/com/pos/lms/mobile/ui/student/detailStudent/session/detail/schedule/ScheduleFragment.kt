@@ -131,6 +131,7 @@ class ScheduleFragment : Fragment() {
         adapter.onItemClick = { selectData ->
             val mIntent = Intent(requireContext(), DetailScheduleActivity::class.java)
             mIntent.putExtra(DetailScheduleActivity.EXTRA_DATA, selectData)
+            mIntent.putExtra(DetailScheduleActivity.LAYOUT_CODE,"STUDENT")
             startActivity(mIntent)
 
 
