@@ -108,7 +108,6 @@ class Curiculumrepository @Inject constructor(
         return localDataSource.getSearchCuriculum(search).map {
             DataMapperCuriculum.mapEntitiestoDomain(it)
         }
-
     }
 
 

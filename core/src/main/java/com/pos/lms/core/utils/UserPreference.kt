@@ -17,6 +17,7 @@ class UserPreference(context: Context) {
         private const val USERNAME_LOGIN = "username_login"
         private const val PASSWORD_LOGIN = "password_login"
         private const val ISLOGIN = "islogin"
+        private const val ROLE = "role"
     }
 
     private val preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -29,6 +30,7 @@ class UserPreference(context: Context) {
             putString(USERNAME_LOGIN, value.username)
             putString(PASSWORD_LOGIN, value.password)
             putBoolean(ISLOGIN, value.isLogin!!)
+            putString(ROLE, value.role)
         }
     }
 
@@ -41,6 +43,7 @@ class UserPreference(context: Context) {
         data.username = preferences.getString(USERNAME_LOGIN, "")
         data.password = preferences.getString(PASSWORD_LOGIN, "")
         data.isLogin = preferences.getBoolean(ISLOGIN, false)
+        data.role = preferences.getString(ROLE, "")
 
         return data
     }

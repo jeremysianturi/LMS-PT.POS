@@ -66,7 +66,7 @@ class PdfViewActivity : AppCompatActivity() {
             webview.settings.setSupportZoom(true)
         }
         val openUurl = "http://docs.google.com/gview?embedded=true&url=$url"
-
+        Timber.d("check value oprn url : $openUurl")
         showPdf(openUurl)
 
         //setup Actionbar and navigasi up

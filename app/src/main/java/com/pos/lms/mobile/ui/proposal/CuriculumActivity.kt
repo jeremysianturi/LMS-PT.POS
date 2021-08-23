@@ -98,8 +98,6 @@ class CuriculumActivity : AppCompatActivity() {
             adapter.setData(data)
 
         })
-
-
     }
 
     private fun buildList() {

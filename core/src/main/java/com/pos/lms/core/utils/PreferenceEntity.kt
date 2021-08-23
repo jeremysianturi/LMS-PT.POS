@@ -13,5 +13,6 @@ data class PreferenceEntity(
     var pernr: String? = "",
     var tokenType: String = "",
     var parId : Int? = 0,
+    var role : String? = "",
     var isLogin : Boolean? = false
 ) : Parcelable

@@ -103,10 +103,12 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
                     override fun onResponse(response: ListAccountResponse?) {
                         Timber.d("role : ${response?.accountResponse?.role}")
                         val roleList = response?.accountResponse?.role.toString().trim()
-
                         val items1 = roleList.split(",").toTypedArray()
                         val lastIndex = items1.size - 1
-                        when (items1[lastIndex].trim()) {
+                        val role = items1[lastIndex].trim()
+                        mPreferenceEntity.role = role ?: ""
+                        mPreference.setPref(mPreferenceEntity)
+                        when (role) {
                             "MENTOR]" -> {
                                 Timber.d("masuk mentor")
                                 reequestType = "MENID"
