@@ -8,10 +8,6 @@ import com.pos.lms.core.domain.model.TrainerUser
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListTrainerBinding
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class TrainerUserAdapter : RecyclerView.Adapter<TrainerUserAdapter.UserViewHolder>() {
 
     var onItemClick: ((TrainerUser) -> Unit)? = null

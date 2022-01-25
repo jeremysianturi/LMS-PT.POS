@@ -9,10 +9,6 @@ import com.pos.lms.core.domain.repository.ILoginRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-/**
- * Created by Muhammad Zaim Milzam on 26/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class LoginInteractor @Inject constructor(private val loginRepository: ILoginRepository) :
     LoginUsecase {
     override fun login(loginPost: LoginPost): Flow<Resource<Login>> =

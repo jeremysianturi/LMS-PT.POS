@@ -21,10 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
-/**
- * Created by Muhammad Zaim Milzam on 23/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class OngoingFragment : Fragment() {

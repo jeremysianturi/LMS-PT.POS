@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.mentor.MentorUserEntity
 import com.pos.lms.core.data.source.remote.response.mentor.MentorUserResponse
 import com.pos.lms.core.domain.model.MentorUser
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperMentor {
 
     fun mapResponsetoEntities(input: List<MentorUserResponse>): List<MentorUserEntity> {

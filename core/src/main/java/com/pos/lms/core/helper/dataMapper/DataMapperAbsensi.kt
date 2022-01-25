@@ -6,10 +6,6 @@ import com.pos.lms.core.data.source.remote.response.student.session.absensi.Abse
 import com.pos.lms.core.domain.model.Absensi
 import com.pos.lms.core.domain.model.ParId
 
-/**
- * Created by Muhammad Zaim Milzam on 06/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperAbsensi {
     fun mapResponsesToEntities(input: AbsensiResponse): AbsensiEntity {
         return AbsensiEntity(

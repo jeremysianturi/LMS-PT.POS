@@ -13,10 +13,6 @@ import com.pos.lms.mobile.databinding.ErrorBottomsheetDialogBinding
 import com.pos.lms.mobile.ui.login.LoginActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-/**
- * Created by Muhammad Zaim Milzam on 30/03/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @ExperimentalCoroutinesApi
 class ErrorBottomSheet : BottomSheetDialogFragment() {
 

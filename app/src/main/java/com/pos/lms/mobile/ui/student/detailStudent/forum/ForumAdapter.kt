@@ -10,10 +10,6 @@ import com.pos.lms.mobile.databinding.ItemListForumBinding
 import com.pos.lms.mobile.helper.TimeAgo
 import com.pos.lms.mobile.helper.loadImage
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class ForumAdapter : RecyclerView.Adapter<ForumAdapter.UserViewHolder>() {
 
     var onItemClick: ((ForumList) -> Unit)? = null

@@ -17,10 +17,6 @@ import com.pos.lms.mobile.ui.trainer.TrainerUserAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
-/**
- * Created by Muhammad Zaim Milzam on 23/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @AndroidEntryPoint
 class CompleteFragment : Fragment() {
 

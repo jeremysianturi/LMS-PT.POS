@@ -10,11 +10,6 @@ import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 @Dao
 interface DropDownDao {
 

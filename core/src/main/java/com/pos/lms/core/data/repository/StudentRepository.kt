@@ -32,10 +32,6 @@ import okhttp3.RequestBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by Muhammad Zaim Milzam on 10/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @Singleton
 class StudentRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,

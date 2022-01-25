@@ -5,11 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 
-/**
- * Created by Muhammad Zaim Milzam on 27/12/20.
- * linkedin : Muhammad Zaim Milzam
- */
-
 object CheckConnection {
 
     fun internetAvailable(context: Context): Boolean {

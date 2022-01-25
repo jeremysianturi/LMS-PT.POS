@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.trainer.TrainerUserEntity
 import com.pos.lms.core.data.source.remote.response.trainer.TrainerResponse
 import com.pos.lms.core.domain.model.TrainerUser
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperTrainerUser {
 
     fun mapResponsetoEntities(input: List<TrainerResponse>): List<TrainerUserEntity> {

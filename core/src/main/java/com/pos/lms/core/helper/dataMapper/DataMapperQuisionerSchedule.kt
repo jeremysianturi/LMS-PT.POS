@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.QuisionerScheduleEntity
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.QuisionerScheduleResponse
 import com.pos.lms.core.domain.model.QuisionerSchedule
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperQuisionerSchedule {
 
     fun mapResponsesToEntities(input: List<QuisionerScheduleResponse>): List<QuisionerScheduleEntity> {

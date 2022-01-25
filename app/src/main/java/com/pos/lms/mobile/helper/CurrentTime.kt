@@ -6,10 +6,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-/**
- * Created by Muhammad Zaim Milzam on 03/12/2020.
- * linkedin : Muhammad Zaim Milzam
- */
 
 class CurrentTime {
 

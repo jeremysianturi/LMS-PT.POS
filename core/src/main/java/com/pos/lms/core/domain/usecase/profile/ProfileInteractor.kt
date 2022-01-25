@@ -6,10 +6,6 @@ import com.pos.lms.core.domain.model.Avatar
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-/**
- * Created by Muhammad Zaim Milzam on 25/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class ProfileInteractor @Inject constructor(private val profileRepository: ProfileRepository) :
     ProfileUseCase {
 

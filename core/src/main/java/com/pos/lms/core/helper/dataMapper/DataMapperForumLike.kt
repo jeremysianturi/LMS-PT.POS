@@ -4,10 +4,7 @@ import com.pos.lms.core.data.source.local.entity.student.ForumLikeEntity
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumLikeResponse
 import com.pos.lms.core.domain.model.ForumLike
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 object DataMapperForumLike {
 
     fun mapResponsetoEntities(input: List<ForumLikeResponse>): List<ForumLikeEntity> {

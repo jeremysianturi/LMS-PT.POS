@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.MentoringChatEntity
 import com.pos.lms.core.data.source.remote.response.student.session.mentoring.MentoringChatResponse
 import com.pos.lms.core.domain.model.MentoringChat
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperMentoringChat {
 
     fun mapResponsesToEntities(input: List<MentoringChatResponse>): List<MentoringChatEntity> {

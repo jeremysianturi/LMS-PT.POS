@@ -5,16 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.pos.lms.core.domain.usecase.mentor.MentorUseCase
 
-/**
- * Created by Muhammad Zaim Milzam on 20/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
-/**
- * kurang di support
- * jd mau gamau yg penting jd
- *
- */
 
 class MentorViewModel @ViewModelInject constructor(private val mentorUseCase: MentorUseCase) :
     ViewModel() {

@@ -8,10 +8,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 
-/**
- * Created by Muhammad Zaim Milzam on 10/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @ExperimentalCoroutinesApi
 class MateriViewModel @ViewModelInject constructor(private val materiUsecase: MateriUsecase) :
     ViewModel() {

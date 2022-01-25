@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.dropdown.TypeEntity
 import com.pos.lms.core.data.source.remote.response.dropdown.TypeResponse
 import com.pos.lms.core.domain.model.Type
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperType {
 
     fun mapResponsesToEntities(input: List<TypeResponse>): List<TypeEntity> {

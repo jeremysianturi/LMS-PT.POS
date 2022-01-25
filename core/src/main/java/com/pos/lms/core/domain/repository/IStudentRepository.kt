@@ -7,10 +7,6 @@ import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
-/**
- * Created by Muhammad Zaim Milzam on 10/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 interface IStudentRepository {
 
     fun getPagination() : Flow<Pagination>

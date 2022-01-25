@@ -6,10 +6,6 @@ import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class RoadmapInteractor @Inject constructor(private val roadmapRepository: RoadmapRepository) :
     RoadmapUsecase {
 

@@ -2,10 +2,6 @@ package com.pos.lms.core.utils
 
 import java.util.*
 
-/**
- * Created by Muhammad Zaim Milzam on 17/03/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object ErrorMessageSplit {
 
     fun message(msg: String): String {

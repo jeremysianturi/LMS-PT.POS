@@ -5,10 +5,6 @@ import com.pos.lms.core.data.source.remote.response.roadmap.ListEventRoadmapResp
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 interface ApiITMS {
 
     @GET("tms/api/event?business_code=POS&order[STRHR]=desc&event_type=ASPIRATION&event_status=02")

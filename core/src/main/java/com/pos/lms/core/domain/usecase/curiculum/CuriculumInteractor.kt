@@ -9,10 +9,6 @@ import com.pos.lms.core.domain.model.Submit
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class CuriculumInteractor @Inject constructor(private val curiculumrepository: Curiculumrepository) :
     CuriculumUsecase {
 

@@ -4,10 +4,6 @@ import androidx.room.*
 import com.pos.lms.core.data.source.local.entity.roadmap.*
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Created by Muhammad Zaim Milzam on 24/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 @Dao
 interface RoadmapDao {

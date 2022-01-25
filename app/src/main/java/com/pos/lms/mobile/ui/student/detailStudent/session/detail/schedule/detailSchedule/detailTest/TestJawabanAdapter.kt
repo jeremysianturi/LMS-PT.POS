@@ -9,10 +9,6 @@ import com.pos.lms.core.domain.model.TestJawaban
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListAnswerBinding
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class TestJawabanAdapter : RecyclerView.Adapter<TestJawabanAdapter.UserViewHolder>() {
 
     var onItemClick: ((TestJawaban) -> Unit)? = null

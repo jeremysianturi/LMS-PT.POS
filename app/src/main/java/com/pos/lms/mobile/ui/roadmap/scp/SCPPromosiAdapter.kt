@@ -7,10 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.pos.lms.core.domain.model.SCPPromosi
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListEcpBinding
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 class SCPPromosiAdapter : RecyclerView.Adapter<SCPPromosiAdapter.UserViewHolder>() {
 

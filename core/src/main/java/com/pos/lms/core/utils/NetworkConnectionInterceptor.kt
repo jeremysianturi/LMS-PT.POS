@@ -11,10 +11,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-/**
- * Created by Muhammad Zaim Milzam on 17/03/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 class NetworkConnectionInterceptor @Inject constructor(@ApplicationContext context: Context) :
     Interceptor {

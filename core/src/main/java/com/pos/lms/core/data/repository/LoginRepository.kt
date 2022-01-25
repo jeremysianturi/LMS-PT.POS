@@ -24,10 +24,6 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by Muhammad Zaim Milzam on 26/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @Singleton
 class LoginRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,

@@ -10,11 +10,6 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
-/**
- * Created by Muhammad Zaim Milzam on 07/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 @Module
 @InstallIn(ApplicationComponent::class)
 class SharedPreferenceModule {

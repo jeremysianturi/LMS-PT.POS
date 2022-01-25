@@ -7,10 +7,6 @@ import com.pos.lms.core.data.source.remote.post.QuisionerAnswerPost
 import com.pos.lms.core.domain.model.QuisionerAnswer
 import com.pos.lms.core.domain.usecase.student.StudentUsecase
 
-/**
- * Created by Muhammad Zaim Milzam on 08/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class QuisionerViewModel @ViewModelInject constructor(private val studentUsecase: StudentUsecase) :
     ViewModel() {
 

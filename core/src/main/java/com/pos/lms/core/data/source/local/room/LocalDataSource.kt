@@ -18,10 +18,6 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by Muhammad Zaim Milzam on 29/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @Singleton
 class LocalDataSource @Inject constructor(
     private val mLoginDao: LoginDao,

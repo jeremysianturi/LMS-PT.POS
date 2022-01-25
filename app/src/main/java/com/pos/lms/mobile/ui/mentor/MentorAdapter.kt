@@ -8,10 +8,6 @@ import com.pos.lms.core.domain.model.MentorUser
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListMentorBinding
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class MentorAdapter : RecyclerView.Adapter<MentorAdapter.UserViewHolder>() {
 
     var onItemClick: ((MentorUser) -> Unit)? = null

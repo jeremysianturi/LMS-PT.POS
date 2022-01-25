@@ -8,10 +8,6 @@ import com.pos.lms.core.domain.model.ECPRotasi
 import com.pos.lms.mobile.R
 import com.pos.lms.mobile.databinding.ItemListEcpBinding
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class ECPRotasiAdapter : RecyclerView.Adapter<ECPRotasiAdapter.UserViewHolder>() {
 
     var onItemClick: ((ECPRotasi) -> Unit)? = null

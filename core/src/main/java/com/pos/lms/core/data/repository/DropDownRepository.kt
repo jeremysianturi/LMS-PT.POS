@@ -24,11 +24,6 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 @Singleton
 class DropDownRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,

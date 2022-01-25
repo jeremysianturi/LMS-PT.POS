@@ -6,10 +6,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-/**
- * Created by Muhammad Zaim Milzam on 06/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object TimeAgo {
     fun covertTimeToText(dataDate: String?): String? {
         var convTime: String? = null

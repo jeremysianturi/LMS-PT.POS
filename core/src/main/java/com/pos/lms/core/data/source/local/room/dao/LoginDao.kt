@@ -5,10 +5,6 @@ import com.pos.lms.core.data.source.local.entity.ItemParIdEntity
 import com.pos.lms.core.data.source.local.entity.LoginEntity
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Created by Muhammad Zaim Milzam on 29/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 @Dao
 interface LoginDao {

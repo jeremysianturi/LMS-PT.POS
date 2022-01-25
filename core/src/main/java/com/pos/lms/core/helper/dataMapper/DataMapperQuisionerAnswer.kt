@@ -4,10 +4,7 @@ import com.pos.lms.core.data.source.local.entity.student.QuisionerAnswerEntity
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.QuisionerAnswerResponse
 import com.pos.lms.core.domain.model.QuisionerAnswer
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 object DataMapperQuisionerAnswer {
 
     fun mapResponsesToEntities(input: List<QuisionerAnswerResponse>): List<QuisionerAnswerEntity> {

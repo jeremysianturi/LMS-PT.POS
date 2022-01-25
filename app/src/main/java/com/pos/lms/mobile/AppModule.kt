@@ -23,10 +23,6 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 
-/**
- * Created by Muhammad Zaim Milzam on 05/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @Module
 @InstallIn(ActivityComponent::class)
 abstract class AppModule {

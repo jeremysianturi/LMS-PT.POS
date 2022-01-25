@@ -14,10 +14,7 @@ import com.pos.lms.mobile.util.CheckConnection
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 @ExperimentalCoroutinesApi
 class SplashScreenActivity : AppCompatActivity() {
 

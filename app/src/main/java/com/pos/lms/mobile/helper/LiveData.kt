@@ -3,11 +3,6 @@ package com.pos.lms.mobile.helper
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 
-/**
- * Created by Muhammad Zaim Milzam on 06/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 class LiveData {
 
 //    fun <T> LifecycleOwner.observe(liveData: LiveData<T>, action: (t: T) -> Unit) {

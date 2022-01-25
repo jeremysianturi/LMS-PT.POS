@@ -2,11 +2,6 @@ package com.pos.lms.core.utils
 
 import androidx.room.TypeConverter
 
-
-/**
- * Created by Muhammad Zaim Milzam on 25/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class Converter {
     @TypeConverter
     fun gettingListFromString(genreIds: String): List<Int> {

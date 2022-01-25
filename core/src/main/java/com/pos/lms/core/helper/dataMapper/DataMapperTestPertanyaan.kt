@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.TestPertanyaanEntity
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.TestPertanyaanResponse
 import com.pos.lms.core.domain.model.TestPertanyaan
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperTestPertanyaan {
 
     fun mapResponsesToEntities(input: List<TestPertanyaanResponse>): List<TestPertanyaanEntity> {

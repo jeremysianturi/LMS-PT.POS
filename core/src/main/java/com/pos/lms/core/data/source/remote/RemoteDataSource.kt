@@ -43,10 +43,6 @@ import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by Muhammad Zaim Milzam on 26/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 @Singleton
 class RemoteDataSource @Inject constructor(

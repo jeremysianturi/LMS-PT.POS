@@ -2,11 +2,6 @@ package com.pos.lms.core.data.source.remote.response.parId
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * Created by Muhammad Zaim Milzam on 07/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 data class ParResponse(
     @field:SerializedName("access_token")
     val accessToken: String,

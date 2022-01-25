@@ -3,10 +3,6 @@ package com.pos.lms.core.data.source.remote.response.mentor
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-/**
- * Created by Muhammad Zaim Milzam on 22/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @Parcelize
 data class MentorTemp(
 

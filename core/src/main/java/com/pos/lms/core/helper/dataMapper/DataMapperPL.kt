@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.dropdown.PLEntity
 import com.pos.lms.core.data.source.remote.response.dropdown.PLResponse
 import com.pos.lms.core.domain.model.PL
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperPL {
 
     fun mapResponsesToEntities(input: List<PLResponse>): List<PLEntity> {

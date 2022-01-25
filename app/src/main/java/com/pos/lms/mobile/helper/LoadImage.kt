@@ -8,10 +8,6 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.pos.lms.mobile.R
 
-/**
- * Created by Muhammad Zaim Milzam on 06/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 fun ImageView.loadImage(
     context: Context,

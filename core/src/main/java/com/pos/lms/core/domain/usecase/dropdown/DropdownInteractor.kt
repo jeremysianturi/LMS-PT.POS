@@ -9,10 +9,6 @@ import com.pos.lms.core.domain.model.Type
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class DropdownInteractor @Inject constructor(private val dropDownRepository: DropDownRepository) :
     DropdownUsecase {
 

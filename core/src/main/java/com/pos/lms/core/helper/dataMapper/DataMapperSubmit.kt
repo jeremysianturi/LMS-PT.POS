@@ -6,10 +6,7 @@ import com.pos.lms.core.data.source.remote.response.SubmitResponse
 import com.pos.lms.core.domain.model.Login
 import com.pos.lms.core.domain.model.Submit
 
-/**
- * Created by Muhammad Zaim Milzam on 26/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 object DataMapperSubmit {
     fun mapResponsetoEntities(input: SubmitResponse): SubmitEntity
     {

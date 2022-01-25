@@ -5,11 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import org.jetbrains.annotations.NotNull
 
-/**
- * Created by Muhammad Zaim Milzam on 06/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 @Entity(tableName = "ParId")
 data class ItemParIdEntity(
     @ColumnInfo(name = "access_token")

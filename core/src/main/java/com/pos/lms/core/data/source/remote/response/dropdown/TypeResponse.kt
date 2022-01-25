@@ -2,10 +2,6 @@ package com.pos.lms.core.data.source.remote.response.dropdown
 
 import com.google.gson.annotations.SerializedName
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 data class TypeResponse(
 

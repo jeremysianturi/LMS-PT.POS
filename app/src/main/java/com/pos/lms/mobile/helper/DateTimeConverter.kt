@@ -3,10 +3,6 @@ package com.pos.lms.mobile.helper
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by Muhammad Zaim Milzam on 08/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DateTimeConverter {
 
 

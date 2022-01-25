@@ -7,10 +7,7 @@ import com.pos.lms.core.domain.model.PL
 import com.pos.lms.core.domain.model.Type
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 interface DropdownUsecase {
     fun getCompetency(begda: String, enda : String) : Flow<Resource<List<Competency>>>
     fun getPL(begda: String, enda : String) : Flow<Resource<List<PL>>>

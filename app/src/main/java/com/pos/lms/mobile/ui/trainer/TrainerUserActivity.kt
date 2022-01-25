@@ -12,11 +12,6 @@ import com.pos.lms.mobile.ui.trainer.upcoming.UpcomingFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-/**
- * Created by Muhammad Zaim Milzam on 23/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class TrainerUserActivity : AppCompatActivity() {

@@ -9,10 +9,6 @@ import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 import java.util.*
 
-/**
- * Created by Muhammad Zaim Milzam on 03/12/2020.
- * linkedin : Muhammad Zaim Milzam
- */
 
 class TimePickerFragment : DialogFragment(), TimePickerDialog.OnTimeSetListener {
 

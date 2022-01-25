@@ -19,10 +19,7 @@ import com.pos.lms.mobile.helper.CurrentDate
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.DetailSessionActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 @AndroidEntryPoint
 class SessionFragment : Fragment() {
 

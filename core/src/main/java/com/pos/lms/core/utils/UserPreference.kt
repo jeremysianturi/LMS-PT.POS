@@ -2,10 +2,7 @@ package com.pos.lms.core.utils
 import android.content.Context
 import androidx.core.content.edit
 
-/**
- * Created by Muhammad Zaim Milzam on 26/11/2020.
- * linkedin : Muhammad Zaim Milzam
- */
+
 
 class UserPreference(context: Context) {
 

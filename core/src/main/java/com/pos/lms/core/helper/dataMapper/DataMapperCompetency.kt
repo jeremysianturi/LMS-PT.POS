@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompetencyEntity
 import com.pos.lms.core.data.source.remote.response.dropdown.CompetencyResponse
 import com.pos.lms.core.domain.model.Competency
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperCompetency {
 
     fun mapResponsesToEntities(input: List<CompetencyResponse>): List<CompetencyEntity> {

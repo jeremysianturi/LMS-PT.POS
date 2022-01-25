@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.DetailSessionEntity
 import com.pos.lms.core.data.source.remote.response.student.session.DetailSessionResponse
 import com.pos.lms.core.domain.model.DetailSession
 
-/**
- * Created by Muhammad Zaim Milzam on 10/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperDetailSession {
 
     fun mapResponsetoEntities(input: List<DetailSessionResponse>): List<DetailSessionEntity> {

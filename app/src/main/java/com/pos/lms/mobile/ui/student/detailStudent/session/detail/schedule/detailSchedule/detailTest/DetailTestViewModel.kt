@@ -6,10 +6,6 @@ import androidx.lifecycle.asLiveData
 import com.pos.lms.core.data.source.remote.post.TestJawabanPost
 import com.pos.lms.core.domain.usecase.student.StudentUsecase
 
-/**
- * Created by Muhammad Zaim Milzam on 25/03/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class DetailTestViewModel @ViewModelInject constructor(private val studentUsecase: StudentUsecase) :
     ViewModel() {
 

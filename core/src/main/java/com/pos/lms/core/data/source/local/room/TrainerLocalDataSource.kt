@@ -8,11 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/**
- * Created by Muhammad Zaim Milzam on 22/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 @Singleton
 class TrainerLocalDataSource @Inject constructor(
     private val mTrainerDao: TrainerDao

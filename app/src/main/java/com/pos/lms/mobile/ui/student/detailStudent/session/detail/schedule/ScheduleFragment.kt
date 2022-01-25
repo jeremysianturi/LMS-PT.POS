@@ -18,10 +18,7 @@ import com.pos.lms.mobile.helper.DateTimeConverter
 import com.pos.lms.mobile.ui.student.detailStudent.session.detail.schedule.detailSchedule.DetailScheduleActivity
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 @AndroidEntryPoint
 class ScheduleFragment : Fragment() {
 

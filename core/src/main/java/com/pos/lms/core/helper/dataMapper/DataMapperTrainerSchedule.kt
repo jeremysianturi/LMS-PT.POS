@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.TrainerScheduleEntity
 import com.pos.lms.core.data.source.remote.response.student.session.detailSchedule.TrainerScheduleResponse
 import com.pos.lms.core.domain.model.TrainerSchedule
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperTrainerSchedule {
 
     fun mapResponsesToEntities(input: List<TrainerScheduleResponse>): List<TrainerScheduleEntity> {

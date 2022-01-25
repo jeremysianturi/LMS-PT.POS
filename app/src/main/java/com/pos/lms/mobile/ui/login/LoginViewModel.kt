@@ -6,10 +6,6 @@ import androidx.lifecycle.asLiveData
 import com.pos.lms.core.data.source.remote.post.LoginPost
 import com.pos.lms.core.domain.usecase.login.LoginUsecase
 
-/**
- * Created by Muhammad Zaim Milzam on 05/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class LoginViewModel @ViewModelInject constructor(private val loginUsecase: LoginUsecase) :
     ViewModel() {
 

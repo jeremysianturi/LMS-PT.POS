@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.LoginEntity
 import com.pos.lms.core.data.source.remote.response.LoginResponse
 import com.pos.lms.core.domain.model.Login
 
-/**
- * Created by Muhammad Zaim Milzam on 26/01/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperLogin {
     fun mapResponsetoEntities(input: LoginResponse): LoginEntity {
         return LoginEntity(

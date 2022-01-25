@@ -3,10 +3,6 @@ package com.pos.lms.core.domain.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-/**
- * Created by Muhammad Zaim Milzam on 22/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 @Parcelize
 data class TrainerUser(

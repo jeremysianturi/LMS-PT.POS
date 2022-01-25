@@ -27,10 +27,6 @@ import com.pos.lms.mobile.databinding.ActivityVideoPlayerBinding
 import com.pos.lms.mobile.databinding.ContentVideoPlayerBinding
 import timber.log.Timber
 
-/**
- * Created by Muhammad Zaim Milzam on 9/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 class VideoPlayerActivity : AppCompatActivity(), Player.EventListener {
 

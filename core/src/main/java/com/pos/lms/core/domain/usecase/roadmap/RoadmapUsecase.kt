@@ -4,10 +4,6 @@ import com.pos.lms.core.data.Resource
 import com.pos.lms.core.domain.model.*
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 interface RoadmapUsecase {
 
     fun getEventRoadmap(begda: String, endda: String): Flow<Resource<List<EventRoadmap>>>

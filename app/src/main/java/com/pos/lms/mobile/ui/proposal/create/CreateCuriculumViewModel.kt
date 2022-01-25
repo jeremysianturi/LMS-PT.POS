@@ -7,10 +7,6 @@ import com.pos.lms.core.data.source.remote.post.CuriculumCreate
 import com.pos.lms.core.domain.usecase.curiculum.CuriculumUsecase
 import com.pos.lms.core.domain.usecase.dropdown.DropdownUsecase
 
-/**
- * Created by Muhammad Zaim Milzam on 09/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 class CreateCuriculumViewModel @ViewModelInject constructor(
     private val dropdownUsecase: DropdownUsecase,
     private val curiculumUsecase: CuriculumUsecase

@@ -5,10 +5,6 @@ import com.pos.lms.core.data.source.remote.response.LoginResponse
 import com.pos.lms.core.data.source.remote.response.parId.ItemParId
 import retrofit2.http.*
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 interface ApiLogin {
 
     @POST("ldap/api/auth/login")

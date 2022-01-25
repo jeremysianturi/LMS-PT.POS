@@ -20,10 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @AndroidEntryPoint
 class QuisionerActivity : AppCompatActivity(), View.OnClickListener {
 

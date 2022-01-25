@@ -4,10 +4,7 @@ import com.pos.lms.core.data.source.local.entity.curiculum.CuriculumEntity
 import com.pos.lms.core.data.source.remote.response.curiculum.CuriculumResponse
 import com.pos.lms.core.domain.model.Curiculum
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 object DataMapperCuriculum {
 
     fun mapResponsetoEntities(input: List<CuriculumResponse>): List<CuriculumEntity> {

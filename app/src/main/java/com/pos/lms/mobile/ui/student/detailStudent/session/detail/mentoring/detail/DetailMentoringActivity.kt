@@ -22,10 +22,7 @@ import com.pos.lms.mobile.helper.CurrentDate
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
+
 @AndroidEntryPoint
 class DetailMentoringActivity : AppCompatActivity() {
 

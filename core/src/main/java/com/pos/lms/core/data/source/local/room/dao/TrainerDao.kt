@@ -6,10 +6,6 @@ import com.pos.lms.core.data.source.local.entity.trainer.TrainerUserEntity2
 import com.pos.lms.core.data.source.local.entity.trainer.TrainerUserEntity3
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Created by Muhammad Zaim Milzam on 22/04/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @Dao
 interface TrainerDao {
 

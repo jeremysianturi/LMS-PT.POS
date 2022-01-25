@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.InsightListEntity
 import com.pos.lms.core.data.source.remote.response.student.insight.InsightListResponse
 import com.pos.lms.core.domain.model.InsightList
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperInsightList {
 
     fun mapResponsetoEntities(input: List<InsightListResponse>): List<InsightListEntity> {

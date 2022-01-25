@@ -40,11 +40,6 @@ import timber.log.Timber
 import kotlin.system.exitProcess
 
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
-
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), View.OnClickListener {

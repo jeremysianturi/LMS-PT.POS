@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.ForumListEntity
 import com.pos.lms.core.data.source.remote.response.student.forum.ForumResponse
 import com.pos.lms.core.domain.model.ForumList
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperForum {
 
     fun mapResponsetoEntities(input: List<ForumResponse>): List<ForumListEntity> {

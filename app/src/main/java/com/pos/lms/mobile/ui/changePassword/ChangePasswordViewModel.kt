@@ -9,10 +9,6 @@ import com.pos.lms.core.domain.usecase.login.LoginUsecase
 import com.pos.lms.mobile.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-/**
- * Created by Muhammad Zaim Milzam on 15/03/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @ExperimentalCoroutinesApi
 class ChangePasswordViewModel @ViewModelInject constructor(private val loginUsecase: LoginUsecase) :
     ViewModel() {

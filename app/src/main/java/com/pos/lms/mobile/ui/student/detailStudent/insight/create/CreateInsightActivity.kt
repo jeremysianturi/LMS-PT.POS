@@ -35,10 +35,6 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @AndroidEntryPoint
 class CreateInsightActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener,
     View.OnClickListener {

@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.roadmap.MCPRotasiEntity
 import com.pos.lms.core.data.source.remote.response.roadmap.ECPResponse
 import com.pos.lms.core.domain.model.MCPRotasi
 
-/**
- * Created by Muhammad Zaim Milzam on 06/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperMCPRotasi {
     fun mapResponsesToEntities(input: List<ECPResponse>): List<MCPRotasiEntity> {
         val list = ArrayList<MCPRotasiEntity>()

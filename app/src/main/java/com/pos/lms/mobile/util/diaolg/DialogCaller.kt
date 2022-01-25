@@ -3,11 +3,6 @@ package com.pos.lms.mobile.util.diaolg
 import android.content.Context
 import android.content.DialogInterface
 
-
-/**
- * Created by Muhammad Zaim Milzam on 19/03/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DialogCaller {
 
     fun showDialog(

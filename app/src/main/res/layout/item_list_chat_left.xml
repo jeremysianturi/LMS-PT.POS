@@ -46,7 +46,7 @@
             android:textSize="@dimen/text_12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvChat"
-            tools:text="M Zaim Milzam" />
+            tools:text="Muhammad" />
 
         <TextView
             android:id="@+id/tvDate"

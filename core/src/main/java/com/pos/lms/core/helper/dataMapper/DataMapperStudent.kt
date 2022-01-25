@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.student.StudentEntity
 import com.pos.lms.core.data.source.remote.response.student.StudentResponse
 import com.pos.lms.core.domain.model.Student
 
-/**
- * Created by Muhammad Zaim Milzam on 10/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperStudent {
 
     fun mapResponsetoEntities(input: List<StudentResponse>): List<StudentEntity> {

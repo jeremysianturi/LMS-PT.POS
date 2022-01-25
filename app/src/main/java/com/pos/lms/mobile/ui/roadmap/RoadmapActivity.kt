@@ -18,10 +18,6 @@ import com.pos.lms.mobile.util.diaolg.SimpleDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-/**
- * Created by Muhammad Zaim Milzam on 15/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class RoadmapActivity : AppCompatActivity() {

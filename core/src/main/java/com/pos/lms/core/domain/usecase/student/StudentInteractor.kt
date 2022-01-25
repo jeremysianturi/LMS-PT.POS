@@ -9,10 +9,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import javax.inject.Inject
 
-/**
- * Created by Muhammad Zaim Milzam on 10/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 
 class StudentInteractor @Inject constructor(private val studentRepository: StudentRepository) :
     StudentUsecase {

@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.dropdown.CompanyEnitity
 import com.pos.lms.core.data.source.remote.response.dropdown.CompanyResponse
 import com.pos.lms.core.domain.model.Company
 
-/**
- * Created by Muhammad Zaim Milzam on 08/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperCompany {
 
     fun mapResponsesToEntities(input: List<CompanyResponse>): List<CompanyEnitity> {

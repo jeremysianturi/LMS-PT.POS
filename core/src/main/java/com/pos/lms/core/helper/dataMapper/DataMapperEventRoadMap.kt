@@ -4,10 +4,6 @@ import com.pos.lms.core.data.source.local.entity.roadmap.EventRoadmapEntity
 import com.pos.lms.core.data.source.remote.response.roadmap.EventRoadmapResponse
 import com.pos.lms.core.domain.model.EventRoadmap
 
-/**
- * Created by Muhammad Zaim Milzam on 06/02/21.
- * linkedin : Muhammad Zaim Milzam
- */
 object DataMapperEventRoadMap {
     fun mapResponsesToEntities(input: List<EventRoadmapResponse>): List<EventRoadmapEntity> {
         val list = ArrayList<EventRoadmapEntity>()
